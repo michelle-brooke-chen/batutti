@@ -1,0 +1,224 @@
+[
+ {
+  "effort": "low",
+  "navigator": [
+   {
+    "q": "the cor anglais solo in the Ballade",
+    "answer": [
+     2,
+     141
+    ],
+    "model_calls": 2,
+    "tokens_in": 1781,
+    "tokens_out": 121,
+    "tokens_reasoning": 0,
+    "cost_usd": 0.000239
+   },
+   {
+    "q": "the cor anglais solo in the Ballade",
+    "answer": [
+     2,
+     141
+    ],
+    "model_calls": 2,
+    "tokens_in": 1781,
+    "tokens_out": 121,
+    "tokens_reasoning": 0,
+    "cost_usd": 0.000239
+   },
+   {
+    "q": "where does the horn come in after the long rest in the Intermezzo",
+    "answer": [
+     1,
+     91
+    ],
+    "model_calls": 3,
+    "tokens_in": 3651,
+    "tokens_out": 218,
+    "tokens_reasoning": 46,
+    "cost_usd": 0.000474
+   },
+   {
+    "q": "where does the horn come in after the long rest in the Intermezzo",
+    "answer": [
+     1,
+     91
+    ],
+    "model_calls": 3,
+    "tokens_in": 3651,
+    "tokens_out": 218,
+    "tokens_reasoning": 46,
+    "cost_usd": 0.000474
+   },
+   {
+    "q": "where the timpani first play in the Alla marcia",
+    "answer": [
+     3,
+     14
+    ],
+    "model_calls": 3,
+    "tokens_in": 2705,
+    "tokens_out": 172,
+    "tokens_reasoning": 80,
+    "cost_usd": 0.000356
+   },
+   {
+    "q": "where the timpani first play in the Alla marcia",
+    "answer": [
+     3,
+     14
+    ],
+    "model_calls": 3,
+    "tokens_in": 2705,
+    "tokens_out": 172,
+    "tokens_reasoning": 80,
+    "cost_usd": 0.000356
+   }
+  ],
+  "set_check": [
+   {
+    "verdicts": [
+     [
+      "oboe_1",
+      2,
+      "misprint",
+      1,
+      9
+     ]
+    ],
+    "model_calls": 3,
+    "tokens_in": 5709,
+    "tokens_out": 267,
+    "tokens_reasoning": 0,
+    "cost_usd": 0.000391
+   },
+   {
+    "verdicts": [
+     [
+      "oboe_1",
+      2,
+      "misprint",
+      1,
+      9
+     ]
+    ],
+    "model_calls": 3,
+    "tokens_in": 5709,
+    "tokens_out": 267,
+    "tokens_reasoning": 0,
+    "cost_usd": 0.000391
+   }
+  ]
+ },
+ {
+  "effort": "medium",
+  "navigator": [
+   {
+    "q": "the cor anglais solo in the Ballade",
+    "answer": [
+     2,
+     141
+    ],
+    "model_calls": 4,
+    "tokens_in": 4209,
+    "tokens_out": 259,
+    "tokens_reasoning": 83,
+    "cost_usd": 0.000453
+   },
+   {
+    "q": "the cor anglais solo in the Ballade",
+    "answer": [
+     2,
+     141
+    ],
+    "model_calls": 4,
+    "tokens_in": 4209,
+    "tokens_out": 259,
+    "tokens_reasoning": 83,
+    "cost_usd": 0.000453
+   },
+   {
+    "q": "where does the horn come in after the long rest in the Intermezzo",
+    "answer": [
+     1,
+     91
+    ],
+    "model_calls": 3,
+    "tokens_in": 3651,
+    "tokens_out": 261,
+    "tokens_reasoning": 91,
+    "cost_usd": 0.000496
+   },
+   {
+    "q": "where does the horn come in after the long rest in the Intermezzo",
+    "answer": [
+     1,
+     91
+    ],
+    "model_calls": 3,
+    "tokens_in": 3651,
+    "tokens_out": 261,
+    "tokens_reasoning": 91,
+    "cost_usd": 0.000496
+   },
+   {
+    "q": "where the timpani first play in the Alla marcia",
+    "answer": [
+     3,
+     14
+    ],
+    "model_calls": 2,
+    "tokens_in": 2662,
+    "tokens_out": 252,
+    "tokens_reasoning": 132,
+    "cost_usd": 0.000392
+   },
+   {
+    "q": "where the timpani first play in the Alla marcia",
+    "answer": [
+     3,
+     14
+    ],
+    "model_calls": 2,
+    "tokens_in": 2662,
+    "tokens_out": 252,
+    "tokens_reasoning": 132,
+    "cost_usd": 0.000392
+   }
+  ],
+  "set_check": [
+   {
+    "verdicts": [
+     [
+      "oboe_1",
+      2,
+      "misprint",
+      1,
+      9
+     ]
+    ],
+    "model_calls": 3,
+    "tokens_in": 6270,
+    "tokens_out": 793,
+    "tokens_reasoning": 497,
+    "cost_usd": 0.000707
+   },
+   {
+    "verdicts": [
+     [
+      "oboe_1",
+      2,
+      "misprint",
+      1,
+      9
+     ]
+    ],
+    "model_calls": 3,
+    "tokens_in": 6270,
+    "tokens_out": 793,
+    "tokens_reasoning": 497,
+    "cost_usd": 0.000707
+   }
+  ]
+ }
+]

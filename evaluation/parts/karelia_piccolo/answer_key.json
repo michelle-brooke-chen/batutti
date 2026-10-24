@@ -1,0 +1,125 @@
+{
+ "part": "Sibelius, Karelia Suite Op. 11, Piccolo (incoming/scans/Piccolo.pdf)",
+ "status": "confirmed 2026-10-23: rehearsal letters and flagged staves checked by a player; other staves anchored by letters, score totals and (clarinets, trumpet 3) the engraved parts",
+ "movement_totals": {
+  "III. Alla marcia": 168
+ },
+ "staff_counts": {
+  "III. Alla marcia": [
+   {
+    "page": 1,
+    "staff": 1,
+    "measures": 53,
+    "first_measure": 1
+   },
+   {
+    "page": 1,
+    "staff": 2,
+    "measures": 5,
+    "first_measure": 54
+   },
+   {
+    "page": 1,
+    "staff": 3,
+    "measures": 6,
+    "first_measure": 59
+   },
+   {
+    "page": 1,
+    "staff": 4,
+    "measures": 6,
+    "first_measure": 65
+   },
+   {
+    "page": 1,
+    "staff": 5,
+    "measures": 6,
+    "first_measure": 71
+   },
+   {
+    "page": 1,
+    "staff": 6,
+    "measures": 4,
+    "first_measure": 77
+   },
+   {
+    "page": 1,
+    "staff": 7,
+    "measures": 5,
+    "first_measure": 81
+   },
+   {
+    "page": 1,
+    "staff": 8,
+    "measures": 5,
+    "first_measure": 86
+   },
+   {
+    "page": 1,
+    "staff": 9,
+    "measures": 5,
+    "first_measure": 91
+   },
+   {
+    "page": 2,
+    "staff": 1,
+    "measures": 5,
+    "first_measure": 96
+   },
+   {
+    "page": 2,
+    "staff": 2,
+    "measures": 4,
+    "first_measure": 101
+   },
+   {
+    "page": 2,
+    "staff": 3,
+    "measures": 9,
+    "first_measure": 105
+   },
+   {
+    "page": 2,
+    "staff": 4,
+    "measures": 6,
+    "first_measure": 114
+   },
+   {
+    "page": 2,
+    "staff": 5,
+    "measures": 6,
+    "first_measure": 120
+   },
+   {
+    "page": 2,
+    "staff": 6,
+    "measures": 6,
+    "first_measure": 126
+   },
+   {
+    "page": 2,
+    "staff": 7,
+    "measures": 18,
+    "first_measure": 132
+   },
+   {
+    "page": 2,
+    "staff": 8,
+    "measures": 7,
+    "first_measure": 150
+   },
+   {
+    "page": 2,
+    "staff": 9,
+    "measures": 6,
+    "first_measure": 157
+   },
+   {
+    "page": 2,
+    "staff": 10,
+    "measures": 6,
+    "first_measure": 163
+   }
+  ]
+ }
+}

@@ -1,0 +1,275 @@
+{
+ "part": "Sibelius, Karelia Suite Op. 11, Clarinet 1 (incoming/scans/Clarinet 1.pdf)",
+ "status": "confirmed 2026-10-23: rehearsal letters and flagged staves checked by a player; other staves anchored by letters, score totals and (clarinets, trumpet 3) the engraved parts",
+ "movement_totals": {
+  "I. Intermezzo": 157,
+  "II. Ballade": 162,
+  "III. Alla marcia": 168
+ },
+ "staff_counts": {
+  "I. Intermezzo": [
+   {
+    "page": 1,
+    "staff": 1,
+    "measures": 53,
+    "first_measure": 1
+   },
+   {
+    "page": 1,
+    "staff": 2,
+    "measures": 31,
+    "first_measure": 54
+   },
+   {
+    "page": 1,
+    "staff": 3,
+    "measures": 6,
+    "first_measure": 85
+   },
+   {
+    "page": 1,
+    "staff": 4,
+    "measures": 6,
+    "first_measure": 91
+   },
+   {
+    "page": 1,
+    "staff": 5,
+    "measures": 7,
+    "first_measure": 97
+   },
+   {
+    "page": 1,
+    "staff": 6,
+    "measures": 7,
+    "first_measure": 104
+   },
+   {
+    "page": 1,
+    "staff": 7,
+    "measures": 7,
+    "first_measure": 111
+   },
+   {
+    "page": 1,
+    "staff": 8,
+    "measures": 40,
+    "first_measure": 118
+   }
+  ],
+  "II. Ballade": [
+   {
+    "page": 1,
+    "staff": 9,
+    "measures": 6,
+    "first_measure": 1
+   },
+   {
+    "page": 1,
+    "staff": 10,
+    "measures": 40,
+    "first_measure": 7
+   },
+   {
+    "page": 2,
+    "staff": 1,
+    "measures": 8,
+    "first_measure": 47
+   },
+   {
+    "page": 2,
+    "staff": 2,
+    "measures": 7,
+    "first_measure": 55
+   },
+   {
+    "page": 2,
+    "staff": 3,
+    "measures": 8,
+    "first_measure": 62
+   },
+   {
+    "page": 2,
+    "staff": 4,
+    "measures": 23,
+    "first_measure": 70
+   },
+   {
+    "page": 2,
+    "staff": 5,
+    "measures": 18,
+    "first_measure": 93
+   },
+   {
+    "page": 2,
+    "staff": 6,
+    "measures": 9,
+    "first_measure": 111
+   },
+   {
+    "page": 2,
+    "staff": 7,
+    "measures": 43,
+    "first_measure": 120
+   }
+  ],
+  "III. Alla marcia": [
+   {
+    "page": 2,
+    "staff": 8,
+    "measures": 8,
+    "first_measure": 1
+   },
+   {
+    "page": 2,
+    "staff": 9,
+    "measures": 11,
+    "first_measure": 9
+   },
+   {
+    "page": 2,
+    "staff": 10,
+    "measures": 8,
+    "first_measure": 20
+   },
+   {
+    "page": 2,
+    "staff": 11,
+    "measures": 7,
+    "first_measure": 28
+   },
+   {
+    "page": 3,
+    "staff": 1,
+    "measures": 7,
+    "first_measure": 35
+   },
+   {
+    "page": 3,
+    "staff": 2,
+    "measures": 6,
+    "first_measure": 42
+   },
+   {
+    "page": 3,
+    "staff": 3,
+    "measures": 7,
+    "first_measure": 48
+   },
+   {
+    "page": 3,
+    "staff": 4,
+    "measures": 7,
+    "first_measure": 55
+   },
+   {
+    "page": 3,
+    "staff": 5,
+    "measures": 6,
+    "first_measure": 62
+   },
+   {
+    "page": 3,
+    "staff": 6,
+    "measures": 8,
+    "first_measure": 68
+   },
+   {
+    "page": 3,
+    "staff": 7,
+    "measures": 13,
+    "first_measure": 76
+   },
+   {
+    "page": 3,
+    "staff": 8,
+    "measures": 5,
+    "first_measure": 89
+   },
+   {
+    "page": 3,
+    "staff": 9,
+    "measures": 6,
+    "first_measure": 94
+   },
+   {
+    "page": 3,
+    "staff": 10,
+    "measures": 5,
+    "first_measure": 100
+   },
+   {
+    "page": 3,
+    "staff": 11,
+    "measures": 9,
+    "first_measure": 105
+   },
+   {
+    "page": 4,
+    "staff": 1,
+    "measures": 6,
+    "first_measure": 114
+   },
+   {
+    "page": 4,
+    "staff": 2,
+    "measures": 6,
+    "first_measure": 120
+   },
+   {
+    "page": 4,
+    "staff": 3,
+    "measures": 4,
+    "first_measure": 126
+   },
+   {
+    "page": 4,
+    "staff": 4,
+    "measures": 4,
+    "first_measure": 130
+   },
+   {
+    "page": 4,
+    "staff": 5,
+    "measures": 4,
+    "first_measure": 134
+   },
+   {
+    "page": 4,
+    "staff": 6,
+    "measures": 4,
+    "first_measure": 138
+   },
+   {
+    "page": 4,
+    "staff": 7,
+    "measures": 4,
+    "first_measure": 142
+   },
+   {
+    "page": 4,
+    "staff": 8,
+    "measures": 4,
+    "first_measure": 146
+   },
+   {
+    "page": 4,
+    "staff": 9,
+    "measures": 5,
+    "first_measure": 150
+   },
+   {
+    "page": 4,
+    "staff": 10,
+    "measures": 7,
+    "first_measure": 155
+   },
+   {
+    "page": 4,
+    "staff": 11,
+    "measures": 7,
+    "first_measure": 162
+   }
+  ]
+ }
+}

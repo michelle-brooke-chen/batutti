@@ -1,0 +1,264 @@
+{
+ "part": "Sibelius, Karelia Suite Op. 11, Oboe 1 (incoming/scans/Oboe 1.pdf)",
+ "status": "confirmed 2026-10-23: rehearsal letters and flagged staves checked by a player; other staves anchored by letters, score totals and (clarinets, trumpet 3) the engraved parts",
+ "movement_totals": {
+  "I. Intermezzo": 157,
+  "II. Ballade": 172,
+  "III. Alla marcia": 168
+ },
+ "staff_counts": {
+  "I. Intermezzo": [
+   {
+    "page": 1,
+    "staff": 1,
+    "measures": 53,
+    "first_measure": 1
+   },
+   {
+    "page": 1,
+    "staff": 2,
+    "measures": 31,
+    "first_measure": 54
+   },
+   {
+    "page": 1,
+    "staff": 3,
+    "measures": 6,
+    "first_measure": 85
+   },
+   {
+    "page": 1,
+    "staff": 4,
+    "measures": 6,
+    "first_measure": 91
+   },
+   {
+    "page": 1,
+    "staff": 5,
+    "measures": 7,
+    "first_measure": 97
+   },
+   {
+    "page": 1,
+    "staff": 6,
+    "measures": 7,
+    "first_measure": 104
+   },
+   {
+    "page": 1,
+    "staff": 7,
+    "measures": 7,
+    "first_measure": 111
+   },
+   {
+    "page": 1,
+    "staff": 8,
+    "measures": 40,
+    "first_measure": 118
+   }
+  ],
+  "II. Ballade": [
+   {
+    "page": 1,
+    "staff": 9,
+    "measures": 36,
+    "first_measure": 1
+   },
+   {
+    "page": 1,
+    "staff": 10,
+    "measures": 31,
+    "first_measure": 37
+   },
+   {
+    "page": 2,
+    "staff": 1,
+    "measures": 8,
+    "first_measure": 68
+   },
+   {
+    "page": 2,
+    "staff": 2,
+    "measures": 6,
+    "first_measure": 76
+   },
+   {
+    "page": 2,
+    "staff": 3,
+    "measures": 21,
+    "first_measure": 82
+   },
+   {
+    "page": 2,
+    "staff": 4,
+    "measures": 18,
+    "first_measure": 103
+   },
+   {
+    "page": 2,
+    "staff": 5,
+    "measures": 8,
+    "first_measure": 121
+   },
+   {
+    "page": 2,
+    "staff": 6,
+    "measures": 12,
+    "first_measure": 129
+   },
+   {
+    "page": 2,
+    "staff": 7,
+    "measures": 9,
+    "first_measure": 141
+   },
+   {
+    "page": 2,
+    "staff": 8,
+    "measures": 10,
+    "first_measure": 150
+   },
+   {
+    "page": 2,
+    "staff": 9,
+    "measures": 7,
+    "first_measure": 160
+   },
+   {
+    "page": 2,
+    "staff": 10,
+    "measures": 6,
+    "first_measure": 167
+   }
+  ],
+  "III. Alla marcia": [
+   {
+    "page": 3,
+    "staff": 1,
+    "measures": 33,
+    "first_measure": 1
+   },
+   {
+    "page": 3,
+    "staff": 2,
+    "measures": 20,
+    "first_measure": 34
+   },
+   {
+    "page": 3,
+    "staff": 3,
+    "measures": 8,
+    "first_measure": 54
+   },
+   {
+    "page": 3,
+    "staff": 4,
+    "measures": 7,
+    "first_measure": 62
+   },
+   {
+    "page": 3,
+    "staff": 5,
+    "measures": 7,
+    "first_measure": 69
+   },
+   {
+    "page": 3,
+    "staff": 6,
+    "measures": 5,
+    "first_measure": 76
+   },
+   {
+    "page": 3,
+    "staff": 7,
+    "measures": 6,
+    "first_measure": 81
+   },
+   {
+    "page": 3,
+    "staff": 8,
+    "measures": 5,
+    "first_measure": 87
+   },
+   {
+    "page": 3,
+    "staff": 9,
+    "measures": 6,
+    "first_measure": 92
+   },
+   {
+    "page": 3,
+    "staff": 10,
+    "measures": 6,
+    "first_measure": 98
+   },
+   {
+    "page": 3,
+    "staff": 11,
+    "measures": 10,
+    "first_measure": 104
+   },
+   {
+    "page": 4,
+    "staff": 1,
+    "measures": 6,
+    "first_measure": 114
+   },
+   {
+    "page": 4,
+    "staff": 2,
+    "measures": 7,
+    "first_measure": 120
+   },
+   {
+    "page": 4,
+    "staff": 3,
+    "measures": 4,
+    "first_measure": 127
+   },
+   {
+    "page": 4,
+    "staff": 4,
+    "measures": 4,
+    "first_measure": 131
+   },
+   {
+    "page": 4,
+    "staff": 5,
+    "measures": 4,
+    "first_measure": 135
+   },
+   {
+    "page": 4,
+    "staff": 6,
+    "measures": 4,
+    "first_measure": 139
+   },
+   {
+    "page": 4,
+    "staff": 7,
+    "measures": 6,
+    "first_measure": 143
+   },
+   {
+    "page": 4,
+    "staff": 8,
+    "measures": 5,
+    "first_measure": 149
+   },
+   {
+    "page": 4,
+    "staff": 9,
+    "measures": 7,
+    "first_measure": 154
+   },
+   {
+    "page": 4,
+    "staff": 10,
+    "measures": 8,
+    "first_measure": 161
+   }
+  ]
+ },
+ "note": "This print's Ballade opens with a 23-bar rest where the score has 13 (misprint confirmed by a player), so as printed the Ballade is 172 bars and every letter falls 10 late."
+}

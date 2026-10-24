@@ -1,0 +1,71 @@
+{
+ "part": "Sibelius, Karelia Suite Op. 11, Tambourine (incoming/scans/Tambourine.pdf)",
+ "status": "confirmed 2026-10-23: rehearsal letters and flagged staves checked by a player; other staves anchored by letters, score totals and (clarinets, trumpet 3) the engraved parts",
+ "movement_totals": {
+  "I. Intermezzo": 157
+ },
+ "staff_counts": {
+  "I. Intermezzo": [
+   {
+    "page": 1,
+    "staff": 1,
+    "measures": 52,
+    "first_measure": 1
+   },
+   {
+    "page": 1,
+    "staff": 2,
+    "measures": 7,
+    "first_measure": 53
+   },
+   {
+    "page": 1,
+    "staff": 3,
+    "measures": 7,
+    "first_measure": 60
+   },
+   {
+    "page": 1,
+    "staff": 4,
+    "measures": 7,
+    "first_measure": 67
+   },
+   {
+    "page": 1,
+    "staff": 5,
+    "measures": 15,
+    "first_measure": 74
+   },
+   {
+    "page": 1,
+    "staff": 6,
+    "measures": 8,
+    "first_measure": 89
+   },
+   {
+    "page": 1,
+    "staff": 7,
+    "measures": 7,
+    "first_measure": 97
+   },
+   {
+    "page": 1,
+    "staff": 8,
+    "measures": 7,
+    "first_measure": 104
+   },
+   {
+    "page": 1,
+    "staff": 9,
+    "measures": 7,
+    "first_measure": 111
+   },
+   {
+    "page": 1,
+    "staff": 10,
+    "measures": 40,
+    "first_measure": 118
+   }
+  ]
+ }
+}

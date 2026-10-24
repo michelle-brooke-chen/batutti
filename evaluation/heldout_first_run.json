@@ -1,0 +1,766 @@
+[
+ {
+  "part": "Bass Drum and Cymbals",
+  "pages": 2,
+  "movements": [
+   [
+    "I. Intermezzo.",
+    320
+   ]
+  ],
+  "flagged_staves": 5,
+  "questions": [
+   "I. Intermezzo is 163 bars over the score\u2019s total. Please count the bars on page 1 staff 1 and staff 9, and page 2 staff 1, staff 3, and staff 8."
+  ],
+  "changes": [],
+  "model_calls": 2,
+  "tokens": [
+   4803,
+   501
+  ],
+  "seconds": {
+   "recognising": 0.0,
+   "counting": 113.7,
+   "reviewing": 155.3,
+   "stamping": 164.0,
+   "total": 164.2
+  }
+ },
+ {
+  "part": "Bassoon 1",
+  "pages": 3,
+  "movements": [
+   [
+    "I. Intermezzo.",
+    130
+   ],
+   [
+    "II. Ballade.",
+    157
+   ],
+   [
+    "III. Alla marcia.",
+    168
+   ]
+  ],
+  "flagged_staves": 6,
+  "questions": [
+   "The Intermezzo is 27 bars short of the score, and the Ballade is 5 bars short. Please check the flagged bars: on page 1 staff 1, the 1st and 2nd bars; staff 2, the 6th and 8th bars; staff 9, the 5th, 6th and 7th bars. On page 2 staff 2, the 4th and 5th bars; staff 8, the 4th through 8th bars and the 13th bar. What do you see in those bars\u2014especially the numbers over the rests and any barlines or rest symbols?"
+  ],
+  "changes": [],
+  "model_calls": 2,
+  "tokens": [
+   5296,
+   675
+  ],
+  "seconds": {
+   "recognising": 0.0,
+   "counting": 302.3,
+   "reviewing": 349.5,
+   "stamping": 359.0,
+   "total": 359.3
+  }
+ },
+ {
+  "part": "Bassoon 2",
+  "pages": 3,
+  "movements": [
+   [
+    "I. Intermezzo.",
+    107
+   ],
+   [
+    "II. Ballade.",
+    157
+   ],
+   [
+    "III. Alla marcia.",
+    168
+   ]
+  ],
+  "flagged_staves": 7,
+  "questions": [
+   "The Intermezzo is 50 bars short of the score. Please count the bars on page 1, staves 1, 2 and 9.",
+   "The Ballade is 5 bars short of the score. Please count the bars on page 2, staves 2 and 8."
+  ],
+  "changes": [],
+  "model_calls": 3,
+  "tokens": [
+   7590,
+   514
+  ],
+  "seconds": {
+   "recognising": 0.0,
+   "counting": 81.7,
+   "reviewing": 118.5,
+   "stamping": 131.4,
+   "total": 131.8
+  }
+ },
+ {
+  "part": "Clarinet 1",
+  "pages": 4,
+  "movements": [
+   [
+    "I. Intermezzo.",
+    157
+   ],
+   [
+    "II. Ballade.",
+    164
+   ],
+   [
+    "III. Alla marcia.",
+    170
+   ]
+  ],
+  "flagged_staves": 12,
+  "questions": [
+   "The Ballade is 2 bars over the score total. Please check the flagged bars on page 1 staff 10 (the long rest), page 2 staff 5 (the 2nd bar), and page 2 staff 7 (the 8th and 9th bars), and tell me where the extra bars are.",
+   "The Alla marcia is 2 bars over the score total. Please check the flagged bars on page 2 staff 10 (the 4th bar), page 3 staff 1 (the 4th bar), page 3 staff 3 (the 7th bar), page 3 staff 4 (the 4th bar), page 3 staff 11 (the 5th bar), and page 4 staff 10 (the 6th bar), and tell me where the extra bars are."
+  ],
+  "changes": [
+   {
+    "bar_id": "p1-s1-b2",
+    "count": 16,
+    "reason": "This adds 15 bars, matching the clear OCR alternative and helping reconcile the movement total."
+   },
+   {
+    "bar_id": "p1-s2-b6",
+    "count": 7,
+    "reason": "This adds 6 bars; together with the other selected adjustments it brings the Intermezzo total to the score's 157."
+   },
+   {
+    "bar_id": "p1-s8-b8",
+    "count": 3,
+    "reason": "The printed number reads 3, and changing the one-bar rest to 3 completes the 23-bar shortfall."
+   }
+  ],
+  "model_calls": 4,
+  "tokens": [
+   14113,
+   1101
+  ],
+  "seconds": {
+   "recognising": 0.0,
+   "counting": 382.6,
+   "reviewing": 493.3,
+   "stamping": 524.5,
+   "total": 524.9
+  }
+ },
+ {
+  "part": "Clarinet 2",
+  "pages": 3,
+  "movements": [
+   [
+    "I. Intermezzo.",
+    113
+   ],
+   [
+    "II. Ballade.",
+    162
+   ],
+   [
+    "III. Alla marcia.",
+    168
+   ]
+  ],
+  "flagged_staves": 11,
+  "questions": [
+   "The Intermezzo is 44 bars short of the score. Please count the bars on page 1 staff 1 and page 1 staff 6."
+  ],
+  "changes": [
+   {
+    "bar_id": "p2-s3-b8",
+    "count": 1,
+    "reason": "The Ballade is one bar over the score total; this flagged two-bar rest may instead be a one-bar rest, which brings the total into agreement."
+   }
+  ],
+  "model_calls": 3,
+  "tokens": [
+   9714,
+   501
+  ],
+  "seconds": {
+   "recognising": 0.0,
+   "counting": 92.7,
+   "reviewing": 123.3,
+   "stamping": 134.2,
+   "total": 134.6
+  }
+ },
+ {
+  "part": "Flute 1",
+  "pages": 3,
+  "movements": [
+   [
+    "I. Intermezzo.",
+    285
+   ]
+  ],
+  "flagged_staves": 8,
+  "questions": [
+   "The Intermezzo is 128 bars over the score total. Please count the bars on page 1 staves 1, 2, and 9; page 2 staves 1, 2, and 3; and page 3 staves 3 and 9, and check the uncertain bar or rest groupings on those staves."
+  ],
+  "changes": [],
+  "model_calls": 2,
+  "tokens": [
+   5113,
+   458
+  ],
+  "seconds": {
+   "recognising": 0.0,
+   "counting": 203.8,
+   "reviewing": 300.7,
+   "stamping": 308.4,
+   "total": 309.0
+  }
+ },
+ {
+  "part": "Flute 2",
+  "pages": 3,
+  "movements": [
+   [
+    "I. Intermezzo.",
+    359
+   ]
+  ],
+  "flagged_staves": 4,
+  "questions": [
+   "The Intermezzo is 202 bars over the score total. Please count the bars on page 1 staff 1, page 1 staff 2, page 1 staff 9, and page 2 staff 1."
+  ],
+  "changes": [],
+  "model_calls": 2,
+  "tokens": [
+   4016,
+   471
+  ],
+  "seconds": {
+   "recognising": 0.0,
+   "counting": 80.8,
+   "reviewing": 124.2,
+   "stamping": 134.7,
+   "total": 135.0
+  }
+ },
+ {
+  "part": "Horn 1",
+  "pages": 3,
+  "movements": [
+   [
+    "I.Intermezzo.",
+    135
+   ],
+   [
+    "II. Ballade.",
+    162
+   ],
+   [
+    "III. Alla marcia.",
+    168
+   ]
+  ],
+  "flagged_staves": 10,
+  "questions": [
+   "The Intermezzo is 22 bars short of the score, and the flagged bars cannot account for the full gap. Please count the bars on page 1 staff 2, page 1 staff 6, page 1 staff 10, page 2 staff 1, page 2 staff 2, and page 2 staff 4."
+  ],
+  "changes": [
+   {
+    "bar_id": "p2-s6-b11",
+    "count": 21,
+    "reason": "The Ballade is 19 bars short, and this reading adds exactly 19 bars."
+   }
+  ],
+  "model_calls": 2,
+  "tokens": [
+   6061,
+   712
+  ],
+  "seconds": {
+   "recognising": 0.0,
+   "counting": 245.7,
+   "reviewing": 382.8,
+   "stamping": 391.2,
+   "total": 391.6
+  }
+ },
+ {
+  "part": "Horn 2",
+  "pages": 2,
+  "movements": [
+   [
+    "I. Intermezzo.",
+    356
+   ]
+  ],
+  "flagged_staves": 6,
+  "questions": [
+   "The Intermezzo is 199 bars over the score total. Please check the flagged bars on page 1 staff 5 (the 4th, 5th and long-rest bars), page 1 staff 8 (the 9th and 10th bars), page 1 staff 10 (the 2nd bar), page 2 staff 1 (the 2nd and 3rd bars), page 2 staff 2 (the 6th and 7th bars), and page 2 staff 4 (the 7th bar). What should the bar/rest numbers or barline divisions be?"
+  ],
+  "changes": [],
+  "model_calls": 4,
+  "tokens": [
+   11279,
+   493
+  ],
+  "seconds": {
+   "recognising": 0.0,
+   "counting": 142.4,
+   "reviewing": 234.4,
+   "stamping": 250.8,
+   "total": 251.2
+  }
+ },
+ {
+  "part": "Horn 3",
+  "pages": 2,
+  "movements": [
+   [
+    "I. Intermezzo.",
+    326
+   ]
+  ],
+  "flagged_staves": 10,
+  "questions": [
+   "The Intermezzo is 169 bars over the score total. Please count the bars on page 1 staff 1, staff 2, staff 3, staff 4, staff 5, staff 9, staff 10 and staff 11, and page 2 staff 1 and staff 2."
+  ],
+  "changes": [],
+  "model_calls": 2,
+  "tokens": [
+   5186,
+   464
+  ],
+  "seconds": {
+   "recognising": 0.0,
+   "counting": 56.3,
+   "reviewing": 92.8,
+   "stamping": 99.9,
+   "total": 100.4
+  }
+ },
+ {
+  "part": "Horn 4",
+  "pages": 2,
+  "movements": [
+   [
+    "I. Intermezzo.",
+    374
+   ]
+  ],
+  "flagged_staves": 8,
+  "questions": [
+   "The Intermezzo is 217 bars over the score total. Please count the bars on page 1 staves 1, 3, 4, 5, 8, and 9, and page 2 staves 1 and 2."
+  ],
+  "changes": [],
+  "model_calls": 2,
+  "tokens": [
+   4784,
+   567
+  ],
+  "seconds": {
+   "recognising": 0.0,
+   "counting": 154.6,
+   "reviewing": 208.5,
+   "stamping": 217.8,
+   "total": 218.0
+  }
+ },
+ {
+  "part": "Oboe 1",
+  "pages": 4,
+  "movements": [
+   [
+    "I. Intermezzo.",
+    132
+   ],
+   [
+    "II.Ballade.",
+    171
+   ],
+   [
+    "III. Alla marcia.",
+    168
+   ]
+  ],
+  "flagged_staves": 11,
+  "questions": [
+   "The Intermezzo is 25 bars short of the score. Please check the flagged bars on page 1 staff 1, staff 2, and staff 8, especially the multi-bar rests and the unusually wide bar.",
+   "The Ballade is 9 bars over the score. Please count the bars on page 1 staff 9 and staff 10, and page 2 staff 2 and staff 6."
+  ],
+  "changes": [
+   {
+    "bar_id": "p3-s1-b2",
+    "count": 16,
+    "reason": "This reading increases the Alla marcia total by exactly 15 bars, matching the score reference."
+   }
+  ],
+  "model_calls": 3,
+  "tokens": [
+   14018,
+   843
+  ],
+  "seconds": {
+   "recognising": 0.0,
+   "counting": 424.4,
+   "reviewing": 548.8,
+   "stamping": 572.2,
+   "total": 572.8
+  }
+ },
+ {
+  "part": "Oboe 2",
+  "pages": 3,
+  "movements": [
+   [
+    "I. Intermezzo.",
+    446
+   ]
+  ],
+  "flagged_staves": 7,
+  "questions": [
+   "The Intermezzo is 289 bars over the score total. Please check the bar numbering on page 1 staff 1, page 1 staff 7, page 1 staff 8, page 2 staff 1, page 2 staff 2, page 2 staff 3, and page 3 staff 9."
+  ],
+  "changes": [],
+  "model_calls": 4,
+  "tokens": [
+   16310,
+   540
+  ],
+  "seconds": {
+   "recognising": 0.0,
+   "counting": 238.7,
+   "reviewing": 314.9,
+   "stamping": 325.6,
+   "total": 325.9
+  }
+ },
+ {
+  "part": "Piccolo",
+  "pages": 2,
+  "movements": [
+   [
+    "III. Alla marcia.",
+    167
+   ]
+  ],
+  "flagged_staves": 2,
+  "questions": [
+   "III. Alla marcia is 10 bars over the score total. Please check the bars on page 1 staff 1 (especially the long rest and the number over the 2nd bar) and page 2 staff 3 (the 5th bar): does the 2nd bar number read 1 or 24, and is the 5th bar a rest/bar, or does its number read 3 or 8?"
+  ],
+  "changes": [],
+  "model_calls": 3,
+  "tokens": [
+   4133,
+   442
+  ],
+  "seconds": {
+   "recognising": 0.0,
+   "counting": 59.9,
+   "reviewing": 81.6,
+   "stamping": 93.8,
+   "total": 94.0
+  }
+ },
+ {
+  "part": "Tambourine",
+  "pages": 1,
+  "movements": [
+   [
+    "I.Intermezzo.",
+    115
+   ]
+  ],
+  "flagged_staves": 3,
+  "questions": [
+   "The Intermezzo is 42 bars short of the score. Please check the numbering on page 1 staff 1 (the 1st, 2nd and 4th bars), staff 5 (the 3rd bar), and staff 10 (the 8th bar). In particular, can you read the numbers over the long rests on staff 1 as 4 or 22, and 1, 16 or 18, and on staff 5 as 3 or 8? How many bars are represented by the unclear bar on staff 10?"
+  ],
+  "changes": [],
+  "model_calls": 4,
+  "tokens": [
+   6967,
+   498
+  ],
+  "seconds": {
+   "recognising": 0.0,
+   "counting": 23.8,
+   "reviewing": 36.8,
+   "stamping": 52.8,
+   "total": 52.9
+  }
+ },
+ {
+  "part": "Timpani",
+  "pages": 2,
+  "movements": [
+   [
+    "I. Intermezzo.",
+    323
+   ]
+  ],
+  "flagged_staves": 7,
+  "questions": [
+   "The Intermezzo is 166 bars over the score total. Please count the bars on page 1 staff 6 and page 2 staffs 5, 6, 7, 8, 10 and 11. In particular, can you check the numbers over the long rests (page 1 staff 6, 3rd bar; page 2 staff 5, 3rd bar; page 2 staff 6, 6th bar; page 2 staff 8, 5th bar), and whether any barlines are missing on page 2 staff 7 (bars 8\u201310), staff 10 (11th bar), and staff 11 (3rd bar)?"
+  ],
+  "changes": [],
+  "model_calls": 2,
+  "tokens": [
+   3820,
+   523
+  ],
+  "seconds": {
+   "recognising": 0.0,
+   "counting": 161.8,
+   "reviewing": 225.4,
+   "stamping": 235.1,
+   "total": 235.5
+  }
+ },
+ {
+  "part": "Triangle",
+  "pages": 1,
+  "movements": [
+   [
+    "III. Alla marcia.",
+    168
+   ]
+  ],
+  "flagged_staves": 4,
+  "questions": [
+   "The Alla marcia is 11 bars over the score total. Please count the bars on page 1, staves 1, 2, 3, and 10, and check the uncertain bars: staff 1, the 2nd bar and the blank 4th bar; staff 2, the 6th bar; staff 3, the 4th, 6th, and 7th bars; and staff 10, the 5th bar. For the numbered multi-bar rests, what number do you see above each rest?"
+  ],
+  "changes": [],
+  "model_calls": 4,
+  "tokens": [
+   8482,
+   610
+  ],
+  "seconds": {
+   "recognising": 0.0,
+   "counting": 27.8,
+   "reviewing": 73.8,
+   "stamping": 86.4,
+   "total": 86.7
+  }
+ },
+ {
+  "part": "Trombone 1",
+  "pages": 2,
+  "movements": [
+   [
+    "I. Intermezzo.",
+    280
+   ]
+  ],
+  "flagged_staves": 7,
+  "questions": [
+   "The Intermezzo is 123 bars over the score total. Please count the bars on page 1 staves 1, 2, 3, 5 and 9, and page 2 staves 1 and 3."
+  ],
+  "changes": [],
+  "model_calls": 2,
+  "tokens": [
+   4355,
+   439
+  ],
+  "seconds": {
+   "recognising": 0.0,
+   "counting": 158.1,
+   "reviewing": 266.2,
+   "stamping": 274.9,
+   "total": 275.1
+  }
+ },
+ {
+  "part": "Trombone 2",
+  "pages": 2,
+  "movements": [
+   [
+    "I. Intermezzo.",
+    253
+   ]
+  ],
+  "flagged_staves": 6,
+  "questions": [
+   "I. Intermezzo is 96 bars over the score total. Please count the bars on page 1 staff 1, page 1 staff 2, page 1 staff 3, page 1 staff 8, page 2 staff 1, and page 2 staff 3."
+  ],
+  "changes": [
+   {
+    "bar_id": "p1-s1-b1",
+    "count": 27,
+    "reason": "The counted movement is substantially over the score total, and the plausible higher rest reading is less likely to be correct."
+   },
+   {
+    "bar_id": "p1-s8-b5",
+    "count": 1,
+    "reason": "The OCR alternative is the shorter reading, consistent with correcting the excess total."
+   },
+   {
+    "bar_id": "p1-s8-b7",
+    "count": 3,
+    "reason": "The number above the rest reads 3, and the total is short of that reading only if retained at 1; this helps align the score."
+   },
+   {
+    "bar_id": "p2-s1-b1",
+    "count": 11,
+    "reason": "Choose the shorter plausible reading to reduce the movement's excess."
+   },
+   {
+    "bar_id": "p2-s1-b3",
+    "count": 1,
+    "reason": "Choose the shorter plausible reading to reduce the movement's excess."
+   },
+   {
+    "bar_id": "p2-s3-b7",
+    "count": 1,
+    "reason": "Choose the shorter plausible reading to reduce the movement's excess."
+   }
+  ],
+  "model_calls": 3,
+  "tokens": [
+   7272,
+   563
+  ],
+  "seconds": {
+   "recognising": 0.0,
+   "counting": 73.2,
+   "reviewing": 152.9,
+   "stamping": 161.3,
+   "total": 161.7
+  }
+ },
+ {
+  "part": "Trombone 3",
+  "pages": 2,
+  "movements": [
+   [
+    "I. Intermezzo.",
+    300
+   ]
+  ],
+  "flagged_staves": 7,
+  "questions": [
+   "The Intermezzo is counted 143 bars over the score total. Please count the bars on page 1 staves 1, 2, 3 and 8, and page 2 staves 1, 4 and 7, checking the long rests and any possible barlines."
+  ],
+  "changes": [],
+  "model_calls": 2,
+  "tokens": [
+   4693,
+   554
+  ],
+  "seconds": {
+   "recognising": 0.0,
+   "counting": 290.6,
+   "reviewing": 820.1,
+   "stamping": 829.9,
+   "total": 830.1
+  }
+ },
+ {
+  "part": "Trumpet 1",
+  "pages": 2,
+  "movements": [
+   [
+    "I. Intermezzo.",
+    282
+   ]
+  ],
+  "flagged_staves": 8,
+  "questions": [
+   "The Intermezzo is 125 bars over the score total. Please count the bars on page 1 staff 1, page 1 staff 10, and page 2 staffs 4, 5, 6, 7, 8, and 9."
+  ],
+  "changes": [],
+  "model_calls": 2,
+  "tokens": [
+   4189,
+   562
+  ],
+  "seconds": {
+   "recognising": 0.0,
+   "counting": 828.8,
+   "reviewing": 1348.7,
+   "stamping": 1356.9,
+   "total": 1357.2
+  }
+ },
+ {
+  "part": "Trumpet 2",
+  "pages": 2,
+  "movements": [
+   [
+    "I. Intermezzo.",
+    305
+   ]
+  ],
+  "flagged_staves": 5,
+  "questions": [
+   "The Intermezzo is 148 bars over the score\u2019s total. Please count the bars on page 1 staff 1 and staff 10, and page 2 staff 1, staff 6, and staff 7."
+  ],
+  "changes": [],
+  "model_calls": 2,
+  "tokens": [
+   4744,
+   467
+  ],
+  "seconds": {
+   "recognising": 0.0,
+   "counting": 1274.2,
+   "reviewing": 1880.7,
+   "stamping": 1889.4,
+   "total": 1889.8
+  }
+ },
+ {
+  "part": "Trumpet 3",
+  "pages": 2,
+  "movements": [
+   [
+    "I. Intermezzo.",
+    325
+   ]
+  ],
+  "flagged_staves": 7,
+  "questions": [
+   "The Intermezzo is 168 bars over the score total. Please count the bars on page 1 staff 1 and staff 10, and page 2 staff 3, staff 4, staff 5, staff 7, and staff 8."
+  ],
+  "changes": [],
+  "model_calls": 3,
+  "tokens": [
+   10556,
+   450
+  ],
+  "seconds": {
+   "recognising": 0.0,
+   "counting": 1191.2,
+   "reviewing": 1616.1,
+   "stamping": 1627.6,
+   "total": 1627.8
+  }
+ },
+ {
+  "part": "Tuba",
+  "pages": 2,
+  "movements": [
+   [
+    "I. Intermezzo.",
+    290
+   ]
+  ],
+  "flagged_staves": 8,
+  "questions": [
+   "The Intermezzo is 133 bars over the score total. Please count the bars on page 1 staff 1, page 1 staff 2, page 1 staff 3, page 1 staff 8, page 2 staff 1, page 2 staff 3, page 2 staff 6 and page 2 staff 10."
+  ],
+  "changes": [],
+  "model_calls": 2,
+  "tokens": [
+   4999,
+   497
+  ],
+  "seconds": {
+   "recognising": 0.0,
+   "counting": 1962.3,
+   "reviewing": 2540.9,
+   "stamping": 2547.4,
+   "total": 2547.6
+  }
+ }
+]

@@ -1,0 +1,31 @@
+# secrets
+.env
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# app working files
+jobs/
+# evaluation output, except the logs the report cites and the saved
+# readings the example needs
+evaluation/results/*
+!evaluation/results/*.json
+!evaluation/results/karelia_*/
+evaluation/results/karelia_*/*
+!evaluation/results/karelia_*/ocr_cache.json
+
+# local tools (Audiveris is installed separately; see README)
+tools/
+
+# early experiments, draft answer keys (replaced by evaluation/parts/*/answer_key.json)
+# and local tool settings
+prototype/
+evaluation/drafts/
+.claude/
+
+# macOS
+.DS_Store
+incoming/
+evaluation/heldout/*/

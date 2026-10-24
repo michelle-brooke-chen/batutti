@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Measure Numbers</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/theme/white.css">
+<style>
+  :root { --r-main-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+          --r-heading-font: var(--r-main-font); --r-heading-color: #1f4e79; --r-main-color: #222;
+          --r-heading-text-transform: none; --r-main-font-size: 34px; --r-link-color: #1f4e79; }
+  .reveal h1 { font-size: 2.3em; } .reveal h2 { font-size: 1.45em; margin-bottom: 0.5em; }
+  .reveal section { text-align: left; }
+  .reveal .muted { color: #555; }
+  .reveal .big { font-size: 2.2em; font-weight: 700; color: #1f4e79; line-height: 1.1; }
+  .reveal .cols { display: flex; gap: 36px; align-items: flex-start; }
+  .reveal .cols > div { flex: 1; }
+  .reveal img { border: 1px solid #e3e3e3; border-radius: 6px; margin: 0; }
+  .reveal ul { margin-left: 1em; } .reveal li { margin: 0.25em 0; }
+  .reveal table { font-size: 0.62em; } .reveal th { color: #1f4e79; }
+  .reveal .tag { display: inline-block; background: #1f4e79; color: #fff; border-radius: 6px;
+                 padding: 2px 10px; font-size: 0.6em; margin-right: 6px; }
+  .reveal .small { font-size: 0.6em; color: #555; }
+  .reveal .todo { background: #fff3b0; }
+  .reveal pre { font-size: 0.45em; box-shadow: none; width: 100%; }
+  .reveal pre code { max-height: none; padding: 12px; background: #f3f5f8; }
+  .reveal .bar { height: 6px; background: #1f4e79; width: 120px; border-radius: 3px; margin: 0 0 18px; }
+</style>
+</head>
+<body>
+<div class="reveal"><div class="slides">
+
+<section>
+  <div class="bar"></div>
+  <h1>Measure Numbers</h1>
+  <p style="font-size:1.1em">An AI rehearsal assistant: exact measure numbers on scanned orchestral parts,
+  a whole-set check, cues before long rests, and "take me to that bar".</p>
+  <p class="muted">Michelle Chen &middot; MGT 409 AI Foundations &middot; Fall 2026</p>
+</section>
+
+<section>
+  <h2>"From 98" &mdash; but which bar is 98?</h2>
+  <div class="cols">
+    <div>
+      <ul>
+        <li>Old printed parts often have <b>no measure numbers</b>, only letters and "23" over a single bar of rest</li>
+        <li>Librarians and players <b>pencil in every number</b>, by hand, in every part</li>
+        <li>Off by one is worse than nothing; parts themselves contain <b>misprints</b></li>
+        <li>Long rests: players lose count without a <b>cue</b></li>
+      </ul>
+      <p class="small">1,224 US orchestras (League of American Orchestras, 2014), most without a full-time librarian.</p>
+    </div>
+    <div style="flex:0.9"><img src="img/cue_oboe_ballade.png" alt="" style="margin-top:40px"><p class="small">Oboe I: "23", a fermata, "8": which bar is the entrance? (The 23 is a misprint: the score has 13.)</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>What exists, and what is new</h2>
+  <table>
+    <tr><th>Today</th><th>Problem</th></tr>
+    <tr><td>Pencil / librarian</td><td>Hours per set; misprints go unnoticed</td></tr>
+    <tr><td>Sibelius, Dorico, MuseScore</td><td>Only for re-typed music; new layout</td></tr>
+    <tr><td>OMR: Audiveris, ScanScore, PhotoScore</td><td>Must proofread; rhythm right in 32% of bars on our Violin I</td></tr>
+    <tr><td>forScore, Newzik</td><td>You still write every number</td></tr>
+    <tr><td>ChatGPT vision</td><td>Read "13" as "18" with 0.97 confidence</td></tr>
+  </table>
+  <ul style="font-size:0.85em">
+    <li><b>Numbers on the player's own pages</b>, exact or a specific question</li>
+    <li><b>Checks the whole set</b> against itself: finds misreads <i>and</i> publisher misprints</li>
+    <li><b>Cues and navigation</b> drawn from the other parts</li>
+  </ul>
+</section>
+
+<section>
+  <h2>How the agents work</h2>
+  <div class="cols">
+    <div style="flex:1.4">
+      <svg viewBox="0 0 560 360" width="100%" font-family="-apple-system, Helvetica, Arial, sans-serif">
+        <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#555"/></marker></defs>
+        <style>.c{fill:#f3f5f8;stroke:#b8c4d0}.g{fill:#1f4e79}.t{font-size:15px;fill:#222}.w{font-size:15px;fill:#fff;font-weight:600}.s{font-size:12px;fill:#dbe7f3}.l{stroke:#555;stroke-width:1.6;fill:none;marker-end:url(#a)}</style>
+        <rect x="0" y="10" width="160" height="50" rx="8" class="c"/><text x="80" y="40" text-anchor="middle" class="t">Scans → Audiveris</text>
+        <rect x="200" y="10" width="160" height="50" rx="8" class="c"/><text x="280" y="40" text-anchor="middle" class="t">Counter (code)</text>
+        <rect x="400" y="2" width="160" height="66" rx="8" class="g"/><text x="412" y="28" class="w">1 Review</text><text x="412" y="48" class="s">ask, don't guess</text>
+        <path d="M160 35 H196" class="l"/><path d="M360 35 H396" class="l"/>
+        <rect x="0" y="110" width="160" height="50" rx="8" class="c"/><text x="80" y="140" text-anchor="middle" class="t">Compare parts</text>
+        <rect x="200" y="102" width="200" height="66" rx="8" class="g"/><text x="212" y="128" class="w">2 Set checker</text><text x="212" y="148" class="s">misprint or misread?</text>
+        <path d="M280 60 V85 H80 V106" class="l"/><path d="M160 135 H196" class="l"/>
+        <rect x="0" y="210" width="160" height="50" rx="8" class="c"/><text x="80" y="240" text-anchor="middle" class="t">Find entrances</text>
+        <rect x="200" y="202" width="200" height="66" rx="8" class="g"/><text x="212" y="228" class="w">3 Cue picker</text><text x="212" y="248" class="s">which line is audible?</text>
+        <rect x="440" y="210" width="120" height="50" rx="8" class="c"/><text x="500" y="240" text-anchor="middle" class="t">Print cues</text>
+        <path d="M80 160 V206" class="l"/><path d="M160 235 H196" class="l"/><path d="M400 235 H436" class="l"/>
+        <rect x="0" y="300" width="160" height="50" rx="8" class="c"/><text x="80" y="330" text-anchor="middle" class="t">"the oboe solo"</text>
+        <rect x="200" y="292" width="200" height="66" rx="8" class="g"/><text x="212" y="318" class="w">4 Navigator</text><text x="212" y="338" class="s">→ movement, bar</text>
+        <path d="M160 325 H196" class="l"/>
+      </svg>
+    </div>
+    <div style="font-size:0.7em">
+      <p>Code does the counting; each agent makes <b>one decision</b> with a few tools.</p>
+      <p>Code checks every tool call: e.g. a count may change only to a value the scan shows.</p>
+      <p>All four: <b>gpt-6-luna</b>, low effort.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Demo: the whole <i>Karelia Suite</i> in 2.5 minutes</h2>
+  <div class="cols">
+    <div style="flex:1.25">
+      <img src="img/app_results_card.jpg" alt="" style="width:100%">
+      <img src="img/app_navigator_top.jpg" alt="" style="width:100%; max-height:250px; object-fit:cover; object-position:top; margin-top:8px">
+    </div>
+    <div style="font-size:0.66em">
+      <p><span class="tag">29 parts</span><span class="tag">87 pages</span></p>
+      <p><b>Set checker</b>, 4 calls: Oboe I's Ballade is <b>misprinted</b> (23 bars of rest; the score has 13), not misread.</p>
+      <p><b>Navigator</b>: "the cor anglais solo" → <b>II, m.141</b>, highlighted in every part, even mid-rest.</p>
+      <p><b>60 cues</b> printed, 2&ndash;4 bars each.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Cues, printed into the part</h2>
+  <div class="cols" style="gap:20px">
+    <div><img src="img/cue_vln2_clarinet.png" alt="" style="max-height:250px"><p class="small">Violin II: 4-bar Clarinet I cue under a 16-bar rest</p></div>
+    <div><img src="img/cue_trumpet_viola.png" alt="" style="max-height:250px"><p class="small">Trumpet I: 3-bar viola cue</p></div>
+  </div>
+  <div style="margin-top:6px"><img src="img/cue_oboe_ballade.png" alt="" style="max-height:170px"><p class="small">Oboe I: Violin I cue over the rests before the entrance</p></div>
+  <p class="small">A violinist reviewed them: melodic lines only, none after fermatas, right before the entrance.</p>
+</section>
+
+<section>
+  <h2>Cost to run</h2>
+  <div class="cols">
+    <div>
+      <p class="big">$0.0038</p><p class="muted">whole 29-part set, measured<br>6 calls · 33,894 tokens · 6,205 cached</p>
+      <p class="big" style="font-size:1.5em">$0.0003</p><p class="muted">a navigator question; $0 if parsed in code</p>
+    </div>
+    <div style="font-size:0.7em">
+      <table>
+        <tr><th>Users</th><th>Model</th><th>Total / month*</th></tr>
+        <tr><td>1</td><td>$0.03</td><td>$0.12</td></tr>
+        <tr><td>100</td><td>$3</td><td>~$42</td></tr>
+        <tr><td>10,000</td><td>$300</td><td>~$1,700</td></tr>
+      </table>
+      <p>Recognition compute costs more than the AI. Cuts: code first, agent only when needed; luna at low effort (medium: same answers, up to 1.9&times; cost); batching; prompt caching (68% cached in the set check); call caps.</p>
+      <p class="small">*Usage and hosting are estimates; token costs measured.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Safety: the agent can't make a confident wrong number</h2>
+  <div class="cols">
+    <div style="flex:1.2">
+<pre><code>PASS review: total-forcing change 14 -> 4
+     "4 is not supported by the evidence"
+PASS set check: reading_error without evidence
+PASS set check: staff that doesn't exist
+PASS navigator: go_to a bar that doesn't exist
+PASS navigator: injection in the request
+PASS navigator: injection printed in a PDF
+     still II m.141 (3 of 3 runs)</code></pre>
+    </div>
+    <div style="font-size:0.7em">
+      <ul>
+        <li>Fixes only where the scan supports them; otherwise <b>ask the player</b></li>
+        <li>Navigator outputs only a validated bar; its text is never shown</li>
+        <li>Key stays in <code>.env</code>; no tool can read it</li>
+        <li>Call caps, timeouts, upload limits</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Impact</h2>
+  <div class="cols">
+    <div><p class="big">916 / 916</p><p class="muted">staves numbered exactly, all 29 parts<br>(player-checked keys)</p></div>
+    <div><p class="big">1</p><p class="muted">real publisher misprint found and confirmed</p></div>
+    <div><p class="big">60 / 60</p><p class="muted">cues printed</p></div>
+  </div>
+  <p style="font-size:0.75em">Pilot timing, by hand vs. app: <span class="todo">[results from this weekend]</span></p>
+  <p class="small">First run on the 24 wind/brass/percussion parts: 9 of 52 movements exact; now all exact.</p>
+</section>
+
+<section>
+  <h2>What's next</h2>
+  <ul>
+    <li>Test on more music: other editions, composers, scored without changing rules</li>
+    <li>Playback: hear a scanned part with other instruments on and off</li>
+    <li>A friendlier, more playful interface</li>
+    <li>Hosting with a queue for recognition and a per-user spending limit</li>
+  </ul>
+  <p class="muted" style="margin-top:1.2em">Measure Numbers &middot; Michelle Chen</p>
+</section>
+
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.js"></script>
+<script>Reveal.initialize({ hash: true, width: 1280, height: 720, margin: 0.06, transition: "fade" });</script>
+</body>
+</html>

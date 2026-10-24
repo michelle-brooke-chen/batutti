@@ -1,0 +1,8 @@
+dash==4.4.1
+numpy==2.5.4
+onnxruntime==1.31.0
+openai==3.32.0
+opencv-python-headless==5.0.0.93
+pymupdf==1.28.2
+python-dotenv==1.2.4
+rapidocr==3.10.0

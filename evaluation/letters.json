@@ -1,0 +1,151 @@
+{
+ "agreed": {
+  "1A": 23,
+  "1B": 39,
+  "1C": 45,
+  "1D": 53,
+  "1E": 76,
+  "1F": 92,
+  "1G": 114,
+  "1H": 134,
+  "2A": 47,
+  "2B": 73,
+  "2D": 111,
+  "2E": 129,
+  "3A": 38,
+  "3B": 54,
+  "3C": 70,
+  "3D": 90,
+  "3E": 106,
+  "3F": 120,
+  "3G": 136,
+  "3H": 151
+ },
+ "parts": {
+  "karelia_bass_drum_and_cymbals": [
+   {
+    "movement": 3,
+    "letter": "G",
+    "here": 124,
+    "expected": 136,
+    "page": 2,
+    "staff": 5
+   }
+  ],
+  "karelia_bassoon_1": [],
+  "karelia_bassoon_2": [],
+  "karelia_cb": [
+   {
+    "movement": 3,
+    "letter": "A",
+    "here": 103,
+    "expected": 38,
+    "page": 4,
+    "staff": 4
+   }
+  ],
+  "karelia_clarinet_1": [],
+  "karelia_clarinet_2": [],
+  "karelia_flute_1": [
+   {
+    "movement": 3,
+    "letter": "A",
+    "here": 55,
+    "expected": 38,
+    "page": 2,
+    "staff": 2
+   }
+  ],
+  "karelia_flute_2": [],
+  "karelia_horn_1": [
+   {
+    "movement": 1,
+    "letter": "A",
+    "here": 11,
+    "expected": 23,
+    "page": 1,
+    "staff": 2
+   }
+  ],
+  "karelia_horn_2": [
+   {
+    "movement": 3,
+    "letter": "A",
+    "here": 159,
+    "expected": 38,
+    "page": 2,
+    "staff": 11
+   }
+  ],
+  "karelia_horn_3": [],
+  "karelia_horn_4": [],
+  "karelia_oboe_1": [
+   {
+    "movement": 2,
+    "letter": "A",
+    "here": 57,
+    "expected": 47,
+    "page": 1,
+    "staff": 10
+   },
+   {
+    "movement": 2,
+    "letter": "B",
+    "here": 83,
+    "expected": 73,
+    "page": 2,
+    "staff": 3
+   },
+   {
+    "movement": 2,
+    "letter": "E",
+    "here": 139,
+    "expected": 129,
+    "page": 2,
+    "staff": 6
+   },
+   {
+    "movement": 3,
+    "letter": "A",
+    "here": 98,
+    "expected": 38,
+    "page": 3,
+    "staff": 10
+   }
+  ],
+  "karelia_oboe_2": [
+   {
+    "movement": 3,
+    "letter": "A",
+    "here": 34,
+    "expected": 38,
+    "page": 2,
+    "staff": 5
+   }
+  ],
+  "karelia_piccolo": [
+   {
+    "movement": 3,
+    "letter": "A",
+    "here": 114,
+    "expected": 38,
+    "page": 2,
+    "staff": 4
+   }
+  ],
+  "karelia_tambourine": [],
+  "karelia_timpani": [],
+  "karelia_triangle": [],
+  "karelia_trombone_1": [],
+  "karelia_trombone_2": [],
+  "karelia_trombone_3": [],
+  "karelia_trumpet_1": [],
+  "karelia_trumpet_2": [],
+  "karelia_trumpet_3": [],
+  "karelia_tuba": [],
+  "karelia_vc": [],
+  "karelia_vla": [],
+  "karelia_vln1": [],
+  "karelia_vln2": []
+ }
+}

@@ -1,0 +1,116 @@
+{
+ "part": "Sibelius, Karelia Suite Op. 11, Bass Drum and Cymbals (incoming/scans/Bass Drum and Cymbals.pdf)",
+ "status": "confirmed 2026-10-23: rehearsal letters and flagged staves checked by a player; other staves anchored by letters, score totals and (clarinets, trumpet 3) the engraved parts",
+ "movement_totals": {
+  "I. Intermezzo": 157,
+  "III. Alla marcia": 168
+ },
+ "staff_counts": {
+  "I. Intermezzo": [
+   {
+    "page": 1,
+    "staff": 1,
+    "measures": 52,
+    "first_measure": 1
+   },
+   {
+    "page": 1,
+    "staff": 2,
+    "measures": 9,
+    "first_measure": 53
+   },
+   {
+    "page": 1,
+    "staff": 3,
+    "measures": 9,
+    "first_measure": 62
+   },
+   {
+    "page": 1,
+    "staff": 4,
+    "measures": 9,
+    "first_measure": 71
+   },
+   {
+    "page": 1,
+    "staff": 5,
+    "measures": 9,
+    "first_measure": 80
+   },
+   {
+    "page": 1,
+    "staff": 6,
+    "measures": 9,
+    "first_measure": 89
+   },
+   {
+    "page": 1,
+    "staff": 7,
+    "measures": 9,
+    "first_measure": 98
+   },
+   {
+    "page": 1,
+    "staff": 8,
+    "measures": 10,
+    "first_measure": 107
+   },
+   {
+    "page": 1,
+    "staff": 9,
+    "measures": 41,
+    "first_measure": 117
+   }
+  ],
+  "III. Alla marcia": [
+   {
+    "page": 2,
+    "staff": 1,
+    "measures": 55,
+    "first_measure": 1
+   },
+   {
+    "page": 2,
+    "staff": 2,
+    "measures": 14,
+    "first_measure": 56
+   },
+   {
+    "page": 2,
+    "staff": 3,
+    "measures": 40,
+    "first_measure": 70
+   },
+   {
+    "page": 2,
+    "staff": 4,
+    "measures": 14,
+    "first_measure": 110
+   },
+   {
+    "page": 2,
+    "staff": 5,
+    "measures": 8,
+    "first_measure": 124
+   },
+   {
+    "page": 2,
+    "staff": 6,
+    "measures": 8,
+    "first_measure": 132
+   },
+   {
+    "page": 2,
+    "staff": 7,
+    "measures": 11,
+    "first_measure": 140
+   },
+   {
+    "page": 2,
+    "staff": 8,
+    "measures": 18,
+    "first_measure": 151
+   }
+  ]
+ }
+}

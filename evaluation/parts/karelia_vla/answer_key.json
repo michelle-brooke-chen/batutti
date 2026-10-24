@@ -1,0 +1,432 @@
+{
+ "part": "Sibelius, Karelia Suite Op. 11, Viola (scans/karelia_vla.pdf)",
+ "movement_totals": {
+  "I. Intermezzo": 157,
+  "II. Ballade": 162,
+  "III. Alla marcia": 168
+ },
+ "staff_counts": {
+  "II. Ballade": [
+   {
+    "page": 3,
+    "staff": 1,
+    "measures": 18,
+    "first_measure": 1
+   },
+   {
+    "page": 3,
+    "staff": 2,
+    "measures": 8,
+    "first_measure": 19
+   },
+   {
+    "page": 3,
+    "staff": 3,
+    "measures": 10,
+    "first_measure": 27
+   },
+   {
+    "page": 3,
+    "staff": 4,
+    "measures": 8,
+    "first_measure": 37
+   },
+   {
+    "page": 3,
+    "staff": 5,
+    "measures": 8,
+    "first_measure": 45
+   },
+   {
+    "page": 3,
+    "staff": 6,
+    "measures": 7,
+    "first_measure": 53
+   },
+   {
+    "page": 3,
+    "staff": 7,
+    "measures": 6,
+    "first_measure": 60
+   },
+   {
+    "page": 3,
+    "staff": 8,
+    "measures": 6,
+    "first_measure": 66
+   },
+   {
+    "page": 3,
+    "staff": 9,
+    "measures": 7,
+    "first_measure": 72
+   },
+   {
+    "page": 3,
+    "staff": 10,
+    "measures": 8,
+    "first_measure": 79
+   },
+   {
+    "page": 3,
+    "staff": 11,
+    "measures": 11,
+    "first_measure": 87
+   },
+   {
+    "page": 4,
+    "staff": 1,
+    "measures": 6,
+    "first_measure": 98
+   },
+   {
+    "page": 4,
+    "staff": 2,
+    "measures": 8,
+    "first_measure": 104
+   },
+   {
+    "page": 4,
+    "staff": 3,
+    "measures": 9,
+    "first_measure": 112
+   },
+   {
+    "page": 4,
+    "staff": 4,
+    "measures": 31,
+    "first_measure": 121
+   },
+   {
+    "page": 4,
+    "staff": 5,
+    "measures": 11,
+    "first_measure": 152
+   }
+  ],
+  "I. Intermezzo": [
+   {
+    "page": 1,
+    "staff": 1,
+    "measures": 5,
+    "first_measure": 1
+   },
+   {
+    "page": 1,
+    "staff": 2,
+    "measures": 6,
+    "first_measure": 6
+   },
+   {
+    "page": 1,
+    "staff": 3,
+    "measures": 6,
+    "first_measure": 12
+   },
+   {
+    "page": 1,
+    "staff": 4,
+    "measures": 6,
+    "first_measure": 18
+   },
+   {
+    "page": 1,
+    "staff": 5,
+    "measures": 6,
+    "first_measure": 24
+   },
+   {
+    "page": 1,
+    "staff": 6,
+    "measures": 6,
+    "first_measure": 30
+   },
+   {
+    "page": 1,
+    "staff": 7,
+    "measures": 6,
+    "first_measure": 36
+   },
+   {
+    "page": 1,
+    "staff": 8,
+    "measures": 6,
+    "first_measure": 42
+   },
+   {
+    "page": 1,
+    "staff": 9,
+    "measures": 6,
+    "first_measure": 48
+   },
+   {
+    "page": 1,
+    "staff": 10,
+    "measures": 6,
+    "first_measure": 54
+   },
+   {
+    "page": 1,
+    "staff": 11,
+    "measures": 6,
+    "first_measure": 60
+   },
+   {
+    "page": 2,
+    "staff": 1,
+    "measures": 6,
+    "first_measure": 66
+   },
+   {
+    "page": 2,
+    "staff": 2,
+    "measures": 10,
+    "first_measure": 72
+   },
+   {
+    "page": 2,
+    "staff": 3,
+    "measures": 10,
+    "first_measure": 82
+   },
+   {
+    "page": 2,
+    "staff": 4,
+    "measures": 10,
+    "first_measure": 92
+   },
+   {
+    "page": 2,
+    "staff": 5,
+    "measures": 8,
+    "first_measure": 102
+   },
+   {
+    "page": 2,
+    "staff": 6,
+    "measures": 12,
+    "first_measure": 110
+   },
+   {
+    "page": 2,
+    "staff": 7,
+    "measures": 5,
+    "first_measure": 122
+   },
+   {
+    "page": 2,
+    "staff": 8,
+    "measures": 6,
+    "first_measure": 127
+   },
+   {
+    "page": 2,
+    "staff": 9,
+    "measures": 6,
+    "first_measure": 133
+   },
+   {
+    "page": 2,
+    "staff": 10,
+    "measures": 6,
+    "first_measure": 139
+   },
+   {
+    "page": 2,
+    "staff": 11,
+    "measures": 6,
+    "first_measure": 145
+   },
+   {
+    "page": 2,
+    "staff": 12,
+    "measures": 7,
+    "first_measure": 151
+   }
+  ],
+  "III. Alla marcia": [
+   {
+    "page": 4,
+    "staff": 6,
+    "measures": 13,
+    "first_measure": 1
+   },
+   {
+    "page": 4,
+    "staff": 7,
+    "measures": 4,
+    "first_measure": 13
+   },
+   {
+    "page": 4,
+    "staff": 8,
+    "measures": 5,
+    "first_measure": 18
+   },
+   {
+    "page": 4,
+    "staff": 9,
+    "measures": 5,
+    "first_measure": 23
+   },
+   {
+    "page": 4,
+    "staff": 10,
+    "measures": 4,
+    "first_measure": 28
+   },
+   {
+    "page": 4,
+    "staff": 11,
+    "measures": 14,
+    "first_measure": 32
+   },
+   {
+    "page": 5,
+    "staff": 1,
+    "measures": 4,
+    "first_measure": 46
+   },
+   {
+    "page": 5,
+    "staff": 2,
+    "measures": 4,
+    "first_measure": 50
+   },
+   {
+    "page": 5,
+    "staff": 3,
+    "measures": 5,
+    "first_measure": 54
+   },
+   {
+    "page": 5,
+    "staff": 4,
+    "measures": 5,
+    "first_measure": 59
+   },
+   {
+    "page": 5,
+    "staff": 5,
+    "measures": 5,
+    "first_measure": 64
+   },
+   {
+    "page": 5,
+    "staff": 6,
+    "measures": 15,
+    "first_measure": 69
+   },
+   {
+    "page": 5,
+    "staff": 7,
+    "measures": 4,
+    "first_measure": 84
+   },
+   {
+    "page": 5,
+    "staff": 8,
+    "measures": 5,
+    "first_measure": 88
+   },
+   {
+    "page": 5,
+    "staff": 9,
+    "measures": 4,
+    "first_measure": 93
+   },
+   {
+    "page": 5,
+    "staff": 10,
+    "measures": 4,
+    "first_measure": 97
+   },
+   {
+    "page": 5,
+    "staff": 11,
+    "measures": 4,
+    "first_measure": 101
+   },
+   {
+    "page": 5,
+    "staff": 12,
+    "measures": 4,
+    "first_measure": 105
+   },
+   {
+    "page": 6,
+    "staff": 1,
+    "measures": 4,
+    "first_measure": 109
+   },
+   {
+    "page": 6,
+    "staff": 2,
+    "measures": 4,
+    "first_measure": 113
+   },
+   {
+    "page": 6,
+    "staff": 3,
+    "measures": 4,
+    "first_measure": 117
+   },
+   {
+    "page": 6,
+    "staff": 4,
+    "measures": 4,
+    "first_measure": 121
+   },
+   {
+    "page": 6,
+    "staff": 5,
+    "measures": 6,
+    "first_measure": 125
+   },
+   {
+    "page": 6,
+    "staff": 6,
+    "measures": 7,
+    "first_measure": 131
+   },
+   {
+    "page": 6,
+    "staff": 7,
+    "measures": 5,
+    "first_measure": 138
+   },
+   {
+    "page": 6,
+    "staff": 8,
+    "measures": 6,
+    "first_measure": 143
+   },
+   {
+    "page": 6,
+    "staff": 9,
+    "measures": 5,
+    "first_measure": 149
+   },
+   {
+    "page": 6,
+    "staff": 10,
+    "measures": 4,
+    "first_measure": 154
+   },
+   {
+    "page": 6,
+    "staff": 11,
+    "measures": 5,
+    "first_measure": 158
+   },
+   {
+    "page": 6,
+    "staff": 12,
+    "measures": 6,
+    "first_measure": 163
+   }
+  ]
+ },
+ "page_numbers": "pages are PDF pages; the printed page number on the part is one higher",
+ "confirmed_by": "violist check, 2026-10-16 (all three movements staff by staff)"
+}

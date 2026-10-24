@@ -1,0 +1,485 @@
+{
+ "part": "Sibelius, Karelia Suite Op. 11, Violin II (scans/karelia_vln2.pdf)",
+ "movement_totals": {
+  "I. Intermezzo": 157,
+  "II. Ballade": 162,
+  "III. Alla marcia": 168
+ },
+ "conventions": {
+  "endings": "a 2nd ending reuses the 1st ending's numbers, so all parts match",
+  "repeats": "repeated bars are numbered once, as written",
+  "multi_bar_rests": "a multi-bar rest of N bars takes N numbers",
+  "movements": "numbering restarts at 1 for each movement"
+ },
+ "staff_counts": {
+  "I. Intermezzo": [
+   {
+    "page": 1,
+    "staff": 1,
+    "measures": 4,
+    "first_measure": 1
+   },
+   {
+    "page": 1,
+    "staff": 2,
+    "measures": 4,
+    "first_measure": 5
+   },
+   {
+    "page": 1,
+    "staff": 3,
+    "measures": 4,
+    "first_measure": 9
+   },
+   {
+    "page": 1,
+    "staff": 4,
+    "measures": 4,
+    "first_measure": 13
+   },
+   {
+    "page": 1,
+    "staff": 5,
+    "measures": 4,
+    "first_measure": 17
+   },
+   {
+    "page": 1,
+    "staff": 6,
+    "measures": 4,
+    "first_measure": 21
+   },
+   {
+    "page": 1,
+    "staff": 7,
+    "measures": 4,
+    "first_measure": 25
+   },
+   {
+    "page": 1,
+    "staff": 8,
+    "measures": 4,
+    "first_measure": 29
+   },
+   {
+    "page": 1,
+    "staff": 9,
+    "measures": 4,
+    "first_measure": 33
+   },
+   {
+    "page": 1,
+    "staff": 10,
+    "measures": 4,
+    "first_measure": 37
+   },
+   {
+    "page": 1,
+    "staff": 11,
+    "measures": 6,
+    "first_measure": 41
+   },
+   {
+    "page": 2,
+    "staff": 1,
+    "measures": 5,
+    "first_measure": 47
+   },
+   {
+    "page": 2,
+    "staff": 2,
+    "measures": 5,
+    "first_measure": 52
+   },
+   {
+    "page": 2,
+    "staff": 3,
+    "measures": 5,
+    "first_measure": 57
+   },
+   {
+    "page": 2,
+    "staff": 4,
+    "measures": 5,
+    "first_measure": 62
+   },
+   {
+    "page": 2,
+    "staff": 5,
+    "measures": 5,
+    "first_measure": 67
+   },
+   {
+    "page": 2,
+    "staff": 6,
+    "measures": 5,
+    "first_measure": 72
+   },
+   {
+    "page": 2,
+    "staff": 7,
+    "measures": 5,
+    "first_measure": 77
+   },
+   {
+    "page": 2,
+    "staff": 8,
+    "measures": 5,
+    "first_measure": 82
+   },
+   {
+    "page": 2,
+    "staff": 9,
+    "measures": 5,
+    "first_measure": 87
+   },
+   {
+    "page": 2,
+    "staff": 10,
+    "measures": 5,
+    "first_measure": 92
+   },
+   {
+    "page": 2,
+    "staff": 11,
+    "measures": 5,
+    "first_measure": 97
+   },
+   {
+    "page": 3,
+    "staff": 1,
+    "measures": 5,
+    "first_measure": 102
+   },
+   {
+    "page": 3,
+    "staff": 2,
+    "measures": 5,
+    "first_measure": 107
+   },
+   {
+    "page": 3,
+    "staff": 3,
+    "measures": 5,
+    "first_measure": 112
+   },
+   {
+    "page": 3,
+    "staff": 4,
+    "measures": 5,
+    "first_measure": 117
+   },
+   {
+    "page": 3,
+    "staff": 5,
+    "measures": 5,
+    "first_measure": 122
+   },
+   {
+    "page": 3,
+    "staff": 6,
+    "measures": 5,
+    "first_measure": 127
+   },
+   {
+    "page": 3,
+    "staff": 7,
+    "measures": 5,
+    "first_measure": 132
+   },
+   {
+    "page": 3,
+    "staff": 8,
+    "measures": 5,
+    "first_measure": 137
+   },
+   {
+    "page": 3,
+    "staff": 9,
+    "measures": 5,
+    "first_measure": 142
+   },
+   {
+    "page": 3,
+    "staff": 10,
+    "measures": 5,
+    "first_measure": 147
+   },
+   {
+    "page": 3,
+    "staff": 11,
+    "measures": 6,
+    "first_measure": 152
+   }
+  ],
+  "II. Ballade": [
+   {
+    "page": 4,
+    "staff": 1,
+    "measures": 19,
+    "first_measure": 1
+   },
+   {
+    "page": 4,
+    "staff": 2,
+    "measures": 7,
+    "first_measure": 20
+   },
+   {
+    "page": 4,
+    "staff": 3,
+    "measures": 10,
+    "first_measure": 27
+   },
+   {
+    "page": 4,
+    "staff": 4,
+    "measures": 10,
+    "first_measure": 37
+   },
+   {
+    "page": 4,
+    "staff": 5,
+    "measures": 9,
+    "first_measure": 47
+   },
+   {
+    "page": 4,
+    "staff": 6,
+    "measures": 11,
+    "first_measure": 56
+   },
+   {
+    "page": 4,
+    "staff": 7,
+    "measures": 7,
+    "first_measure": 67
+   },
+   {
+    "page": 4,
+    "staff": 8,
+    "measures": 8,
+    "first_measure": 74
+   },
+   {
+    "page": 4,
+    "staff": 9,
+    "measures": 11,
+    "first_measure": 82
+   },
+   {
+    "page": 4,
+    "staff": 10,
+    "measures": 8,
+    "first_measure": 93
+   },
+   {
+    "page": 4,
+    "staff": 11,
+    "measures": 5,
+    "first_measure": 98
+   },
+   {
+    "page": 5,
+    "staff": 1,
+    "measures": 3,
+    "first_measure": 106
+   },
+   {
+    "page": 5,
+    "staff": 2,
+    "measures": 5,
+    "first_measure": 109
+   },
+   {
+    "page": 5,
+    "staff": 3,
+    "measures": 7,
+    "first_measure": 114
+   },
+   {
+    "page": 5,
+    "staff": 4,
+    "measures": 31,
+    "first_measure": 121
+   },
+   {
+    "page": 5,
+    "staff": 5,
+    "measures": 6,
+    "first_measure": 152
+   },
+   {
+    "page": 5,
+    "staff": 6,
+    "measures": 5,
+    "first_measure": 158
+   }
+  ],
+  "III. Alla marcia": [
+   {
+    "page": 5,
+    "staff": 7,
+    "measures": 9,
+    "first_measure": 1
+   },
+   {
+    "page": 5,
+    "staff": 8,
+    "measures": 7,
+    "first_measure": 10
+   },
+   {
+    "page": 5,
+    "staff": 9,
+    "measures": 5,
+    "first_measure": 17
+   },
+   {
+    "page": 5,
+    "staff": 10,
+    "measures": 8,
+    "first_measure": 22
+   },
+   {
+    "page": 5,
+    "staff": 11,
+    "measures": 24,
+    "first_measure": 30
+   },
+   {
+    "page": 6,
+    "staff": 1,
+    "measures": 4,
+    "first_measure": 54
+   },
+   {
+    "page": 6,
+    "staff": 2,
+    "measures": 4,
+    "first_measure": 58
+   },
+   {
+    "page": 6,
+    "staff": 3,
+    "measures": 4,
+    "first_measure": 62
+   },
+   {
+    "page": 6,
+    "staff": 4,
+    "measures": 4,
+    "first_measure": 66
+   },
+   {
+    "page": 6,
+    "staff": 5,
+    "measures": 19,
+    "first_measure": 70
+   },
+   {
+    "page": 6,
+    "staff": 6,
+    "measures": 5,
+    "first_measure": 89
+   },
+   {
+    "page": 6,
+    "staff": 7,
+    "measures": 4,
+    "first_measure": 94
+   },
+   {
+    "page": 6,
+    "staff": 8,
+    "measures": 4,
+    "first_measure": 98
+   },
+   {
+    "page": 6,
+    "staff": 9,
+    "measures": 4,
+    "first_measure": 102
+   },
+   {
+    "page": 6,
+    "staff": 10,
+    "measures": 4,
+    "first_measure": 106
+   },
+   {
+    "page": 6,
+    "staff": 11,
+    "measures": 4,
+    "first_measure": 110
+   },
+   {
+    "page": 7,
+    "staff": 1,
+    "measures": 4,
+    "first_measure": 114
+   },
+   {
+    "page": 7,
+    "staff": 2,
+    "measures": 4,
+    "first_measure": 118
+   },
+   {
+    "page": 7,
+    "staff": 3,
+    "measures": 4,
+    "first_measure": 122
+   },
+   {
+    "page": 7,
+    "staff": 4,
+    "measures": 5,
+    "first_measure": 126
+   },
+   {
+    "page": 7,
+    "staff": 5,
+    "measures": 4,
+    "first_measure": 131
+   },
+   {
+    "page": 7,
+    "staff": 6,
+    "measures": 5,
+    "first_measure": 135
+   },
+   {
+    "page": 7,
+    "staff": 7,
+    "measures": 5,
+    "first_measure": 140
+   },
+   {
+    "page": 7,
+    "staff": 8,
+    "measures": 5,
+    "first_measure": 145
+   },
+   {
+    "page": 7,
+    "staff": 9,
+    "measures": 5,
+    "first_measure": 150
+   },
+   {
+    "page": 7,
+    "staff": 10,
+    "measures": 6,
+    "first_measure": 155
+   },
+   {
+    "page": 7,
+    "staff": 11,
+    "measures": 8,
+    "first_measure": 161
+   }
+  ]
+ },
+ "confirmed_by": "violinist, 2026-10-16 (all three movements checked staff by staff)"
+}

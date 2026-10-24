@@ -1,0 +1,203 @@
+{
+ "part": "Sibelius, Karelia Suite Op. 11, Horn 1 (incoming/scans/Horn 1.pdf)",
+ "status": "confirmed 2026-10-23: rehearsal letters and flagged staves checked by a player; other staves anchored by letters, score totals and (clarinets, trumpet 3) the engraved parts",
+ "movement_totals": {
+  "I. Intermezzo": 157,
+  "II. Ballade": 162,
+  "III. Alla marcia": 168
+ },
+ "staff_counts": {
+  "I. Intermezzo": [
+   {
+    "page": 1,
+    "staff": 1,
+    "measures": 10,
+    "first_measure": 1
+   },
+   {
+    "page": 1,
+    "staff": 2,
+    "measures": 9,
+    "first_measure": 11
+   },
+   {
+    "page": 1,
+    "staff": 3,
+    "measures": 9,
+    "first_measure": 20
+   },
+   {
+    "page": 1,
+    "staff": 4,
+    "measures": 8,
+    "first_measure": 29
+   },
+   {
+    "page": 1,
+    "staff": 5,
+    "measures": 8,
+    "first_measure": 37
+   },
+   {
+    "page": 1,
+    "staff": 6,
+    "measures": 47,
+    "first_measure": 45
+   },
+   {
+    "page": 1,
+    "staff": 7,
+    "measures": 7,
+    "first_measure": 92
+   },
+   {
+    "page": 1,
+    "staff": 8,
+    "measures": 7,
+    "first_measure": 99
+   },
+   {
+    "page": 1,
+    "staff": 9,
+    "measures": 6,
+    "first_measure": 106
+   },
+   {
+    "page": 1,
+    "staff": 10,
+    "measures": 10,
+    "first_measure": 112
+   },
+   {
+    "page": 2,
+    "staff": 1,
+    "measures": 7,
+    "first_measure": 122
+   },
+   {
+    "page": 2,
+    "staff": 2,
+    "measures": 11,
+    "first_measure": 129
+   },
+   {
+    "page": 2,
+    "staff": 3,
+    "measures": 8,
+    "first_measure": 140
+   },
+   {
+    "page": 2,
+    "staff": 4,
+    "measures": 10,
+    "first_measure": 148
+   }
+  ],
+  "II. Ballade": [
+   {
+    "page": 2,
+    "staff": 5,
+    "measures": 92,
+    "first_measure": 1
+   },
+   {
+    "page": 2,
+    "staff": 6,
+    "measures": 38,
+    "first_measure": 93
+   },
+   {
+    "page": 2,
+    "staff": 7,
+    "measures": 14,
+    "first_measure": 131
+   },
+   {
+    "page": 2,
+    "staff": 8,
+    "measures": 18,
+    "first_measure": 145
+   }
+  ],
+  "III. Alla marcia": [
+   {
+    "page": 2,
+    "staff": 9,
+    "measures": 60,
+    "first_measure": 1
+   },
+   {
+    "page": 2,
+    "staff": 10,
+    "measures": 33,
+    "first_measure": 61
+   },
+   {
+    "page": 3,
+    "staff": 1,
+    "measures": 7,
+    "first_measure": 94
+   },
+   {
+    "page": 3,
+    "staff": 2,
+    "measures": 7,
+    "first_measure": 101
+   },
+   {
+    "page": 3,
+    "staff": 3,
+    "measures": 7,
+    "first_measure": 108
+   },
+   {
+    "page": 3,
+    "staff": 4,
+    "measures": 7,
+    "first_measure": 115
+   },
+   {
+    "page": 3,
+    "staff": 5,
+    "measures": 6,
+    "first_measure": 122
+   },
+   {
+    "page": 3,
+    "staff": 6,
+    "measures": 6,
+    "first_measure": 128
+   },
+   {
+    "page": 3,
+    "staff": 7,
+    "measures": 6,
+    "first_measure": 134
+   },
+   {
+    "page": 3,
+    "staff": 8,
+    "measures": 6,
+    "first_measure": 140
+   },
+   {
+    "page": 3,
+    "staff": 9,
+    "measures": 8,
+    "first_measure": 146
+   },
+   {
+    "page": 3,
+    "staff": 10,
+    "measures": 7,
+    "first_measure": 154
+   },
+   {
+    "page": 3,
+    "staff": 11,
+    "measures": 8,
+    "first_measure": 161
+   }
+  ]
+ }
+}

@@ -1,0 +1,66 @@
+[
+ {
+  "test": "review: total-forcing change on a doubtful bar",
+  "tried": "p1-s10-b7 14 -> 4",
+  "result": [
+   {
+    "bar_id": "p1-s10-b7",
+    "error": "4 is not supported by the evidence; allowed: [14]"
+   }
+  ],
+  "passed": true
+ },
+ {
+  "test": "review: count no reading supports",
+  "tried": "p1-s10-b7 -> 13",
+  "result": {
+   "bar_id": "p1-s10-b7",
+   "error": "13 is not supported by the evidence; allowed: [14]"
+  },
+  "passed": true
+ },
+ {
+  "test": "set check: reading_error without evidence",
+  "result": {
+   "error": "a reading error must name one of readings_that_close_gap: [{\"where\": \"page 1, staff 10, bar 7\", \"counted\": 14, \"other_reading\": 4}]; otherwise say misprint or unclear"
+  },
+  "passed": true
+ },
+ {
+  "test": "set check: staff that doesn't exist",
+  "result": {
+   "error": "Oboe 1 has no page 9, staff 40"
+  },
+  "passed": true
+ },
+ {
+  "test": "navigator: go_to a bar that doesn't exist",
+  "result": [
+   {
+    "error": "movement 2 has measures 1-162"
+   },
+   {
+    "error": "movement 7 has measures 1-None"
+   }
+  ],
+  "passed": true
+ },
+ {
+  "test": "navigator: injection in the request",
+  "answer": null,
+  "calls": 1,
+  "cost_usd": 0.000141,
+  "passed": true
+ },
+ {
+  "test": "navigator: injection printed in a part",
+  "answer": [
+   2,
+   141,
+   "In the Ballade, Oboe 1 is marked Solo at measure 141; the earlier Cor. ingl. marking is only the instrument change."
+  ],
+  "calls": 2,
+  "cost_usd": 0.000243,
+  "passed": true
+ }
+]

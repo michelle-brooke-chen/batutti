@@ -1,0 +1,215 @@
+{
+ "part": "Sibelius, Karelia Suite Op. 11, Oboe 2 (incoming/scans/Oboe 2.pdf)",
+ "status": "confirmed 2026-10-23: rehearsal letters and flagged staves checked by a player; other staves anchored by letters, score totals and (clarinets, trumpet 3) the engraved parts",
+ "movement_totals": {
+  "I. Intermezzo": 157,
+  "II. Ballade": 162,
+  "III. Alla marcia": 168
+ },
+ "staff_counts": {
+  "I. Intermezzo": [
+   {
+    "page": 1,
+    "staff": 1,
+    "measures": 75,
+    "first_measure": 1
+   },
+   {
+    "page": 1,
+    "staff": 2,
+    "measures": 11,
+    "first_measure": 76
+   },
+   {
+    "page": 1,
+    "staff": 3,
+    "measures": 7,
+    "first_measure": 87
+   },
+   {
+    "page": 1,
+    "staff": 4,
+    "measures": 7,
+    "first_measure": 94
+   },
+   {
+    "page": 1,
+    "staff": 5,
+    "measures": 7,
+    "first_measure": 101
+   },
+   {
+    "page": 1,
+    "staff": 6,
+    "measures": 8,
+    "first_measure": 108
+   },
+   {
+    "page": 1,
+    "staff": 7,
+    "measures": 42,
+    "first_measure": 116
+   }
+  ],
+  "II. Ballade": [
+   {
+    "page": 1,
+    "staff": 8,
+    "measures": 62,
+    "first_measure": 1
+   },
+   {
+    "page": 1,
+    "staff": 9,
+    "measures": 8,
+    "first_measure": 63
+   },
+   {
+    "page": 1,
+    "staff": 10,
+    "measures": 22,
+    "first_measure": 71
+   },
+   {
+    "page": 2,
+    "staff": 1,
+    "measures": 24,
+    "first_measure": 93
+   },
+   {
+    "page": 2,
+    "staff": 2,
+    "measures": 35,
+    "first_measure": 117
+   },
+   {
+    "page": 2,
+    "staff": 3,
+    "measures": 11,
+    "first_measure": 152
+   }
+  ],
+  "III. Alla marcia": [
+   {
+    "page": 2,
+    "staff": 4,
+    "measures": 33,
+    "first_measure": 1
+   },
+   {
+    "page": 2,
+    "staff": 5,
+    "measures": 20,
+    "first_measure": 34
+   },
+   {
+    "page": 2,
+    "staff": 6,
+    "measures": 8,
+    "first_measure": 54
+   },
+   {
+    "page": 2,
+    "staff": 7,
+    "measures": 8,
+    "first_measure": 62
+   },
+   {
+    "page": 2,
+    "staff": 8,
+    "measures": 7,
+    "first_measure": 70
+   },
+   {
+    "page": 2,
+    "staff": 9,
+    "measures": 6,
+    "first_measure": 77
+   },
+   {
+    "page": 2,
+    "staff": 10,
+    "measures": 6,
+    "first_measure": 83
+   },
+   {
+    "page": 2,
+    "staff": 11,
+    "measures": 5,
+    "first_measure": 89
+   },
+   {
+    "page": 3,
+    "staff": 1,
+    "measures": 7,
+    "first_measure": 94
+   },
+   {
+    "page": 3,
+    "staff": 2,
+    "measures": 5,
+    "first_measure": 101
+   },
+   {
+    "page": 3,
+    "staff": 3,
+    "measures": 12,
+    "first_measure": 106
+   },
+   {
+    "page": 3,
+    "staff": 4,
+    "measures": 7,
+    "first_measure": 118
+   },
+   {
+    "page": 3,
+    "staff": 5,
+    "measures": 4,
+    "first_measure": 125
+   },
+   {
+    "page": 3,
+    "staff": 6,
+    "measures": 4,
+    "first_measure": 129
+   },
+   {
+    "page": 3,
+    "staff": 7,
+    "measures": 4,
+    "first_measure": 133
+   },
+   {
+    "page": 3,
+    "staff": 8,
+    "measures": 4,
+    "first_measure": 137
+   },
+   {
+    "page": 3,
+    "staff": 9,
+    "measures": 4,
+    "first_measure": 141
+   },
+   {
+    "page": 3,
+    "staff": 10,
+    "measures": 7,
+    "first_measure": 145
+   },
+   {
+    "page": 3,
+    "staff": 11,
+    "measures": 9,
+    "first_measure": 152
+   },
+   {
+    "page": 3,
+    "staff": 12,
+    "measures": 8,
+    "first_measure": 161
+   }
+  ]
+ }
+}

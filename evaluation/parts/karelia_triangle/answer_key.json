@@ -1,0 +1,71 @@
+{
+ "part": "Sibelius, Karelia Suite Op. 11, Triangle (incoming/scans/Triangle.pdf)",
+ "status": "confirmed 2026-10-23: rehearsal letters and flagged staves checked by a player; other staves anchored by letters, score totals and (clarinets, trumpet 3) the engraved parts",
+ "movement_totals": {
+  "III. Alla marcia": 168
+ },
+ "staff_counts": {
+  "III. Alla marcia": [
+   {
+    "page": 1,
+    "staff": 1,
+    "measures": 41,
+    "first_measure": 1
+   },
+   {
+    "page": 1,
+    "staff": 2,
+    "measures": 16,
+    "first_measure": 42
+   },
+   {
+    "page": 1,
+    "staff": 3,
+    "measures": 46,
+    "first_measure": 58
+   },
+   {
+    "page": 1,
+    "staff": 4,
+    "measures": 10,
+    "first_measure": 104
+   },
+   {
+    "page": 1,
+    "staff": 5,
+    "measures": 12,
+    "first_measure": 114
+   },
+   {
+    "page": 1,
+    "staff": 6,
+    "measures": 6,
+    "first_measure": 126
+   },
+   {
+    "page": 1,
+    "staff": 7,
+    "measures": 6,
+    "first_measure": 132
+   },
+   {
+    "page": 1,
+    "staff": 8,
+    "measures": 6,
+    "first_measure": 138
+   },
+   {
+    "page": 1,
+    "staff": 9,
+    "measures": 6,
+    "first_measure": 144
+   },
+   {
+    "page": 1,
+    "staff": 10,
+    "measures": 19,
+    "first_measure": 150
+   }
+  ]
+ }
+}
