@@ -56,7 +56,7 @@ def staff_image(pdf, data, page, staff, out):
         label = str(m) if t["count"] == 1 else f"{m}-{m + t['count'] - 1}"
         x = int(t["x0"] * k) + 4
         cv2.putText(img, label, (x, int((st["top"] + 7.2 * sp) * k)), cv2.FONT_HERSHEY_SIMPLEX,
-                    0.7, (31, 78, 121)[::-1], 2)
+                    0.7, (47, 111, 214), 2)
     crop = img[max(0, int((st["top"] - 5 * sp) * k)):int((st["top"] + 8 * sp) * k)]
     cv2.imwrite(str(out), cv2.cvtColor(crop, cv2.COLOR_RGB2BGR))
     return out
@@ -102,7 +102,7 @@ def add_set_cues(parts, names, work_dir, key, say, cue_cache=None, words=None):
 
 
 def number_set(pdfs, work_dir, score_totals=None, progress=None, cache_dir=None,
-               use_agent=True, add_cues=True, cue_cache=None):
+               use_agent=True, add_cues=False, cue_cache=None):
     """Number every part in `pdfs` ({part name: pdf path}) and check the set.
 
     `score_totals` lists measures per movement from the score, if known;
@@ -133,7 +133,7 @@ def number_set(pdfs, work_dir, score_totals=None, progress=None, cache_dir=None,
         except Exception as exc:  # the comparison stands without the explanation
             verdicts = [{"part": f["part"], "movement": f["movement"], "verdict": "unclear",
                          "page": None, "staff": None, "evidence": "",
-                         "note": f"The AI check could not run ({type(exc).__name__}); this part"
+                         "note": f"The agent check could not run ({type(exc).__name__}); this part"
                                  f" differs from the others by {f['total_difference']:+d} bars."}
                         for f in findings]
     else:
@@ -165,7 +165,7 @@ def number_set(pdfs, work_dir, score_totals=None, progress=None, cache_dir=None,
         for s, name in names.items():
             numbered = work_dir / "parts" / s / "numbered.pdf"
             if numbered.exists():
-                z.write(numbered, f"{name} - numbered.pdf")
+                z.write(numbered, f"{name} - numbered{' with cues' if add_cues else ''}.pdf")
 
     summary = {
         "parts": [{"id": s, "name": names[s],

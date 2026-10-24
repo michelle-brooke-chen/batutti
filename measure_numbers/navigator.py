@@ -230,12 +230,12 @@ def bar_image(pdf, data, movement, measure, out, context=2):
     s = st["space"]
     overlay = img.copy()
     cv2.rectangle(overlay, (int(hit["x0"] * k_), int((st["top"] - 1.5 * s) * k_)),
-                  (int(hit["x1"] * k_), int((st["top"] + 5.5 * s) * k_)), (255, 214, 102), -1)
+                  (int(hit["x1"] * k_), int((st["top"] + 5.5 * s) * k_)), (184, 214, 255), -1)
     img = cv2.addWeighted(overlay, 0.45, img, 0.55, 0)
     label = (f"m.{measure}" if hit["count"] == 1
              else f"m.{measure}: bar {measure - hit['measure'] + 1} of this {hit['count']}-bar rest")
     cv2.putText(img, label, (max(0, int(x0 * k_)), int((st["top"] + 7.5 * s) * k_)),
-                cv2.FONT_HERSHEY_SIMPLEX, 0.6, (31, 78, 121), 2)
+                cv2.FONT_HERSHEY_SIMPLEX, 0.6, (47, 111, 214), 2)
     crop = img[max(0, int((st["top"] - 5 * s) * k_)):int((st["top"] + 8.5 * s) * k_),
                max(0, int(x0 * k_) - 10):int(x1 * k_) + 10]
     cv2.imwrite(str(out), cv2.cvtColor(crop, cv2.COLOR_RGB2BGR))

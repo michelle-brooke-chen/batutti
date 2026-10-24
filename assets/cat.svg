@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="40 18 180 180">
+  <style>
+    /* the baton keeps time: a small down-up beat */
+    .arm { transform-origin: 132px 142px; animation: beat 1.3s ease-in-out infinite; }
+    @keyframes beat {
+      0%, 100% { transform: rotate(0deg); }
+      35% { transform: rotate(14deg); }
+      55% { transform: rotate(-4deg); }
+    }
+    .tail { transform-origin: 162px 182px; animation: swish 2.6s ease-in-out infinite; }
+    @keyframes swish { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(5deg); } }
+    @media (prefers-reduced-motion: reduce) { .arm, .tail { animation: none; } }
+  </style>
+
+  <!-- tail curling up behind: an outline stroke under a fill stroke -->
+  <g class="tail" fill="none" stroke-linecap="round">
+    <path d="M156 184 C182 186 194 164 191 136 C189 118 194 108 201 103" stroke="#1e1e24" stroke-width="13"/>
+    <path d="M156 184 C182 186 194 164 191 136 C189 118 194 108 201 103" stroke="#47474f" stroke-width="7"/>
+  </g>
+
+  <!-- one connected outline: ears, tilted head and sitting body -->
+  <path fill="#47474f" stroke="#1e1e24" stroke-width="4.5" stroke-linejoin="round"
+        d="M60 68
+           C58 56 61 44 67 33
+           C80 37 92 43 101 50
+           C110 44 121 42 130 45
+           C138 38 146 32 155 29
+           C159 43 161 58 158 73
+           C167 87 167 108 154 122
+           C167 133 173 152 171 168
+           C169 182 161 189 148 189
+           L101 189
+           C93 189 90 183 92 176
+           C92 161 90 148 86 137
+           C66 133 51 118 52 99
+           C52 86 55 76 60 68 Z"/>
+
+  <!-- inner lines: haunch and front legs -->
+  <g fill="none" stroke="#1e1e24" stroke-width="3.5" stroke-linecap="round">
+    <path d="M137 141 C152 151 154 171 143 188"/>
+    <path d="M119 158 C121 170 121 180 119 188"/>
+    <path d="M106 166 C107 174 107 181 105 188"/>
+  </g>
+
+  <!-- face, turned slightly with the head -->
+  <ellipse cx="76" cy="97" rx="4.6" ry="5.4" fill="#fff" transform="rotate(-8 76 97)"/>
+  <ellipse cx="121" cy="92" rx="4.6" ry="5.4" fill="#fff" transform="rotate(-8 121 92)"/>
+  <path d="M91 103 Q94 107 97 102.5 Q100 106.5 103 101.5" fill="none" stroke="#f2f2f2"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- paw with the baton -->
+  <g class="arm">
+    <line x1="134" y1="139" x2="178" y2="98" stroke="#1e1e24" stroke-width="6" stroke-linecap="round"/>
+    <line x1="134" y1="139" x2="178" y2="98" stroke="#efe6d4" stroke-width="3" stroke-linecap="round"/>
+    <ellipse cx="131" cy="143" rx="8" ry="7" fill="#47474f" stroke="#1e1e24" stroke-width="3.5"/>
+  </g>
+</svg>

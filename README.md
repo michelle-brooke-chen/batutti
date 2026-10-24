@@ -10,7 +10,7 @@ and batutti:
 - **checks the whole set** against itself: rehearsal letters and movement
   lengths must agree across parts, and an agent explains each disagreement as
   a misprint in the part or a misreading by the app;
-- **prints cues** (*rest easy, come in right*): a few small bars of an audible
+- **prints cues**: a few small bars of an audible
   line from another part, just before entrances after long rests;
 - **finds a place** the conductor names ("two before D in the Ballade", "the
   cor anglais solo") and shows that bar in every part.
@@ -57,11 +57,18 @@ cp .env.example .env    # then add PORTKEY_API_KEY (optional, enables the AI)
 python app.py
 ```
 
-Open http://127.0.0.1:8050 and click **Try an example (Karelia Suite, all 29
-parts)**. It uses saved recognition, so it works without installing Audiveris,
-and takes about two minutes. Without a key, parts are still numbered, checked
-and cued (cues use a simple rule instead of the agent). The **One part** tab
-has a single-part example too.
+Open http://127.0.0.1:8050. The app has two pages:
+
+- **Measure numbers** opens on **One part**: click **Try an example** to
+  number the Violin I part of the Karelia Suite. The **Whole set of parts**
+  tab numbers every part and checks them against each other; its example
+  (all 29 parts) takes under a minute. Both use saved recognition, so they
+  work without installing Audiveris.
+- **Cues** (http://127.0.0.1:8050/cues) numbers the set and adds cues before
+  entrances after long rests; its example takes about a minute and a half.
+
+Without a key, parts are still numbered, checked and cued (cues use a simple
+rule instead of the agent). It opens in dark mode; the ☾/☀ button switches to light and remembers your choice.
 
 To number your own scans, install [Audiveris](https://github.com/Audiveris/audiveris/releases)
 (5.11; macOS, Windows and Linux installers include Java). The app finds it in

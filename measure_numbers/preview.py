@@ -6,7 +6,8 @@ import cv2
 import numpy as np
 import pymupdf
 
-RED, ORANGE, WHITE = (0, 0, 200), (0, 120, 240), (255, 255, 255)
+# BGR: the app's blue for staff labels, orange for staves with a flag
+BLUE, ORANGE, WHITE = (214, 111, 47), (20, 110, 215), (255, 255, 255)
 
 
 def render_pages(pdf_path, data, out_dir, scale=0.5):
@@ -30,7 +31,7 @@ def render_pages(pdf_path, data, out_dir, scale=0.5):
             label = f"{st['staff']}: m.{st['first_measure']}-{st['last_measure']}"
             if where in endings:
                 label += " (endings)"
-            color = ORANGE if where in flagged else RED
+            color = ORANGE if where in flagged else BLUE
             if where in flagged:
                 label += " ?"
             x, y = max(5, int(st["left"]) - 300), int(st["top"] - 1.2 * st["space"])
