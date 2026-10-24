@@ -20,9 +20,9 @@
   "passed": true
  },
  {
-  "test": "set check: reading_error without evidence",
+  "test": "set check: reading_error on a number only one reader saw",
   "result": {
-   "error": "a reading error must name one of readings_that_close_gap: [{\"where\": \"page 1, staff 10, bar 7\", \"counted\": 14, \"other_reading\": 4}]; otherwise say misprint or unclear"
+   "error": "a reading error must name one of readings_that_close_gap: []; otherwise say misprint or unclear"
   },
   "passed": true
  },

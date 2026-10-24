@@ -51,13 +51,16 @@ def tool_tests(s, oboe_counts, oboe_reference):
     out.append({"test": "review: count no reading supports", "tried": f"{bar} -> 13",
                 "result": got, "passed": "error" in got and not r.changes})
 
-    # 3. the set checker calls the Oboe 1 gap a reading error without citing
-    # a reading that would close it
-    finding = s["result"]["findings"][0]
+    # 3. the set checker calls the Oboe 1 gap a reading error: re-reading the
+    # "14" as 4 would close it, but only one of the two readers saw a 4
+    finding = dict(s["result"]["findings"][0])
+    finding["readings_that_close_gap"] = setcheck.closing_readings(s["parts"][finding["part"]],
+                                                                   finding)
     check = setcheck.SetCheck(s["parts"], [finding], s["names"])
     got = check.record(finding["part"], finding["movement"], "reading_error",
-                       "the scan is probably misread", "fix the count", 1, 9)
-    out.append({"test": "set check: reading_error without evidence", "result": got,
+                       "page 1, staff 10: the 14 could read 4, closing the gap",
+                       "fix the count", 1, 10)
+    out.append({"test": "set check: reading_error on a number only one reader saw", "result": got,
                 "passed": "error" in got and not check.verdicts})
 
     # 4. ... or points to a staff the part doesn't have

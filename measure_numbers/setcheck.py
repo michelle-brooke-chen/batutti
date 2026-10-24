@@ -81,8 +81,11 @@ def find_disagreements(parts, found, score_totals=None):
 
 
 def closing_readings(data, finding):
-    """Bars in the out-of-step stretch where another of the app's own readings of
-    the printed number would close the gap exactly (evidence of a misread)."""
+    """Bars in the out-of-step stretch where another reading of the printed number
+    would close the gap exactly (evidence of a misread). As in the part review,
+    a reading counts only if both readers saw it: one of the text reader's
+    readings and the part's own digit shapes. A number only one of them saw is
+    too weak to blame the app rather than the print."""
     gap = finding["shift"] if finding["shift"] is not None else finding["total_difference"]
     title = next(m["title"] for i, m in enumerate(data["movements"])
                  if m.get("number", i + 1) == finding["movement"])
@@ -93,7 +96,7 @@ def closing_readings(data, finding):
         if b["movement"] != title or t is None or t["measure"] > finding["to_measure"]:
             continue
         for n in b.get("readings") or []:
-            if n != b["count"] and b["count"] - n == gap:
+            if n != b["count"] and b["count"] - n == gap and n == b.get("shape"):
                 out.append({"where": f"page {b['page']}, staff {b['staff']}, bar {b['bar']}",
                             "counted": b["count"], "other_reading": n})
     return out
