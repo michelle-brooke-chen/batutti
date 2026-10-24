@@ -1,4 +1,4 @@
-"""Measure Numbers: a web app that stamps measure numbers onto scanned parts.
+"""batutti: a web app that stamps measure numbers onto scanned parts.
 
 Run:  python app.py   then open http://127.0.0.1:8050
 """
@@ -138,7 +138,7 @@ def start_set_job(files=(), example=False, totals_text="", use_agent=True, add_c
 
 # ---------- page ----------
 
-app = Dash(__name__, title="Measure Numbers")
+app = Dash(__name__, title="batutti")
 server = app.server
 
 
@@ -225,7 +225,9 @@ def set_tab():
             dcc.Dropdown(id="nav-parts", multi=True, placeholder="All parts",
                          style={"marginTop": "8px"}),
             dcc.Loading(html.Div(id="nav-result", style={"marginTop": "12px"})),
-            html.H4("Cues"),
+            html.H4("Cues", style={"marginBottom": "2px"}),
+            html.P("rest easy, come in right", style={"color": "#1f4e79", "fontStyle": "italic",
+                                                      "marginTop": 0}),
             html.Div(id="set-cues"),
             html.H4("Every part"),
             html.Div(id="set-table"),
@@ -243,7 +245,9 @@ def set_tab():
 app.layout = html.Div(style={"maxWidth": "980px", "margin": "0 auto", "padding": "24px",
                              "fontFamily": "-apple-system, Helvetica, Arial, sans-serif",
                              "background": "#f6f7f9", "color": "#222"}, children=[
-    html.H1("Measure Numbers", style={"marginBottom": "4px"}),
+    html.H1("batutti", style={"marginBottom": "0"}),
+    html.P("every bar, for everyone", style={"color": "#1f4e79", "fontWeight": 600,
+                                             "fontSize": "18px", "margin": "2px 0 8px"}),
     html.P("Upload scanned orchestral parts. The app numbers their measures on your original "
            "pages, checks itself and the parts against each other, and asks you only about "
            "what it is unsure of.", style={"color": "#555", "marginTop": 0}),
@@ -315,6 +319,9 @@ app.layout = html.Div(style={"maxWidth": "980px", "margin": "0 auto", "padding":
     html.Div(id="error", style={"color": "#b00020"}),
     dcc.Store(id="job-id"),
     dcc.Interval(id="tick", interval=1000, disabled=True),
+    html.Footer("batutti \u00b7 count less, play more",
+                style={"textAlign": "center", "color": "#777", "fontSize": "13px",
+                       "margin": "32px 0 8px"}),
 ])
 
 

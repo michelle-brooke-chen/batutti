@@ -1,4 +1,4 @@
-# Measure Numbers web app, with Audiveris for optical music recognition.
+# batutti web app, with Audiveris for optical music recognition.
 # Built for Hugging Face Spaces (Docker), which serves on port 7860.
 FROM ubuntu:24.04
 
