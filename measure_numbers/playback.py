@@ -117,9 +117,11 @@ def read_part(part):
                         + int(float(pitch.findtext("alter") or 0))]
                 spelled = [(pitch.findtext("step"), int(pitch.findtext("octave")),
                             ACCIDENTALS.get(note.findtext("accidental")))]
+            tied = [any(t.get("type") == "stop" for t in note.findall("tie"))] if spelled else []
             if note.find("chord") is not None and events:
                 events[-1]["midi"] += midi
                 events[-1]["spelled"] += spelled
+                events[-1]["tied"] += tied
                 continue
             x = note.get("default-x")
             events.append({
@@ -133,6 +135,7 @@ def read_part(part):
                 "tuplet": note.find("time-modification") is not None,
                 "grace": note.find("grace") is not None,
                 "beam": note.findtext("beam"),
+                "tied": tied,  # per pitch: held over from the note before
             })
         key_here = None
         if attrs is not None and attrs.findtext("key/fifths"):
@@ -387,10 +390,13 @@ def middle_line(clef):
     return CLEF_NOTE[sign] + 2 * (3 - line) + 7 * shift
 
 
-def respell(measures, keys):
+def respell(measures, keys, marks=None, staves=None, heads=None):
     """Recompute every pitch from its place on the staff, the clef and key
-    signature in force and the accidentals earlier in the bar."""
-    line_of = None
+    signature in force and the accidentals earlier in the bar. A note tied
+    over the barline keeps the pitch it was tied from. `marks` (from
+    accidentals.find) adds sharps and naturals Audiveris missed, on the
+    notehead nearest each note at its place on the staff."""
+    line_of, before = None, {}
     for measure in measures:
         if measure["system"] != line_of:
             key, line_of = keys[measure["system"]], measure["system"]
@@ -400,21 +406,39 @@ def respell(measures, keys):
         read = measure.get("read_middle") or middle_line(measure["clef"])
         true = middle_line(measure["true_clef"])
         measure["clef"] = measure["true_clef"]
-        held = {}
+        held, sounded = {}, {}
         for e in sorted(measure["events"], key=lambda e: e["x"] or 0):
             midi, spelled = [], []
-            for step, octave, acc in e["spelled"]:
+            ties = e.get("tied") or [False] * len(e["spelled"])
+            for (step, octave, acc), tied in zip(e["spelled"], ties):
                 position = read - (7 * octave + "CDEFGAB".index(step))
+                if acc is None and marks and "px" in e:
+                    acc = mark_at(e, position, staves[measure["system"]], marks, heads)
                 d = true - position
                 step, octave = "CDEFGAB"[d % 7], d // 7
                 spelled.append((step, octave, acc))
                 if acc is not None:
                     held[(step, octave)] = acc
                 alter = held.get((step, octave))
+                if alter is None and tied and (step, octave) in before:
+                    alter = before[(step, octave)]  # only this note: the bar's others follow the key
                 if alter is None:
                     alter = position_alter(step, key)
+                sounded[(step, octave)] = alter
                 midi.append(12 * (octave + 1) + STEPS[step] + alter)
             e["midi"], e["spelled"] = midi, spelled
+        before = sounded
+
+
+def mark_at(e, position, staff, marks, heads):
+    """The detected accidental on the notehead that note e stands on, if any."""
+    key, space = (staff["page"], staff["staff"]), staff["space"]
+    here = [x for x, pos, weak in heads.get(key, ()) if pos == position and not weak
+            and abs(x - e["px"] - 0.6 * space) < 2 * space]
+    if not here:
+        return None
+    x = min(here, key=lambda x: abs(x - e["px"] - 0.6 * space))
+    return next((alter for mx, pos, alter, _ in marks.get(key, ()) if pos == position and abs(mx - x) < 1), None)
 
 
 def position_alter(letter, fifths):
@@ -664,8 +688,13 @@ class Part:
         self.heads = omr_heads(omr, pages)
         staves = sorted(data["staves"], key=lambda s: (s["page"], s["staff"]))
         spelled_with(measures, self.heads, staves)
+        marks = {}
+        if pdf:
+            from . import accidentals
+            marks = accidentals.find(omr, pdf, data["staves"])
+            self._drop_read_accidentals(marks, measures, staves)
         movements = [s["movement"] for s in staves]
-        respell(measures, system_keys(omr_keys(omr, pages), movements))
+        respell(measures, system_keys(omr_keys(omr, pages), movements), marks, staves, self.heads)
         for bar in self.placed.values():
             bar["clef"], bar["fifths"] = bar["measure"]["clef"], bar["measure"]["fifths"]
         self.rests = omr_rests(omr, pages)
@@ -680,6 +709,32 @@ class Part:
             self._tune_timpani()
         self.shifts = transpositions(name, self.words)
         self.bars = {}
+
+    def _drop_read_accidentals(self, marks, measures, staves):
+        """Audiveris sometimes reads a sharp as a notehead: drop noteheads
+        (and the notes Audiveris built on them) that sit on an accidental."""
+        for (page, k), found in marks.items():
+            space = next(s["space"] for s in staves if (s["page"], s["staff"]) == (page, k))
+            spans = [(x0 - 0.3 * space, x1 + 0.3 * space, pos) for _, pos, _, (x0, x1) in found]
+            heads = self.heads.get((page, k), [])
+            fake = [h for h in heads if any(a <= h[0] <= b and abs(h[1] - pos) <= 1 for a, b, pos in spans)]
+            if not fake:
+                continue
+            self.heads[(page, k)] = [h for h in heads if h not in fake]
+            for measure in measures:
+                if (staves[measure["system"]]["page"], staves[measure["system"]]["staff"]) != (page, k):
+                    continue
+                kept = []
+                for e in measure["events"]:
+                    if "px" in e and e["midi"]:
+                        nearest = min(heads, key=lambda h: abs(h[0] - e["px"] - 0.6 * space))
+                        if nearest in fake:
+                            continue
+                    kept.append(e)
+                measure["events"][:] = kept
+        for bar in self.placed.values():
+            for v, evs in bar["voices"].items():
+                evs[:] = [e for e in evs if any(e is x for x in bar["measure"]["events"])]
 
     def shift(self, i):
         """Semitones from written to sounding pitch for piece i."""
@@ -1179,16 +1234,34 @@ class Part:
             if last and t["measure"] > last:
                 continue
             starts[i] = t0
-            for v in self.bars[i]["voices"]:
-                s = t0
+            ties = self._tie_flags(i)
+            for n, v in enumerate(self.bars[i]["voices"]):
+                s, k = t0, 0
+                pitched = [m for _, m in v if m]
                 for d, midi in v:
                     if midi:
-                        out.append((s, d, [m + self.shift(i) for m in midi]))
+                        sound = [m + self.shift(i) for m in midi]
+                        held = (n == 0 and len(ties) == len(pitched) and ties[k])
+                        before = next((j for j in range(len(out) - 1, -1, -1)
+                                       if out[j][0] + out[j][1] == s and out[j][2] == sound), None)
+                        if held and before is not None:
+                            out[before] = (out[before][0], out[before][1] + d, sound)  # a tie: hold on
+                        else:
+                            out.append((s, d, sound))
+                        k += 1
                     s += d
             t0 += self.length(i)
             if t.get("fermata"):
                 t0 += 1
         return out, starts
+
+    def _tie_flags(self, i):
+        """For the first voice's notes in bar i, in order: tied to the note
+        before (so held, not played again)."""
+        voices = list(self.placed.get(i, {}).get("voices", {}).values())
+        if not voices:
+            return []
+        return [any(e.get("tied") or [False]) for e in voices[0] if e["midi"] and not e["grace"]]
 
     def summary(self):
         return Counter(b["how"] for b in self.bars.values())

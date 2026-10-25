@@ -3,19 +3,19 @@
   "scores": {
    "before": {
     "bars": 168,
-    "rhythm": 135,
-    "pitch": 156,
-    "right": 133,
+    "rhythm": 136,
+    "pitch": 159,
+    "right": 134,
     "playing": 93,
-    "playing right": 58
+    "playing right": 59
    },
    "after": {
     "bars": 168,
     "rhythm": 146,
-    "pitch": 156,
-    "right": 138,
+    "pitch": 159,
+    "right": 141,
     "playing": 93,
-    "playing right": 63
+    "playing right": 66
    }
   },
   "by_how": {
@@ -28,16 +28,16 @@
     "right": 3
    },
    "adds up": {
-    "bars": 52,
-    "right": 50
+    "bars": 53,
+    "right": 51
    },
    "same as": {
     "bars": 3,
     "right": 2
    },
    "same rhythm as": {
-    "bars": 15,
-    "right": 8
+    "bars": 14,
+    "right": 10
    },
    "unsure": {
     "bars": 1,
@@ -54,7 +54,7 @@
    "before": {
     "bars": 325,
     "rhythm": 276,
-    "pitch": 295,
+    "pitch": 297,
     "right": 276,
     "playing": 132,
     "playing right": 84
@@ -62,10 +62,10 @@
    "after": {
     "bars": 325,
     "rhythm": 288,
-    "pitch": 299,
-    "right": 284,
+    "pitch": 301,
+    "right": 285,
     "playing": 132,
-    "playing right": 92
+    "playing right": 93
    }
   },
   "by_how": {
@@ -95,7 +95,7 @@
    },
    "same rhythm as": {
     "bars": 16,
-    "right": 7
+    "right": 8
    }
   }
  },
@@ -149,19 +149,19 @@
   "scores": {
    "before": {
     "bars": 497,
-    "rhythm": 390,
-    "pitch": 398,
-    "right": 373,
+    "rhythm": 389,
+    "pitch": 399,
+    "right": 374,
     "playing": 242,
-    "playing right": 119
+    "playing right": 120
    },
    "after": {
     "bars": 497,
-    "rhythm": 419,
-    "pitch": 404,
-    "right": 392,
+    "rhythm": 421,
+    "pitch": 409,
+    "right": 397,
     "playing": 242,
-    "playing right": 138
+    "playing right": 143
    }
   },
   "by_how": {
@@ -174,12 +174,12 @@
     "right": 7
    },
    "adds up": {
-    "bars": 135,
-    "right": 110
+    "bars": 133,
+    "right": 111
    },
    "same as": {
     "bars": 28,
-    "right": 10
+    "right": 11
    },
    "unsure": {
     "bars": 3,
@@ -190,8 +190,8 @@
     "right": true
    },
    "same rhythm as": {
-    "bars": 19,
-    "right": 7
+    "bars": 21,
+    "right": 10
    }
   }
  },
@@ -200,15 +200,15 @@
    "before": {
     "bars": 487,
     "rhythm": 427,
-    "pitch": 460,
-    "right": 426,
+    "pitch": 462,
+    "right": 427,
     "playing": 198,
-    "playing right": 137
+    "playing right": 138
    },
    "after": {
     "bars": 487,
-    "rhythm": 455,
-    "pitch": 466,
+    "rhythm": 453,
+    "pitch": 467,
     "right": 452,
     "playing": 198,
     "playing right": 163
@@ -225,14 +225,14 @@
    },
    "adds up": {
     "bars": 134,
-    "right": 131
+    "right": 132
    },
    "same as": {
-    "bars": 19,
-    "right": 17
+    "bars": 18,
+    "right": 16
    },
    "same rhythm as": {
-    "bars": 20,
+    "bars": 21,
     "right": 13
    },
    "unsure": {
@@ -245,37 +245,37 @@
   "scores": {
    "before": {
     "bars": 488,
-    "rhythm": 435,
-    "pitch": 402,
-    "right": 384,
+    "rhythm": 434,
+    "pitch": 405,
+    "right": 387,
     "playing": 250,
-    "playing right": 147
+    "playing right": 150
    },
    "after": {
     "bars": 488,
-    "rhythm": 460,
-    "pitch": 407,
-    "right": 403,
+    "rhythm": 462,
+    "pitch": 411,
+    "right": 408,
     "playing": 250,
-    "playing right": 165
+    "playing right": 170
    }
   },
   "by_how": {
    "rest": {
-    "bars": 241,
+    "bars": 240,
     "right": 237
    },
    "fixed": {
-    "bars": 19,
+    "bars": 18,
     "right": 3
    },
    "adds up": {
-    "bars": 187,
-    "right": 140
+    "bars": 186,
+    "right": 143
    },
    "same as": {
-    "bars": 18,
-    "right": 14
+    "bars": 20,
+    "right": 16
    },
    "unsure": {
     "bars": 7,
@@ -290,8 +290,8 @@
     "right": 3
    },
    "repeated": {
-    "bars": 1,
-    "right": false
+    "bars": 2,
+    "right": 0
    }
   }
  },
@@ -299,7 +299,7 @@
   "scores": {
    "before": {
     "bars": 488,
-    "rhythm": 428,
+    "rhythm": 429,
     "pitch": 393,
     "right": 378,
     "playing": 249,
@@ -308,10 +308,10 @@
    "after": {
     "bars": 488,
     "rhythm": 449,
-    "pitch": 399,
-    "right": 389,
+    "pitch": 398,
+    "right": 388,
     "playing": 249,
-    "playing right": 150
+    "playing right": 149
    }
   },
   "by_how": {
@@ -324,7 +324,7 @@
     "right": 2
    },
    "adds up": {
-    "bars": 182,
+    "bars": 183,
     "right": 133
    },
    "same as": {
@@ -336,8 +336,8 @@
     "right": true
    },
    "same rhythm as": {
-    "bars": 17,
-    "right": 4
+    "bars": 16,
+    "right": 3
    },
    "unsure": {
     "bars": 8,
@@ -349,37 +349,41 @@
   "scores": {
    "before": {
     "bars": 487,
-    "rhythm": 404,
-    "pitch": 429,
-    "right": 400,
+    "rhythm": 405,
+    "pitch": 432,
+    "right": 403,
     "playing": 255,
-    "playing right": 170
+    "playing right": 173
    },
    "after": {
     "bars": 487,
-    "rhythm": 458,
-    "pitch": 459,
-    "right": 445,
+    "rhythm": 460,
+    "pitch": 461,
+    "right": 447,
     "playing": 255,
-    "playing right": 215
+    "playing right": 217
    }
   },
   "by_how": {
    "rest": {
-    "bars": 235,
+    "bars": 234,
     "right": 230
    },
    "adds up": {
-    "bars": 173,
-    "right": 166
+    "bars": 174,
+    "right": 168
    },
    "fixed": {
-    "bars": 21,
+    "bars": 20,
     "right": 5
    },
    "same as": {
     "bars": 36,
     "right": 35
+   },
+   "repeated": {
+    "bars": 1,
+    "right": false
    },
    "same rhythm as": {
     "bars": 20,
@@ -395,19 +399,19 @@
   "scores": {
    "before": {
     "bars": 487,
-    "rhythm": 436,
-    "pitch": 399,
-    "right": 386,
+    "rhythm": 435,
+    "pitch": 400,
+    "right": 387,
     "playing": 261,
-    "playing right": 164
+    "playing right": 165
    },
    "after": {
     "bars": 487,
-    "rhythm": 462,
-    "pitch": 413,
-    "right": 407,
+    "rhythm": 461,
+    "pitch": 414,
+    "right": 408,
     "playing": 261,
-    "playing right": 184
+    "playing right": 185
    }
   },
   "by_how": {
@@ -416,19 +420,19 @@
     "right": 222
    },
    "adds up": {
-    "bars": 195,
-    "right": 154
+    "bars": 194,
+    "right": 155
    },
    "spaced": {
     "bars": 1,
     "right": true
    },
    "fixed": {
-    "bars": 18,
+    "bars": 17,
     "right": 3
    },
    "same as": {
-    "bars": 24,
+    "bars": 26,
     "right": 18
    },
    "unsure": {
@@ -446,18 +450,18 @@
    "before": {
     "bars": 487,
     "rhythm": 443,
-    "pitch": 440,
-    "right": 432,
+    "pitch": 444,
+    "right": 436,
     "playing": 177,
-    "playing right": 144
+    "playing right": 148
    },
    "after": {
     "bars": 487,
     "rhythm": 460,
-    "pitch": 454,
-    "right": 446,
+    "pitch": 459,
+    "right": 451,
     "playing": 177,
-    "playing right": 147
+    "playing right": 152
    }
   },
   "by_how": {
@@ -467,11 +471,11 @@
    },
    "adds up": {
     "bars": 144,
-    "right": 129
+    "right": 132
    },
    "fixed": {
     "bars": 20,
-    "right": 8
+    "right": 9
    },
    "unsure": {
     "bars": 18,
@@ -483,7 +487,7 @@
    },
    "repeated": {
     "bars": 4,
-    "right": 1
+    "right": 2
    },
    "same as": {
     "bars": 6,
@@ -496,18 +500,18 @@
    "before": {
     "bars": 325,
     "rhythm": 292,
-    "pitch": 288,
-    "right": 281,
+    "pitch": 292,
+    "right": 285,
     "playing": 177,
-    "playing right": 133
+    "playing right": 137
    },
    "after": {
     "bars": 325,
     "rhythm": 298,
-    "pitch": 288,
-    "right": 287,
+    "pitch": 291,
+    "right": 290,
     "playing": 177,
-    "playing right": 139
+    "playing right": 142
    }
   },
   "by_how": {
@@ -517,7 +521,7 @@
    },
    "adds up": {
     "bars": 136,
-    "right": 125
+    "right": 127
    },
    "unsure": {
     "bars": 8,
@@ -525,7 +529,7 @@
    },
    "fixed": {
     "bars": 10,
-    "right": 1
+    "right": 2
    },
    "same rhythm as": {
     "bars": 4,
@@ -596,18 +600,18 @@
    "before": {
     "bars": 325,
     "rhythm": 303,
-    "pitch": 287,
-    "right": 285,
+    "pitch": 304,
+    "right": 302,
     "playing": 177,
-    "playing right": 137
+    "playing right": 154
    },
    "after": {
     "bars": 325,
     "rhythm": 318,
-    "pitch": 298,
-    "right": 296,
+    "pitch": 316,
+    "right": 314,
     "playing": 177,
-    "playing right": 148
+    "playing right": 166
    }
   },
   "by_how": {
@@ -617,11 +621,11 @@
    },
    "adds up": {
     "bars": 143,
-    "right": 128
+    "right": 142
    },
    "fixed": {
     "bars": 8,
-    "right": 4
+    "right": 8
    },
    "same rhythm as": {
     "bars": 16,
@@ -642,40 +646,36 @@
    "before": {
     "bars": 325,
     "rhythm": 295,
-    "pitch": 303,
-    "right": 292,
+    "pitch": 305,
+    "right": 294,
     "playing": 128,
-    "playing right": 98
+    "playing right": 100
    },
    "after": {
     "bars": 325,
-    "rhythm": 301,
-    "pitch": 306,
-    "right": 299,
+    "rhythm": 303,
+    "pitch": 309,
+    "right": 302,
     "playing": 128,
-    "playing right": 103
+    "playing right": 105
    }
   },
   "by_how": {
    "rest": {
-    "bars": 199,
+    "bars": 200,
     "right": 194
    },
    "unsure": {
-    "bars": 7,
-    "right": 6
-   },
-   "fixed": {
-    "bars": 10,
-    "right": 1
-   },
-   "repeated": {
-    "bars": 2,
-    "right": 0
+    "bars": 8,
+    "right": 7
    },
    "adds up": {
-    "bars": 94,
-    "right": 91
+    "bars": 95,
+    "right": 93
+   },
+   "fixed": {
+    "bars": 8,
+    "right": 1
    },
    "same as": {
     "bars": 8,
@@ -688,6 +688,10 @@
    "spaced": {
     "bars": 2,
     "right": 0
+   },
+   "repeated": {
+    "bars": 1,
+    "right": false
    }
   }
  },
@@ -695,19 +699,19 @@
   "scores": {
    "before": {
     "bars": 325,
-    "rhythm": 306,
-    "pitch": 306,
-    "right": 302,
+    "rhythm": 307,
+    "pitch": 308,
+    "right": 304,
     "playing": 121,
-    "playing right": 103
+    "playing right": 105
    },
    "after": {
     "bars": 325,
-    "rhythm": 309,
-    "pitch": 311,
-    "right": 306,
+    "rhythm": 310,
+    "pitch": 313,
+    "right": 308,
     "playing": 121,
-    "playing right": 104
+    "playing right": 106
    }
   },
   "by_how": {
@@ -724,11 +728,11 @@
     "right": 5
    },
    "adds up": {
-    "bars": 99,
-    "right": 96
+    "bars": 100,
+    "right": 98
    },
    "fixed": {
-    "bars": 10,
+    "bars": 9,
     "right": 4
    },
    "same rhythm as": {
@@ -746,18 +750,18 @@
    "before": {
     "bars": 325,
     "rhythm": 301,
-    "pitch": 306,
-    "right": 298,
+    "pitch": 307,
+    "right": 299,
     "playing": 115,
-    "playing right": 88
+    "playing right": 89
    },
    "after": {
     "bars": 325,
     "rhythm": 307,
-    "pitch": 306,
-    "right": 304,
+    "pitch": 308,
+    "right": 305,
     "playing": 115,
-    "playing right": 94
+    "playing right": 95
    }
   },
   "by_how": {
@@ -767,10 +771,10 @@
    },
    "adds up": {
     "bars": 89,
-    "right": 84
+    "right": 85
    },
    "fixed": {
-    "bars": 11,
+    "bars": 12,
     "right": 5
    },
    "same rhythm as": {
@@ -784,10 +788,6 @@
    "same as": {
     "bars": 6,
     "right": 4
-   },
-   "spaced": {
-    "bars": 1,
-    "right": false
    }
   }
  },
@@ -845,19 +845,19 @@
   "scores": {
    "before": {
     "bars": 325,
-    "rhythm": 311,
-    "pitch": 296,
-    "right": 295,
+    "rhythm": 312,
+    "pitch": 297,
+    "right": 296,
     "playing": 109,
-    "playing right": 79
+    "playing right": 80
    },
    "after": {
     "bars": 325,
-    "rhythm": 318,
-    "pitch": 302,
-    "right": 301,
+    "rhythm": 319,
+    "pitch": 303,
+    "right": 302,
     "playing": 109,
-    "playing right": 85
+    "playing right": 86
    }
   },
   "by_how": {
@@ -866,12 +866,8 @@
     "right": 216
    },
    "adds up": {
-    "bars": 85,
-    "right": 74
-   },
-   "fixed": {
-    "bars": 2,
-    "right": 0
+    "bars": 86,
+    "right": 75
    },
    "same rhythm as": {
     "bars": 3,
@@ -888,6 +884,10 @@
    "even": {
     "bars": 1,
     "right": false
+   },
+   "fixed": {
+    "bars": 1,
+    "right": false
    }
   }
  },
@@ -895,19 +895,19 @@
   "scores": {
    "before": {
     "bars": 325,
-    "rhythm": 319,
-    "pitch": 321,
-    "right": 318,
+    "rhythm": 320,
+    "pitch": 322,
+    "right": 319,
     "playing": 112,
-    "playing right": 105
+    "playing right": 106
    },
    "after": {
     "bars": 325,
-    "rhythm": 323,
-    "pitch": 322,
-    "right": 322,
+    "rhythm": 324,
+    "pitch": 323,
+    "right": 323,
     "playing": 112,
-    "playing right": 109
+    "playing right": 110
    }
   },
   "by_how": {
@@ -916,16 +916,12 @@
     "right": 213
    },
    "adds up": {
-    "bars": 100,
-    "right": 99
+    "bars": 101,
+    "right": 100
    },
    "unsure": {
     "bars": 6,
     "right": 6
-   },
-   "fixed": {
-    "bars": 1,
-    "right": false
    },
    "same as": {
     "bars": 5,
@@ -1017,36 +1013,36 @@
   "scores": {
    "before": {
     "bars": 487,
-    "rhythm": 262,
-    "pitch": 364,
-    "right": 256,
+    "rhythm": 263,
+    "pitch": 371,
+    "right": 259,
     "playing": 410,
-    "playing right": 179
+    "playing right": 182
    },
    "after": {
     "bars": 487,
-    "rhythm": 408,
-    "pitch": 387,
-    "right": 374,
+    "rhythm": 412,
+    "pitch": 395,
+    "right": 382,
     "playing": 410,
-    "playing right": 297
+    "playing right": 305
    }
   },
   "by_how": {
    "same as": {
-    "bars": 59,
-    "right": 52
+    "bars": 60,
+    "right": 53
    },
    "even": {
     "bars": 3,
     "right": 2
    },
    "same rhythm as": {
-    "bars": 84,
-    "right": 59
+    "bars": 86,
+    "right": 64
    },
    "fixed": {
-    "bars": 67,
+    "bars": 62,
     "right": 12
    },
    "rest": {
@@ -1055,10 +1051,10 @@
    },
    "adds up": {
     "bars": 180,
-    "right": 173
+    "right": 175
    },
    "spaced": {
-    "bars": 6,
+    "bars": 8,
     "right": 0
    },
    "unsure": {
@@ -1071,33 +1067,33 @@
   "scores": {
    "before": {
     "bars": 491,
-    "rhythm": 321,
-    "pitch": 352,
-    "right": 292,
+    "rhythm": 323,
+    "pitch": 355,
+    "right": 293,
     "playing": 400,
-    "playing right": 201
+    "playing right": 202
    },
    "after": {
     "bars": 491,
-    "rhythm": 422,
+    "rhythm": 423,
     "pitch": 401,
-    "right": 382,
+    "right": 383,
     "playing": 400,
-    "playing right": 291
+    "playing right": 292
    }
   },
   "by_how": {
    "adds up": {
-    "bars": 209,
-    "right": 183
+    "bars": 210,
+    "right": 184
    },
    "same as": {
     "bars": 61,
     "right": 57
    },
    "same rhythm as": {
-    "bars": 50,
-    "right": 35
+    "bars": 49,
+    "right": 34
    },
    "rest": {
     "bars": 103,
@@ -1109,7 +1105,7 @@
    },
    "fixed": {
     "bars": 55,
-    "right": 14
+    "right": 15
    },
    "spaced": {
     "bars": 4,
@@ -1121,41 +1117,41 @@
   "scores": {
    "before": {
     "bars": 491,
-    "rhythm": 321,
-    "pitch": 380,
-    "right": 292,
+    "rhythm": 316,
+    "pitch": 378,
+    "right": 296,
     "playing": 426,
-    "playing right": 227
+    "playing right": 231
    },
    "after": {
     "bars": 491,
-    "rhythm": 417,
+    "rhythm": 420,
     "pitch": 401,
-    "right": 375,
+    "right": 385,
     "playing": 426,
-    "playing right": 310
+    "playing right": 320
    }
   },
   "by_how": {
    "same as": {
-    "bars": 60,
+    "bars": 53,
     "right": 49
    },
    "adds up": {
-    "bars": 237,
-    "right": 212
+    "bars": 234,
+    "right": 216
    },
    "even": {
-    "bars": 4,
+    "bars": 5,
     "right": 0
    },
-   "fixed": {
-    "bars": 57,
-    "right": 15
-   },
    "same rhythm as": {
-    "bars": 44,
-    "right": 32
+    "bars": 56,
+    "right": 38
+   },
+   "fixed": {
+    "bars": 56,
+    "right": 15
    },
    "unsure": {
     "bars": 15,
@@ -1170,8 +1166,8 @@
     "right": false
    },
    "spaced": {
-    "bars": 3,
-    "right": 0
+    "bars": 1,
+    "right": false
    }
   }
  },
@@ -1179,48 +1175,48 @@
   "scores": {
    "before": {
     "bars": 491,
-    "rhythm": 192,
-    "pitch": 275,
-    "right": 169,
+    "rhythm": 191,
+    "pitch": 273,
+    "right": 168,
     "playing": 455,
-    "playing right": 133
+    "playing right": 132
    },
    "after": {
     "bars": 491,
-    "rhythm": 370,
-    "pitch": 328,
-    "right": 316,
+    "rhythm": 371,
+    "pitch": 332,
+    "right": 320,
     "playing": 455,
-    "playing right": 280
+    "playing right": 284
    }
   },
   "by_how": {
    "even": {
-    "bars": 8,
+    "bars": 9,
     "right": 6
    },
    "same as": {
-    "bars": 106,
-    "right": 91
+    "bars": 107,
+    "right": 92
    },
    "adds up": {
-    "bars": 160,
-    "right": 121
+    "bars": 158,
+    "right": 120
    },
    "fixed": {
-    "bars": 65,
+    "bars": 63,
     "right": 9
    },
    "same rhythm as": {
-    "bars": 85,
-    "right": 45
+    "bars": 86,
+    "right": 49
    },
    "spaced": {
-    "bars": 6,
+    "bars": 4,
     "right": 0
    },
    "unsure": {
-    "bars": 11,
+    "bars": 14,
     "right": 6
    },
    "rest": {
@@ -1237,36 +1233,36 @@
   "scores": {
    "before": {
     "bars": 491,
-    "rhythm": 323,
-    "pitch": 368,
-    "right": 318,
+    "rhythm": 325,
+    "pitch": 371,
+    "right": 320,
     "playing": 441,
-    "playing right": 268
+    "playing right": 270
    },
    "after": {
     "bars": 491,
-    "rhythm": 386,
-    "pitch": 417,
-    "right": 375,
+    "rhythm": 389,
+    "pitch": 420,
+    "right": 377,
     "playing": 441,
-    "playing right": 325
+    "playing right": 327
    }
   },
   "by_how": {
    "adds up": {
-    "bars": 268,
-    "right": 257
+    "bars": 271,
+    "right": 259
    },
    "repeated": {
-    "bars": 14,
+    "bars": 16,
     "right": 14
    },
    "fixed": {
-    "bars": 60,
+    "bars": 58,
     "right": 9
    },
    "rest": {
-    "bars": 86,
+    "bars": 84,
     "right": 50
    },
    "unsure": {
@@ -1280,10 +1276,6 @@
    "same rhythm as": {
     "bars": 31,
     "right": 28
-   },
-   "tremolo": {
-    "bars": 1,
-    "right": false
    },
    "even": {
     "bars": 4,
