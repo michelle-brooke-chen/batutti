@@ -1,0 +1,1302 @@
+{
+ "karelia_piccolo": {
+  "scores": {
+   "before": {
+    "bars": 168,
+    "rhythm": 135,
+    "pitch": 156,
+    "right": 133,
+    "playing": 93,
+    "playing right": 58
+   },
+   "after": {
+    "bars": 168,
+    "rhythm": 146,
+    "pitch": 156,
+    "right": 138,
+    "playing": 93,
+    "playing right": 63
+   }
+  },
+  "by_how": {
+   "rest": {
+    "bars": 75,
+    "right": 75
+   },
+   "fixed": {
+    "bars": 19,
+    "right": 3
+   },
+   "adds up": {
+    "bars": 52,
+    "right": 50
+   },
+   "same as": {
+    "bars": 3,
+    "right": 2
+   },
+   "same rhythm as": {
+    "bars": 15,
+    "right": 8
+   },
+   "unsure": {
+    "bars": 1,
+    "right": false
+   },
+   "spaced": {
+    "bars": 3,
+    "right": 0
+   }
+  }
+ },
+ "karelia_flute_1": {
+  "scores": {
+   "before": {
+    "bars": 325,
+    "rhythm": 276,
+    "pitch": 295,
+    "right": 276,
+    "playing": 132,
+    "playing right": 84
+   },
+   "after": {
+    "bars": 325,
+    "rhythm": 288,
+    "pitch": 299,
+    "right": 284,
+    "playing": 132,
+    "playing right": 92
+   }
+  },
+  "by_how": {
+   "rest": {
+    "bars": 197,
+    "right": 192
+   },
+   "fixed": {
+    "bars": 20,
+    "right": 2
+   },
+   "adds up": {
+    "bars": 80,
+    "right": 74
+   },
+   "same as": {
+    "bars": 7,
+    "right": 7
+   },
+   "unsure": {
+    "bars": 4,
+    "right": 2
+   },
+   "spaced": {
+    "bars": 1,
+    "right": false
+   },
+   "same rhythm as": {
+    "bars": 16,
+    "right": 7
+   }
+  }
+ },
+ "karelia_flute_2": {
+  "scores": {
+   "before": {
+    "bars": 325,
+    "rhythm": 287,
+    "pitch": 306,
+    "right": 285,
+    "playing": 132,
+    "playing right": 92
+   },
+   "after": {
+    "bars": 325,
+    "rhythm": 302,
+    "pitch": 310,
+    "right": 299,
+    "playing": 132,
+    "playing right": 106
+   }
+  },
+  "by_how": {
+   "rest": {
+    "bars": 197,
+    "right": 193
+   },
+   "fixed": {
+    "bars": 15,
+    "right": 2
+   },
+   "adds up": {
+    "bars": 88,
+    "right": 86
+   },
+   "same as": {
+    "bars": 6,
+    "right": 4
+   },
+   "same rhythm as": {
+    "bars": 16,
+    "right": 13
+   },
+   "unsure": {
+    "bars": 3,
+    "right": 1
+   }
+  }
+ },
+ "karelia_oboe_1": {
+  "scores": {
+   "before": {
+    "bars": 487,
+    "rhythm": 327,
+    "pitch": 330,
+    "right": 308,
+    "playing": 241,
+    "playing right": 84
+   },
+   "after": {
+    "bars": 487,
+    "rhythm": 351,
+    "pitch": 331,
+    "right": 322,
+    "playing": 241,
+    "playing right": 97
+   }
+  },
+  "by_how": {
+   "rest": {
+    "bars": 271,
+    "right": 224
+   },
+   "fixed": {
+    "bars": 32,
+    "right": 6
+   },
+   "adds up": {
+    "bars": 135,
+    "right": 76
+   },
+   "same as": {
+    "bars": 26,
+    "right": 9
+   },
+   "unsure": {
+    "bars": 3,
+    "right": 1
+   },
+   "even": {
+    "bars": 1,
+    "right": false
+   },
+   "same rhythm as": {
+    "bars": 19,
+    "right": 6
+   }
+  }
+ },
+ "karelia_oboe_2": {
+  "scores": {
+   "before": {
+    "bars": 487,
+    "rhythm": 427,
+    "pitch": 460,
+    "right": 426,
+    "playing": 198,
+    "playing right": 137
+   },
+   "after": {
+    "bars": 487,
+    "rhythm": 455,
+    "pitch": 466,
+    "right": 452,
+    "playing": 198,
+    "playing right": 163
+   }
+  },
+  "by_how": {
+   "rest": {
+    "bars": 293,
+    "right": 289
+   },
+   "fixed": {
+    "bars": 18,
+    "right": 1
+   },
+   "adds up": {
+    "bars": 134,
+    "right": 131
+   },
+   "same as": {
+    "bars": 19,
+    "right": 17
+   },
+   "same rhythm as": {
+    "bars": 20,
+    "right": 13
+   },
+   "unsure": {
+    "bars": 3,
+    "right": 1
+   }
+  }
+ },
+ "karelia_clarinet_1": {
+  "scores": {
+   "before": {
+    "bars": 488,
+    "rhythm": 435,
+    "pitch": 402,
+    "right": 384,
+    "playing": 250,
+    "playing right": 147
+   },
+   "after": {
+    "bars": 488,
+    "rhythm": 460,
+    "pitch": 407,
+    "right": 403,
+    "playing": 250,
+    "playing right": 165
+   }
+  },
+  "by_how": {
+   "rest": {
+    "bars": 241,
+    "right": 237
+   },
+   "fixed": {
+    "bars": 19,
+    "right": 3
+   },
+   "adds up": {
+    "bars": 187,
+    "right": 140
+   },
+   "same as": {
+    "bars": 18,
+    "right": 14
+   },
+   "unsure": {
+    "bars": 7,
+    "right": 6
+   },
+   "spaced": {
+    "bars": 1,
+    "right": false
+   },
+   "same rhythm as": {
+    "bars": 14,
+    "right": 3
+   },
+   "repeated": {
+    "bars": 1,
+    "right": false
+   }
+  }
+ },
+ "karelia_clarinet_2": {
+  "scores": {
+   "before": {
+    "bars": 488,
+    "rhythm": 426,
+    "pitch": 391,
+    "right": 376,
+    "playing": 249,
+    "playing right": 139
+   },
+   "after": {
+    "bars": 488,
+    "rhythm": 449,
+    "pitch": 399,
+    "right": 389,
+    "playing": 249,
+    "playing right": 150
+   }
+  },
+  "by_how": {
+   "rest": {
+    "bars": 242,
+    "right": 237
+   },
+   "fixed": {
+    "bars": 21,
+    "right": 3
+   },
+   "adds up": {
+    "bars": 182,
+    "right": 133
+   },
+   "same as": {
+    "bars": 16,
+    "right": 8
+   },
+   "repeated": {
+    "bars": 1,
+    "right": true
+   },
+   "unsure": {
+    "bars": 9,
+    "right": 3
+   },
+   "same rhythm as": {
+    "bars": 17,
+    "right": 4
+   }
+  }
+ },
+ "karelia_bassoon_1": {
+  "scores": {
+   "before": {
+    "bars": 487,
+    "rhythm": 403,
+    "pitch": 428,
+    "right": 399,
+    "playing": 255,
+    "playing right": 170
+   },
+   "after": {
+    "bars": 487,
+    "rhythm": 458,
+    "pitch": 459,
+    "right": 445,
+    "playing": 255,
+    "playing right": 215
+   }
+  },
+  "by_how": {
+   "rest": {
+    "bars": 234,
+    "right": 229
+   },
+   "adds up": {
+    "bars": 173,
+    "right": 166
+   },
+   "fixed": {
+    "bars": 21,
+    "right": 5
+   },
+   "same as": {
+    "bars": 36,
+    "right": 35
+   },
+   "unsure": {
+    "bars": 3,
+    "right": 2
+   },
+   "same rhythm as": {
+    "bars": 20,
+    "right": 8
+   }
+  }
+ },
+ "karelia_bassoon_2": {
+  "scores": {
+   "before": {
+    "bars": 487,
+    "rhythm": 432,
+    "pitch": 395,
+    "right": 382,
+    "playing": 261,
+    "playing right": 164
+   },
+   "after": {
+    "bars": 487,
+    "rhythm": 459,
+    "pitch": 410,
+    "right": 404,
+    "playing": 261,
+    "playing right": 184
+   }
+  },
+  "by_how": {
+   "rest": {
+    "bars": 223,
+    "right": 218
+   },
+   "adds up": {
+    "bars": 197,
+    "right": 154
+   },
+   "spaced": {
+    "bars": 1,
+    "right": true
+   },
+   "fixed": {
+    "bars": 20,
+    "right": 4
+   },
+   "same as": {
+    "bars": 24,
+    "right": 18
+   },
+   "unsure": {
+    "bars": 17,
+    "right": 8
+   },
+   "same rhythm as": {
+    "bars": 5,
+    "right": 1
+   }
+  }
+ },
+ "karelia_horn_1": {
+  "scores": {
+   "before": {
+    "bars": 487,
+    "rhythm": 437,
+    "pitch": 434,
+    "right": 426,
+    "playing": 177,
+    "playing right": 144
+   },
+   "after": {
+    "bars": 487,
+    "rhythm": 458,
+    "pitch": 452,
+    "right": 444,
+    "playing": 177,
+    "playing right": 147
+   }
+  },
+  "by_how": {
+   "rest": {
+    "bars": 285,
+    "right": 282
+   },
+   "adds up": {
+    "bars": 144,
+    "right": 129
+   },
+   "fixed": {
+    "bars": 23,
+    "right": 9
+   },
+   "unsure": {
+    "bars": 21,
+    "right": 20
+   },
+   "same rhythm as": {
+    "bars": 4,
+    "right": 2
+   },
+   "repeated": {
+    "bars": 4,
+    "right": 1
+   },
+   "same as": {
+    "bars": 6,
+    "right": 1
+   }
+  }
+ },
+ "karelia_horn_2": {
+  "scores": {
+   "before": {
+    "bars": 325,
+    "rhythm": 294,
+    "pitch": 290,
+    "right": 283,
+    "playing": 177,
+    "playing right": 135
+   },
+   "after": {
+    "bars": 325,
+    "rhythm": 299,
+    "pitch": 289,
+    "right": 288,
+    "playing": 177,
+    "playing right": 140
+   }
+  },
+  "by_how": {
+   "rest": {
+    "bars": 151,
+    "right": 148
+   },
+   "adds up": {
+    "bars": 137,
+    "right": 126
+   },
+   "unsure": {
+    "bars": 8,
+    "right": 3
+   },
+   "fixed": {
+    "bars": 11,
+    "right": 1
+   },
+   "same rhythm as": {
+    "bars": 4,
+    "right": 3
+   },
+   "same as": {
+    "bars": 13,
+    "right": 6
+   },
+   "repeated": {
+    "bars": 1,
+    "right": true
+   }
+  }
+ },
+ "karelia_horn_3": {
+  "scores": {
+   "before": {
+    "bars": 325,
+    "rhythm": 303,
+    "pitch": 296,
+    "right": 292,
+    "playing": 177,
+    "playing right": 145
+   },
+   "after": {
+    "bars": 325,
+    "rhythm": 315,
+    "pitch": 304,
+    "right": 302,
+    "playing": 177,
+    "playing right": 155
+   }
+  },
+  "by_how": {
+   "rest": {
+    "bars": 150,
+    "right": 147
+   },
+   "adds up": {
+    "bars": 146,
+    "right": 138
+   },
+   "repeated": {
+    "bars": 3,
+    "right": 2
+   },
+   "fixed": {
+    "bars": 11,
+    "right": 7
+   },
+   "unsure": {
+    "bars": 6,
+    "right": 2
+   },
+   "same rhythm as": {
+    "bars": 5,
+    "right": 2
+   },
+   "same as": {
+    "bars": 4,
+    "right": 4
+   }
+  }
+ },
+ "karelia_horn_4": {
+  "scores": {
+   "before": {
+    "bars": 325,
+    "rhythm": 303,
+    "pitch": 287,
+    "right": 285,
+    "playing": 177,
+    "playing right": 137
+   },
+   "after": {
+    "bars": 325,
+    "rhythm": 318,
+    "pitch": 298,
+    "right": 296,
+    "playing": 177,
+    "playing right": 148
+   }
+  },
+  "by_how": {
+   "rest": {
+    "bars": 150,
+    "right": 148
+   },
+   "adds up": {
+    "bars": 143,
+    "right": 128
+   },
+   "fixed": {
+    "bars": 8,
+    "right": 4
+   },
+   "same rhythm as": {
+    "bars": 16,
+    "right": 9
+   },
+   "unsure": {
+    "bars": 5,
+    "right": 5
+   },
+   "same as": {
+    "bars": 3,
+    "right": 2
+   }
+  }
+ },
+ "karelia_trumpet_1": {
+  "scores": {
+   "before": {
+    "bars": 325,
+    "rhythm": 294,
+    "pitch": 302,
+    "right": 291,
+    "playing": 128,
+    "playing right": 98
+   },
+   "after": {
+    "bars": 325,
+    "rhythm": 301,
+    "pitch": 306,
+    "right": 299,
+    "playing": 128,
+    "playing right": 103
+   }
+  },
+  "by_how": {
+   "rest": {
+    "bars": 198,
+    "right": 193
+   },
+   "unsure": {
+    "bars": 8,
+    "right": 7
+   },
+   "fixed": {
+    "bars": 10,
+    "right": 1
+   },
+   "repeated": {
+    "bars": 2,
+    "right": 0
+   },
+   "adds up": {
+    "bars": 94,
+    "right": 91
+   },
+   "same as": {
+    "bars": 8,
+    "right": 6
+   },
+   "same rhythm as": {
+    "bars": 3,
+    "right": 1
+   },
+   "spaced": {
+    "bars": 2,
+    "right": 0
+   }
+  }
+ },
+ "karelia_trumpet_2": {
+  "scores": {
+   "before": {
+    "bars": 325,
+    "rhythm": 306,
+    "pitch": 306,
+    "right": 302,
+    "playing": 121,
+    "playing right": 103
+   },
+   "after": {
+    "bars": 325,
+    "rhythm": 309,
+    "pitch": 311,
+    "right": 306,
+    "playing": 121,
+    "playing right": 104
+   }
+  },
+  "by_how": {
+   "rest": {
+    "bars": 202,
+    "right": 199
+   },
+   "spaced": {
+    "bars": 3,
+    "right": 0
+   },
+   "same as": {
+    "bars": 9,
+    "right": 5
+   },
+   "adds up": {
+    "bars": 99,
+    "right": 96
+   },
+   "fixed": {
+    "bars": 10,
+    "right": 4
+   },
+   "same rhythm as": {
+    "bars": 1,
+    "right": true
+   },
+   "unsure": {
+    "bars": 1,
+    "right": true
+   }
+  }
+ },
+ "karelia_trumpet_3": {
+  "scores": {
+   "before": {
+    "bars": 325,
+    "rhythm": 301,
+    "pitch": 306,
+    "right": 298,
+    "playing": 115,
+    "playing right": 88
+   },
+   "after": {
+    "bars": 325,
+    "rhythm": 307,
+    "pitch": 306,
+    "right": 304,
+    "playing": 115,
+    "playing right": 94
+   }
+  },
+  "by_how": {
+   "rest": {
+    "bars": 215,
+    "right": 210
+   },
+   "adds up": {
+    "bars": 89,
+    "right": 84
+   },
+   "fixed": {
+    "bars": 11,
+    "right": 5
+   },
+   "same rhythm as": {
+    "bars": 1,
+    "right": false
+   },
+   "unsure": {
+    "bars": 2,
+    "right": 1
+   },
+   "same as": {
+    "bars": 6,
+    "right": 4
+   },
+   "spaced": {
+    "bars": 1,
+    "right": false
+   }
+  }
+ },
+ "karelia_trombone_1": {
+  "scores": {
+   "before": {
+    "bars": 325,
+    "rhythm": 311,
+    "pitch": 294,
+    "right": 293,
+    "playing": 117,
+    "playing right": 87
+   },
+   "after": {
+    "bars": 325,
+    "rhythm": 317,
+    "pitch": 297,
+    "right": 296,
+    "playing": 117,
+    "playing right": 90
+   }
+  },
+  "by_how": {
+   "rest": {
+    "bars": 207,
+    "right": 206
+   },
+   "adds up": {
+    "bars": 100,
+    "right": 82
+   },
+   "fixed": {
+    "bars": 6,
+    "right": 0
+   },
+   "same as": {
+    "bars": 3,
+    "right": 2
+   },
+   "unsure": {
+    "bars": 7,
+    "right": 5
+   },
+   "repeated": {
+    "bars": 1,
+    "right": true
+   },
+   "same rhythm as": {
+    "bars": 1,
+    "right": false
+   }
+  }
+ },
+ "karelia_trombone_2": {
+  "scores": {
+   "before": {
+    "bars": 325,
+    "rhythm": 309,
+    "pitch": 294,
+    "right": 293,
+    "playing": 109,
+    "playing right": 80
+   },
+   "after": {
+    "bars": 325,
+    "rhythm": 319,
+    "pitch": 303,
+    "right": 302,
+    "playing": 109,
+    "playing right": 86
+   }
+  },
+  "by_how": {
+   "rest": {
+    "bars": 213,
+    "right": 213
+   },
+   "adds up": {
+    "bars": 86,
+    "right": 75
+   },
+   "fixed": {
+    "bars": 4,
+    "right": 2
+   },
+   "same rhythm as": {
+    "bars": 3,
+    "right": 1
+   },
+   "same as": {
+    "bars": 8,
+    "right": 5
+   },
+   "spaced": {
+    "bars": 1,
+    "right": true
+   },
+   "unsure": {
+    "bars": 9,
+    "right": 5
+   },
+   "even": {
+    "bars": 1,
+    "right": false
+   }
+  }
+ },
+ "karelia_trombone_3": {
+  "scores": {
+   "before": {
+    "bars": 325,
+    "rhythm": 319,
+    "pitch": 321,
+    "right": 318,
+    "playing": 112,
+    "playing right": 105
+   },
+   "after": {
+    "bars": 325,
+    "rhythm": 323,
+    "pitch": 322,
+    "right": 322,
+    "playing": 112,
+    "playing right": 109
+   }
+  },
+  "by_how": {
+   "rest": {
+    "bars": 213,
+    "right": 213
+   },
+   "adds up": {
+    "bars": 100,
+    "right": 99
+   },
+   "unsure": {
+    "bars": 6,
+    "right": 6
+   },
+   "fixed": {
+    "bars": 1,
+    "right": false
+   },
+   "same as": {
+    "bars": 5,
+    "right": 4
+   }
+  }
+ },
+ "karelia_tuba": {
+  "scores": {
+   "before": {
+    "bars": 325,
+    "rhythm": 317,
+    "pitch": 318,
+    "right": 317,
+    "playing": 113,
+    "playing right": 107
+   },
+   "after": {
+    "bars": 325,
+    "rhythm": 318,
+    "pitch": 318,
+    "right": 318,
+    "playing": 113,
+    "playing right": 107
+   }
+  },
+  "by_how": {
+   "rest": {
+    "bars": 212,
+    "right": 210
+   },
+   "fixed": {
+    "bars": 7,
+    "right": 3
+   },
+   "adds up": {
+    "bars": 105,
+    "right": 104
+   },
+   "same rhythm as": {
+    "bars": 1,
+    "right": true
+   }
+  }
+ },
+ "karelia_timpani": {
+  "scores": {
+   "before": {
+    "bars": 325,
+    "rhythm": 309,
+    "pitch": 311,
+    "right": 309,
+    "playing": 230,
+    "playing right": 215
+   },
+   "after": {
+    "bars": 325,
+    "rhythm": 308,
+    "pitch": 310,
+    "right": 308,
+    "playing": 230,
+    "playing right": 214
+   }
+  },
+  "by_how": {
+   "adds up": {
+    "bars": 207,
+    "right": 206
+   },
+   "fixed": {
+    "bars": 11,
+    "right": 4
+   },
+   "rest": {
+    "bars": 95,
+    "right": 94
+   },
+   "same as": {
+    "bars": 10,
+    "right": 3
+   },
+   "unsure": {
+    "bars": 1,
+    "right": true
+   },
+   "spaced": {
+    "bars": 1,
+    "right": false
+   }
+  }
+ },
+ "karelia_vln1": {
+  "scores": {
+   "before": {
+    "bars": 487,
+    "rhythm": 262,
+    "pitch": 364,
+    "right": 256,
+    "playing": 410,
+    "playing right": 179
+   },
+   "after": {
+    "bars": 487,
+    "rhythm": 408,
+    "pitch": 387,
+    "right": 374,
+    "playing": 410,
+    "playing right": 297
+   }
+  },
+  "by_how": {
+   "same as": {
+    "bars": 59,
+    "right": 52
+   },
+   "even": {
+    "bars": 3,
+    "right": 2
+   },
+   "same rhythm as": {
+    "bars": 84,
+    "right": 59
+   },
+   "fixed": {
+    "bars": 67,
+    "right": 12
+   },
+   "rest": {
+    "bars": 85,
+    "right": 76
+   },
+   "adds up": {
+    "bars": 180,
+    "right": 173
+   },
+   "spaced": {
+    "bars": 6,
+    "right": 0
+   },
+   "unsure": {
+    "bars": 3,
+    "right": 0
+   }
+  }
+ },
+ "karelia_vln2": {
+  "scores": {
+   "before": {
+    "bars": 491,
+    "rhythm": 321,
+    "pitch": 352,
+    "right": 292,
+    "playing": 400,
+    "playing right": 201
+   },
+   "after": {
+    "bars": 491,
+    "rhythm": 422,
+    "pitch": 401,
+    "right": 382,
+    "playing": 400,
+    "playing right": 291
+   }
+  },
+  "by_how": {
+   "adds up": {
+    "bars": 209,
+    "right": 183
+   },
+   "same as": {
+    "bars": 61,
+    "right": 57
+   },
+   "same rhythm as": {
+    "bars": 50,
+    "right": 35
+   },
+   "rest": {
+    "bars": 103,
+    "right": 91
+   },
+   "unsure": {
+    "bars": 9,
+    "right": 2
+   },
+   "fixed": {
+    "bars": 55,
+    "right": 14
+   },
+   "spaced": {
+    "bars": 4,
+    "right": 0
+   }
+  }
+ },
+ "karelia_vla": {
+  "scores": {
+   "before": {
+    "bars": 491,
+    "rhythm": 321,
+    "pitch": 375,
+    "right": 287,
+    "playing": 426,
+    "playing right": 222
+   },
+   "after": {
+    "bars": 491,
+    "rhythm": 417,
+    "pitch": 396,
+    "right": 370,
+    "playing": 426,
+    "playing right": 305
+   }
+  },
+  "by_how": {
+   "same as": {
+    "bars": 60,
+    "right": 49
+   },
+   "adds up": {
+    "bars": 237,
+    "right": 207
+   },
+   "even": {
+    "bars": 4,
+    "right": 0
+   },
+   "fixed": {
+    "bars": 57,
+    "right": 15
+   },
+   "same rhythm as": {
+    "bars": 44,
+    "right": 32
+   },
+   "unsure": {
+    "bars": 15,
+    "right": 2
+   },
+   "rest": {
+    "bars": 70,
+    "right": 65
+   },
+   "repeated": {
+    "bars": 1,
+    "right": false
+   },
+   "spaced": {
+    "bars": 3,
+    "right": 0
+   }
+  }
+ },
+ "karelia_vc": {
+  "scores": {
+   "before": {
+    "bars": 491,
+    "rhythm": 192,
+    "pitch": 275,
+    "right": 169,
+    "playing": 455,
+    "playing right": 133
+   },
+   "after": {
+    "bars": 491,
+    "rhythm": 370,
+    "pitch": 328,
+    "right": 316,
+    "playing": 455,
+    "playing right": 280
+   }
+  },
+  "by_how": {
+   "even": {
+    "bars": 8,
+    "right": 6
+   },
+   "same as": {
+    "bars": 106,
+    "right": 91
+   },
+   "adds up": {
+    "bars": 160,
+    "right": 121
+   },
+   "fixed": {
+    "bars": 65,
+    "right": 9
+   },
+   "same rhythm as": {
+    "bars": 85,
+    "right": 45
+   },
+   "spaced": {
+    "bars": 6,
+    "right": 0
+   },
+   "unsure": {
+    "bars": 11,
+    "right": 6
+   },
+   "rest": {
+    "bars": 48,
+    "right": 36
+   },
+   "repeated": {
+    "bars": 2,
+    "right": 2
+   }
+  }
+ },
+ "karelia_cb": {
+  "scores": {
+   "before": {
+    "bars": 491,
+    "rhythm": 323,
+    "pitch": 368,
+    "right": 318,
+    "playing": 441,
+    "playing right": 268
+   },
+   "after": {
+    "bars": 491,
+    "rhythm": 363,
+    "pitch": 394,
+    "right": 352,
+    "playing": 441,
+    "playing right": 302
+   }
+  },
+  "by_how": {
+   "adds up": {
+    "bars": 270,
+    "right": 257
+   },
+   "repeated": {
+    "bars": 14,
+    "right": 14
+   },
+   "fixed": {
+    "bars": 61,
+    "right": 9
+   },
+   "rest": {
+    "bars": 86,
+    "right": 50
+   },
+   "unsure": {
+    "bars": 7,
+    "right": 2
+   },
+   "same as": {
+    "bars": 40,
+    "right": 14
+   },
+   "same rhythm as": {
+    "bars": 8,
+    "right": 5
+   },
+   "even": {
+    "bars": 4,
+    "right": 0
+   },
+   "spaced": {
+    "bars": 1,
+    "right": true
+   }
+  }
+ }
+}

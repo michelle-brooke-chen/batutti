@@ -29,3 +29,9 @@ evaluation/drafts/
 .DS_Store
 incoming/
 evaluation/heldout/*/
+
+# reference score used to check playback (a third-party transcription)
+evaluation/reference/
+# Audiveris logs from exporting MusicXML
+evaluation/parts/*/export.log
+evaluation/parts/*/part-*.log
