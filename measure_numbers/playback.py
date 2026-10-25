@@ -143,6 +143,59 @@ def read_part(part):
     return out
 
 
+SMALL_HEAD = 0.78  # cue notes print at about 70% size; real notes rarely read below 0.9
+
+
+def ink_width(ink, x, y):
+    """Width of the run of ink through (x, y), allowing a pixel or two of slack."""
+    row = ink[y]
+    for dx in (0, -1, 1, -2, 2):
+        if 0 <= x + dx < len(row) and row[x + dx]:
+            x += dx
+            break
+    else:
+        return 0
+    a = b = x
+    while a > 0 and row[a - 1]:
+        a -= 1
+    while b < len(row) - 1 and row[b + 1]:
+        b += 1
+    return b - a + 1
+
+
+def head_widths(omr, pdf, staves):
+    """{(page, staff): [(x, width in staff spaces)]} of every filled notehead,
+    measured on the page just above and below its centre (so a staff line
+    through it doesn't count). Audiveris's own bounds are template-sized."""
+    import numpy as np
+    import pymupdf
+    from .cues import page_image
+
+    space = {(s["page"], s["staff"]): s["space"] for s in staves}
+    doc, cache, out = pymupdf.open(pdf), {}, {}
+    with zipfile.ZipFile(omr) as z:
+        for page in sorted({s["page"] for s in staves}):
+            xml = z.read(f"sheet#{page}/sheet#{page}.xml").decode()
+            ink = None
+            for k, system in enumerate(xml.split("<system ")[1:], start=1):
+                # two staves braced (a duet or divisi) print smaller and
+                # don't carry cues: leave them out
+                if (page, k) not in space or len(re.findall(r"<staff [^>]*id=", system)) > 1:
+                    continue
+                s = space[(page, k)]
+                for attrs, x, y, w, h in re.findall(
+                        r'<head ([^>]*)>\s*<bounds x="([\d.]+)" y="([\d.]+)" w="([\d.]+)" h="([\d.]+)"', system):
+                    if "NOTEHEAD_BLACK" not in attrs:
+                        continue
+                    if ink is None:
+                        ink = (page_image(doc, page, cache) < 140).astype(np.uint8)
+                    cx, cy = int(float(x) + float(w) / 2), float(y) + float(h) / 2
+                    width = min(ink_width(ink, cx, int(cy + d * s)) for d in (-0.22, 0.22)) / s
+                    if width > 0:
+                        out.setdefault((page, k), []).append((cx, width))
+    return out
+
+
 def omr_rests(omr, pages):
     """{(page, staff): [x]} of every rest symbol Audiveris found."""
     out = {}
@@ -245,7 +298,8 @@ CLEF_KINDS = {"TREBLE": ("G", 2), "BASS": ("F", 4), "ALTO": ("C", 3), "TENOR": (
 
 
 def omr_clefs(omr, pages):
-    """[(kind, grade)] of each clef Audiveris found, per system, left to right."""
+    """[(kind, grade, octave)] of each clef Audiveris found, per system, left
+    to right (octave -1 for a clef with an 8 below, +1 with an 8 above)."""
     out = []
     with zipfile.ZipFile(omr) as z:
         for page in pages:
@@ -256,7 +310,9 @@ def omr_clefs(omr, pages):
                     a = dict(re.findall(r'([\w-]+)="([^"]*)"', attrs))
                     grade = a.get("ctx-grade", a.get("grade"))
                     if grade is not None:
-                        found.append((a.get("kind"), float(grade)))
+                        shape = a.get("shape", "")
+                        octave = -1 if "8VB" in shape else 1 if "8VA" in shape else 0
+                        found.append((a.get("kind"), float(grade), octave))
                 out.append(found)
     return out
 
@@ -265,31 +321,60 @@ def correct_clefs(measures, found):
     """Each measure's clef as Audiveris read its notes ("clef") and as
     printed ("true_clef").
 
-    Audiveris reads a line where it found no clef as treble, though its
-    MusicXML carries the clef before. A weakly read clef keeps the clef
+    Audiveris spells a line's notes with the clef it recognised there (treble
+    where it found none), though its MusicXML sometimes carries on the clef
+    of the line before. A weakly read clef keeps the clef
     before (or, at the start, the part's usual clef); a clef change inside a
     line counts only if read strongly; octave clefs are read as plain."""
-    strong = [CLEF_KINDS[k] for row in found for k, g in row if g >= 0.5 and k in CLEF_KINDS]
+    strong = [CLEF_KINDS[k] for row in found for k, g, _ in row if g >= 0.5 and k in CLEF_KINDS]
     usual = Counter(strong).most_common(1)[0][0] if strong else ("G", 2)
     current, line_of, read = None, None, None
     for measure in measures:
         row = found[measure["system"]]
         if measure["system"] != line_of:
             line_of = measure["system"]
-            read = None if row else ("G", 2, 0)
-            kind, grade = row[0] if row else (None, 0.0)
+            kind, grade, octave = row[0] if row else (None, 0.0, 0)
+            read = (*CLEF_KINDS[kind], octave) if kind in CLEF_KINDS else ("G", 2, 0)
             if grade >= 0.5 and kind in CLEF_KINDS:
                 current = CLEF_KINDS[kind]
             elif current is None:
                 current = usual
         elif measure["clef_here"]:
             read = None
-            later = [CLEF_KINDS[k] for k, g in row[1:] if g >= 0.5 and k in CLEF_KINDS]
+            later = [CLEF_KINDS[k] for k, g, _ in row[1:] if g >= 0.5 and k in CLEF_KINDS]
             if later:
                 current = later[0]
         if read is not None:
             measure["clef"] = read
         measure["true_clef"] = current
+
+
+def spelled_with(measures, heads, staves):
+    """Find the clef Audiveris actually spelled each line's notes with: the
+    note on the middle line, from notes matched to their noteheads (whose
+    place on the staff it records). Its MusicXML clef is sometimes not the
+    one it used. Sets measure["read_middle"] where the notes agree."""
+    by_line = {}
+    for measure in measures:
+        staff = staves[measure["system"]]
+        here = heads.get((staff["page"], staff["staff"]), ())
+        space = staff["space"]
+        for e in measure["events"]:
+            if not e["spelled"] or "px" not in e:
+                continue
+            if len(e["spelled"]) != 1:
+                continue
+            # every notehead nearby votes; only the right clef agrees across notes
+            step, octave, _ = e["spelled"][0]
+            votes = by_line.setdefault(measure["system"], Counter())
+            for pos in {pos for x, pos, weak in here if not weak and abs(x - e["px"]) < 1.6 * space}:
+                votes[7 * octave + "CDEFGAB".index(step) + pos] += 1
+    for measure in measures:
+        votes = by_line.get(measure["system"])
+        if votes and not measure["clef_here"]:
+            (middle, n), *rest = votes.most_common(2) + [(None, 0)]
+            if n >= 3 and n >= 2 * rest[0][1]:
+                measure["read_middle"] = middle
 
 
 def middle_line(clef):
@@ -312,7 +397,8 @@ def respell(measures, keys):
         elif measure["key"] is not None:
             key = measure["key"]  # a key change inside the line
         measure["fifths"] = key
-        read, true = middle_line(measure["clef"]), middle_line(measure["true_clef"])
+        read = measure.get("read_middle") or middle_line(measure["clef"])
+        true = middle_line(measure["true_clef"])
         measure["clef"] = measure["true_clef"]
         held = {}
         for e in sorted(measure["events"], key=lambda e: e["x"] or 0):
@@ -335,6 +421,67 @@ def position_alter(letter, fifths):
     if fifths > 0:
         return 1 if letter in SHARPS[:fifths] else 0
     return -1 if letter in SHARPS[::-1][:-fifths] else 0
+
+
+# semitones from written to sounding pitch, by instrument and the key it is
+# "in" (German B = B flat, Es = E flat, H = B natural): an instrument in F
+# sounds a written C as F
+TRANSPOSE = {
+    "clarinet": {"C": 0, "Bb": -2, "A": -3, "Eb": 3, "D": 2},
+    "horn": {"F": -7, "E": -8, "Eb": -9, "D": -10, "C": -12, "Bb": -14, "B": -13,
+             "G": -5, "Ab": -4, "A": -3},
+    "trumpet": {"F": 5, "E": 4, "Eb": 3, "D": 2, "C": 0, "Bb": -2, "A": -3},
+}
+FAMILY = [  # (family, pattern in a part's name or title), first match wins
+    ("oboe", r"oboe|hautbois"),
+    ("cor anglais", r"ingl|anglais|english horn"),
+    ("clarinet", r"clar|klar"),
+    ("horn", r"\bcorn[oi]\b|\bhorn|\bcor\b"),
+    ("trumpet", r"tromba|trumpet|trompet"),
+    ("piccolo", r"picc"),
+    ("octave down", r"contrab|kontrab|double bass|(\b|_)cb\b|contrafag|contrebass"),
+]
+FIXED = {"cor anglais": -7, "piccolo": 12, "octave down": -12}
+KEY_IN = re.compile(r"\bin\s+([A-H])(b|♭|es|s)?\b\.?", re.I)
+
+
+def family_of(text):
+    for family, pattern in FAMILY:
+        if re.search(pattern, text, re.I):
+            return family
+    return None
+
+
+def transpositions(name, words):
+    """[((movement, measure), semitones)] in order: where the part starts
+    sounding at a new pitch from what is written. From the part's name and
+    title, and printed keys ("in Bb", "in A.", "muta in E.", "Cor. ingl.")."""
+    early = " ".join(text for mv, measure, text in words if mv == 1 and measure <= 2)
+    family = family_of(name) or family_of(early)
+    if family is None:
+        return []
+    out = [((1, 1), FIXED.get(family, 0))]
+    for mv, measure, text in sorted(words):
+        if family == "oboe":
+            # an oboist switching to cor anglais ("muta in Cor. ingl.") and
+            # back; the title ("Oboe I & Cor Anglais") is no switch
+            if (mv, measure) <= (1, 2):
+                continue
+            if re.search(r"ingl|anglais", text, re.I) and not re.search(r"oboe", text, re.I):
+                out.append(((mv, measure), FIXED["cor anglais"]))
+            elif re.search(r"muta in ob", text, re.I):
+                out.append(((mv, measure), 0))
+            continue
+        m = KEY_IN.search(text)
+        if not m or family not in TRANSPOSE or family_of(text) not in (None, family):
+            continue
+        letter, acc = m.group(1).upper(), (m.group(2) or "").lower()
+        key = {"H": "B"}.get(letter, letter)
+        if acc in ("b", "♭", "es", "s") or (letter == "B" and not acc):
+            key += "b"  # German B (and "in B" for a wind part) is B flat
+        if key in TRANSPOSE[family]:
+            out.append(((mv, measure), TRANSPOSE[family][key]))
+    return out
 
 
 NOTE_NAME = re.compile(r"([A-H])(b|♭|#|is|es|s)?(?![a-z])")
@@ -507,34 +654,49 @@ def regular(durs, length):
 class Part:
     """One part's bars, rebuilt for playback."""
 
-    def __init__(self, data, omr, mxls, pdf=None):
+    def __init__(self, data, omr, mxls, pdf=None, name=""):
         self.data = data
         pages = sorted({s["page"] for s in data["staves"]})
         self.systems = read_systems(mxls)
         self.placed = place_events(data, self.systems, omr_stacks(omr, pages))
         measures = [m for system in self.systems for m in system["measures"]]
         correct_clefs(measures, omr_clefs(omr, pages))
-        movements = [s["movement"] for s in sorted(data["staves"], key=lambda s: (s["page"], s["staff"]))]
+        self.heads = omr_heads(omr, pages)
+        staves = sorted(data["staves"], key=lambda s: (s["page"], s["staff"]))
+        spelled_with(measures, self.heads, staves)
+        movements = [s["movement"] for s in staves]
         respell(measures, system_keys(omr_keys(omr, pages), movements))
         for bar in self.placed.values():
             bar["clef"], bar["fifths"] = bar["measure"]["clef"], bar["measure"]["fifths"]
-        self.heads = omr_heads(omr, pages)
         self.rests = omr_rests(omr, pages)
         self.space = {(s["page"], s["staff"]): s["space"] for s in data["staves"]}
         self._drop_weak_pitches()
         self.meter = self._meters()
-        self.cues = self._cue_bars(pdf) if pdf else set()
+        self.cues = (self._cue_bars(pdf) | self._small_note_bars(omr, pdf)) if pdf else set()
+        self.words = []
         if pdf:
-            self._tune_timpani(pdf)
+            from .navigator import printed_words
+            self.words = printed_words(data, pdf)
+            self._tune_timpani()
+        self.shifts = transpositions(name, self.words)
         self.bars = {}
 
-    def _tune_timpani(self, pdf):
+    def shift(self, i):
+        """Semitones from written to sounding pitch for piece i."""
+        t = self.data["timeline"][i]
+        numbers = {m["title"]: m.get("number", k + 1) for k, m in enumerate(self.data["movements"])}
+        here, out = (numbers[t["movement"]], t["measure"]), 0
+        for at, semitones in self.shifts:
+            if at > here:
+                break
+            out = semitones
+        return out
+
+    def _tune_timpani(self):
         """Old timpani parts write plain letters and print the tuning above
         the staff ("in Eb. Bb.", "muta E in F"): from each tuning on, a
         written E sounds as the drum tuned to E (here E flat)."""
-        from .navigator import printed_words
-
-        words = printed_words(self.data, pdf)
+        words = self.words
         if not any(re.search(r"timp|pauk", text, re.I) for _, _, text in words):
             return
         changes = sorted((mv, measure, tuning) for mv, measure, text in words
@@ -561,6 +723,29 @@ class Part:
                     e["midi"] = [12 * (octave + 1) + STEPS[step] + (drums[step] if acc is None and step in drums
                                  else acc if acc is not None else position_alter(step, bar["fifths"]))
                                  for step, octave, acc in e["spelled"]]
+
+    def _small_note_bars(self, omr, pdf):
+        """Bars printed with small noteheads, as cue notes are: their median
+        notehead is under SMALL_HEAD of the part's usual one. Measured widths
+        are noisy, so only runs of such bars that start right after a rest
+        count, as cues do (they lead from a rest to the player's entrance)."""
+        widths = head_widths(omr, pdf, self.data["staves"])
+        every = sorted(w for row in widths.values() for _, w in row)
+        if not every:
+            return set()
+        usual = every[len(every) // 2]
+        timeline = self.data["timeline"]
+        small = set()
+        for i, t in enumerate(timeline):
+            here = sorted(w for x, w in widths.get((t["page"], t["staff"]), ()) if t["x0"] < x < t["x1"])
+            if here and here[len(here) // 2] < SMALL_HEAD * usual:
+                small.add(i)
+        cues = set()
+        for i in sorted(small):
+            if i - 1 in cues or (i and not timeline[i - 1]["plays"]
+                                 and timeline[i - 1]["movement"] == timeline[i]["movement"]):
+                cues.add(i)
+        return cues
 
     def _cue_bars(self, pdf):
         """Bars printed with another part's notes as a cue (under a running
@@ -724,6 +909,16 @@ class Part:
             length = self.length(i)
             voices = [[e for e in evs if not e["grace"]] for evs in bar["voices"].values()]
             voices = [v for v in voices if v]
+            # a voice that repeats another note for note is the same notes read twice
+            unique = []
+            for v in voices:
+                if not any([(e["dur"], e["midi"]) for e in v] == [(e["dur"], e["midi"]) for e in u] for u in unique):
+                    unique.append(v)
+            voices = unique
+            tremolo = self._tremolo(i, voices, length)
+            if tremolo:
+                self.bars[i] = {"voices": [tremolo], "how": "tremolo"}
+                continue
             notes = sum(1 for v in voices for e in v if e["midi"])
             seen = len(self.head_onsets(i))
             fits = all(sum(e["dur"] for e in v) == length and tidy([e["dur"] for e in v], length)
@@ -778,6 +973,19 @@ class Part:
                     and len(self.bars[i - 1]["voices"][0]) == 1
                     and self.bars[i - 1]["voices"][0][0][1]):
                 self.bars[i] = {"voices": self.bars[i - 1]["voices"], "how": "repeated"}
+
+    def _tremolo(self, i, voices, length):
+        """A fingered tremolo (two notes alternating, joined by slashes):
+        Audiveris reads it as two voices of one long note each, side by side
+        rather than stacked as divisi notes are. Returns the two notes, each
+        half the bar, or None."""
+        if len(voices) != 2 or any(len(v) != 1 or not v[0]["midi"] for v in voices):
+            return None
+        a, b = sorted((v[0] for v in voices), key=lambda e: e["px"])
+        t = self.data["timeline"][i]
+        if b["px"] - a["px"] < 1.5 * self.space[(t["page"], t["staff"])]:
+            return None
+        return [(length / 2, a["midi"]), (length / 2, b["midi"])]
 
     def _unsupported(self, i, e):
         """A filled-in note no strong notehead stands under (a mark or dot
@@ -960,8 +1168,8 @@ class Part:
         return durs
 
     def notes(self, movement=None, first=None, last=None):
-        """[(start, duration, midi pitches)] in quarters, plus the start of
-        each bar: {piece: start}."""
+        """[(start, duration, sounding midi pitches)] in quarters, plus the
+        start of each bar: {piece: start}."""
         out, starts, t0 = [], {}, Fraction(0)
         for i, t in enumerate(self.data["timeline"]):
             if movement and not t["movement"].startswith(movement):
@@ -975,7 +1183,7 @@ class Part:
                 s = t0
                 for d, midi in v:
                     if midi:
-                        out.append((s, d, midi))
+                        out.append((s, d, [m + self.shift(i) for m in midi]))
                     s += d
             t0 += self.length(i)
             if t.get("fermata"):

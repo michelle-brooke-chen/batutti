@@ -3,9 +3,14 @@ from a scan against a reference score (MusicXML of the full score, not in the
 repo; put it in evaluation/reference/).
 
 A bar is right when every note starts at the right time, lasts the right
-length and has the right pitches (a note tied over from the bar before
-counts as a note of this bar, as printed). Rhythm and pitch are also scored on their
-own, and so is Audiveris's reading before repair.
+length and has the right pitches as written (a note tied over from the bar
+before counts as a note of this bar, as printed). Rhythm and pitch are also
+scored on their own, and so is Audiveris's reading before repair.
+
+Transposing parts are compared as printed: the reference labels its
+clarinets in B flat throughout, though its notes follow the parts, which
+switch to A for the Ballade and Alla marcia. Playback itself sounds every
+part at concert pitch.
 
     python evaluation/playback_check.py [part ...]
 """
@@ -45,6 +50,20 @@ NAMES = {
 _SCORE = []
 
 
+# bars a part's print numbers differently from the score: (movement, first
+# printed bar affected) -> how many bars later the print is. Oboe I's Ballade
+# opens with a 23-bar rest where the score has 13 (a confirmed misprint).
+OFFSETS = {"karelia_oboe_1": {(2, 24): 10}}
+
+
+def score_key(folder, movement, measure):
+    """The reference bar for a printed bar of a part."""
+    for (mv, first), shift in OFFSETS.get(folder, {}).items():
+        if mv == movement and measure >= first:
+            return movement, measure - shift
+    return movement, measure
+
+
 def reference_bars(name):
     """{(movement number, measure): [(offset, duration, (midi, ...))]} for one
     staff of the reference score. Bars numbered with a suffix (the extra
@@ -74,7 +93,8 @@ def reference_bars(name):
 
 
 def ours(part, i, raw=False):
-    """[(offset, duration, midi)] of one rebuilt bar, or of Audiveris's reading."""
+    """[(offset, duration, written midi)] of one rebuilt bar, or of
+    Audiveris's reading."""
     if raw:
         bar = part.placed.get(i, {"voices": {}})
         voices = [[(e["dur"], e["midi"]) for e in evs if not e["grace"]] for evs in bar["voices"].values()]
@@ -100,7 +120,7 @@ def compare(mine, theirs):
 def check(folder):
     data = json.loads((HERE / "results" / folder / "measure_count.json").read_text())
     omr = HERE / "parts" / folder / "part.omr"
-    part = Part(data, omr, export_scores(omr), pdf=HERE / "parts" / folder / "part.pdf")
+    part = Part(data, omr, export_scores(omr), pdf=HERE / "parts" / folder / "part.pdf", name=folder)
     part.rebuild()
     names = NAMES[folder] if isinstance(NAMES[folder], tuple) else (NAMES[folder],)
     lines = [reference_bars(n) for n in names]
@@ -112,7 +132,7 @@ def check(folder):
     for i, t in enumerate(data["timeline"]):
         mv = numbers[t["movement"]]
         for k in range(t["count"]):
-            key = (mv, t["measure"] + k)
+            key = score_key(folder, mv, t["measure"] + k)
             if key not in ref:
                 continue
             if t["count"] > 1 or part.bars[i]["how"] in ("rest", "cue"):
