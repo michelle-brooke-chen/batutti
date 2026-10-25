@@ -5,196 +5,245 @@
 <title>batutti</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/theme/white.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap">
 <style>
-  :root { --r-main-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-          --r-heading-font: var(--r-main-font); --r-heading-color: #1f4e79; --r-main-color: #222;
-          --r-heading-text-transform: none; --r-main-font-size: 34px; --r-link-color: #1f4e79; }
-  .reveal h1 { font-size: 2.3em; } .reveal h2 { font-size: 1.45em; margin-bottom: 0.5em; }
-  .reveal section { text-align: left; }
-  .reveal .muted { color: #555; }
-  .reveal .big { font-size: 2.2em; font-weight: 700; color: #1f4e79; line-height: 1.1; }
-  .reveal .cols { display: flex; gap: 36px; align-items: flex-start; }
-  .reveal .cols > div { flex: 1; }
-  .reveal img { border: 1px solid #e3e3e3; border-radius: 6px; margin: 0; }
-  .reveal ul { margin-left: 1em; } .reveal li { margin: 0.25em 0; }
-  .reveal table { font-size: 0.62em; } .reveal th { color: #1f4e79; }
-  .reveal .tag { display: inline-block; background: #1f4e79; color: #fff; border-radius: 6px;
-                 padding: 2px 10px; font-size: 0.6em; margin-right: 6px; }
-  .reveal .small { font-size: 0.6em; color: #555; }
-  .reveal .todo { background: #fff3b0; }
-  .reveal pre { font-size: 0.45em; box-shadow: none; width: 100%; }
-  .reveal pre code { max-height: none; padding: 12px; background: #f3f5f8; }
-  .reveal .bar { height: 6px; background: #1f4e79; width: 120px; border-radius: 3px; margin: 0 0 18px; }
+  /* batutti's dark theme: cream on dark blue, flat, lowercase */
+  :root {
+    --bg: #14213d; --field: #1b2a4b; --line: #2b3b5e;
+    --ink: #f6f1e6; --muted: #b3bccb; --accent: #a9c6ff; --accent-soft: #22335a;
+    --mint: #183b33; --mint-ink: #8fdcb6; --rose: #3b2232; --rose-ink: #ffa8c2;
+  }
+  html, body, .reveal-viewport { background: var(--bg); }
+  .reveal { font-family: "Nunito", -apple-system, Helvetica, Arial, sans-serif; font-size: 32px;
+            color: var(--ink); text-transform: lowercase; }
+  .reveal .slides section { text-align: left; }
+  .reveal h1, .reveal h2 { font-family: inherit; color: var(--ink); font-weight: 800;
+                           letter-spacing: -0.02em; text-transform: lowercase; margin: 0 0 .5em; }
+  .reveal h1 { font-size: 2.6em; line-height: 1; }
+  .reveal h2 { font-size: 1.35em; padding-bottom: .35em; border-bottom: 1px solid var(--line); }
+  .reveal p, .reveal li { line-height: 1.45; }
+  .reveal em { font-style: italic; }
+  .reveal .muted { color: var(--muted); }
+  .reveal .small { font-size: .6em; color: var(--muted); }
+  .reveal .accent { color: var(--accent); }
+  .reveal ul { margin-left: 1em; }
+  .reveal li { margin: .3em 0; }
+  .reveal li::marker { color: var(--accent); }
+  .reveal .cols { display: flex; gap: 40px; align-items: flex-start; }
+  .reveal .cols > div { flex: 1; min-width: 0; }
+  .reveal img { margin: 0; border-radius: 10px; max-width: 100%; height: auto; }
+  .reveal .shot { border: 1px solid var(--line); }
+  .reveal .page { background: #fff; padding: 4px; }
+  .reveal .wordmark { display: inline-flex; align-items: center; gap: 14px; }
+  .reveal .wordmark img { height: 1.05em; border-radius: 0;
+                          filter: drop-shadow(0 0 2px rgba(246, 241, 230, .6)); }
+  .reveal .big { font-size: 2.3em; font-weight: 800; color: var(--accent); line-height: 1.05; }
+  .reveal .pill { display: inline-block; background: var(--accent-soft); color: var(--ink);
+                  border-radius: 999px; padding: 2px 14px; font-size: .55em; font-weight: 700;
+                  margin: 0 6px 6px 0; }
+  .reveal table { font-size: .58em; border-collapse: collapse; width: 100%; }
+  .reveal th { color: var(--accent); font-weight: 800; border-bottom: 2px solid var(--line) !important; }
+  .reveal td, .reveal th { border-bottom: 1px solid var(--line); padding: 8px 10px; text-align: left; }
+  .reveal .tests { background: var(--field); border-radius: 10px; padding: 14px 16px; font-size: .46em;
+                   font-family: ui-monospace, Menlo, monospace; white-space: pre-wrap; line-height: 1.5; }
+  .reveal .pass { color: var(--mint-ink); font-weight: 700; }
+  .reveal .note-box { background: var(--accent-soft); border-radius: 12px; padding: 12px 16px; font-size: .62em; }
+  .reveal .todo { background: #5a4a1a; color: #ffe9a8; border-radius: 4px; padding: 0 4px; }
+  .reveal .controls { color: var(--accent); }
+  .reveal .progress { color: var(--accent); }
 </style>
 </head>
 <body>
 <div class="reveal"><div class="slides">
 
+<!-- 1 -->
 <section>
-  <div class="bar"></div>
-  <h1>batutti</h1>
-  <p style="font-size:1.25em; color:#1f4e79; font-weight:600; margin-top:0">every bar, for everyone</p>
-  <p style="font-size:1.0em">An AI rehearsal assistant: exact measure numbers on scanned orchestral parts,
-  a whole-set check, cues before long rests, and "take me to that bar".</p>
-  <p class="muted">Michelle Chen &middot; MGT 409 AI Foundations &middot; Fall 2026</p>
+  <h1 class="wordmark">batutti <img src="../assets/cat.svg" alt=""></h1>
+  <p style="font-size:1.15em; margin-top:.6em">an agent that numbers, checks and cues scanned orchestral parts,
+  so every player is on the same bar.</p>
+  <p class="accent" style="font-weight:700">count less, play more</p>
+  <p class="muted small" style="margin-top:2em">michelle chen · mgt 409 ai foundations · fall 2026 ·
+  github.com/michelle-brooke-chen/batutti</p>
 </section>
 
+<!-- 2 -->
 <section>
-  <h2>"From 98" &mdash; but which bar is 98?</h2>
+  <h2>"from 98", but which bar is 98?</h2>
   <div class="cols">
     <div>
       <ul>
-        <li>Old printed parts often have <b>no measure numbers</b>, only letters and "23" over a single bar of rest</li>
-        <li>Librarians and players <b>pencil in every number</b>, by hand, in every part</li>
-        <li>Off by one is worse than nothing; parts themselves contain <b>misprints</b></li>
-        <li>Long rests: players lose count without a <b>cue</b></li>
+        <li>old printed parts often have <b>no measure numbers</b>: only letters, and "23" over a single bar of rest</li>
+        <li>librarians and players <b>pencil in every number</b>, by hand, in every part</li>
+        <li>off by one is worse than nothing, and parts themselves contain <b>misprints</b></li>
+        <li>in long rests, players lose count without a <b>cue</b></li>
       </ul>
-      <p class="small">1,224 US orchestras (League of American Orchestras, 2014), most without a full-time librarian.</p>
+      <p class="small">1,224 us orchestras (league of american orchestras, 2014), most without a full-time librarian.</p>
     </div>
-    <div style="flex:0.9"><img src="img/cue_oboe_ballade.png" alt="" style="margin-top:40px"><p class="small">Oboe I: "23", a fermata, "8": which bar is the entrance? (The 23 is a misprint: the score has 13.)</p></div>
+    <div style="flex:.9">
+      <img class="page" src="img/cue_oboe_ballade.png" alt="" style="margin-top:.6em">
+      <p class="small">oboe i: "23", a fermata, "8": which bar is the entrance? (the 23 is a misprint: the score has 13.)</p>
+    </div>
   </div>
 </section>
 
+<!-- 3 -->
 <section>
-  <h2>What exists, and what is new</h2>
+  <h2>what exists, and what's new</h2>
   <table>
-    <tr><th>Today</th><th>Problem</th></tr>
-    <tr><td>Pencil / librarian</td><td>Hours per set; misprints go unnoticed</td></tr>
-    <tr><td>Sibelius, Dorico, MuseScore</td><td>Only for re-typed music; new layout</td></tr>
-    <tr><td>OMR: Audiveris, ScanScore, PhotoScore</td><td>Must proofread; rhythm right in 32% of bars on our Violin I</td></tr>
-    <tr><td>forScore, Newzik</td><td>You still write every number</td></tr>
-    <tr><td>ChatGPT vision</td><td>Read "13" as "18" with 0.97 confidence</td></tr>
+    <tr><th>today</th><th>problem</th></tr>
+    <tr><td>pencil, or the librarian</td><td>hours per set; misprints go unnoticed</td></tr>
+    <tr><td>sibelius, dorico, musescore</td><td>only for re-typed music, with a new layout</td></tr>
+    <tr><td>omr: audiveris, scanscore, photoscore</td><td>must be proofread; rhythm right in 32% of bars on our violin i</td></tr>
+    <tr><td>forscore, newzik</td><td>you still write every number yourself</td></tr>
+    <tr><td>chatgpt vision</td><td>read "13" as "18" with 0.97 confidence</td></tr>
   </table>
-  <ul style="font-size:0.85em">
-    <li><b>Numbers on the player's own pages</b>, exact or a specific question</li>
-    <li><b>Checks the whole set</b> against itself: finds misreads <i>and</i> publisher misprints</li>
-    <li><b>Cues and navigation</b> drawn from the other parts</li>
+  <ul style="font-size:.78em; margin-top:.8em">
+    <li><b>numbers on the player's own pages</b>: exact, or a specific question</li>
+    <li><b>checks the whole set</b> against itself: misreads <i>and</i> publisher misprints</li>
+    <li><b>cues and navigation</b> drawn from the other parts</li>
   </ul>
 </section>
 
+<!-- 4 -->
 <section>
-  <h2>How the agents work</h2>
+  <h2>how the agents work</h2>
   <div class="cols">
-    <div style="flex:1.4">
-      <svg viewBox="0 0 560 360" width="100%" font-family="-apple-system, Helvetica, Arial, sans-serif">
-        <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#555"/></marker></defs>
-        <style>.c{fill:#f3f5f8;stroke:#b8c4d0}.g{fill:#1f4e79}.t{font-size:15px;fill:#222}.w{font-size:15px;fill:#fff;font-weight:600}.s{font-size:12px;fill:#dbe7f3}.l{stroke:#555;stroke-width:1.6;fill:none;marker-end:url(#a)}</style>
-        <rect x="0" y="10" width="160" height="50" rx="8" class="c"/><text x="80" y="40" text-anchor="middle" class="t">Scans → Audiveris</text>
-        <rect x="200" y="10" width="160" height="50" rx="8" class="c"/><text x="280" y="40" text-anchor="middle" class="t">Counter (code)</text>
-        <rect x="400" y="2" width="160" height="66" rx="8" class="g"/><text x="412" y="28" class="w">1 Review</text><text x="412" y="48" class="s">ask, don't guess</text>
+    <div style="flex:1.5">
+      <svg viewBox="0 0 560 370" width="100%" font-family="Nunito, -apple-system, Helvetica, Arial, sans-serif">
+        <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#b3bccb"/></marker></defs>
+        <style>
+          .c { fill: #1b2a4b; stroke: #2b3b5e; } .g { fill: #a9c6ff; }
+          .t { font-size: 15px; fill: #f6f1e6; } .w { font-size: 15px; fill: #14213d; font-weight: 800; }
+          .s { font-size: 12px; fill: #22335a; } .l { stroke: #b3bccb; stroke-width: 1.6; fill: none; marker-end: url(#a); }
+        </style>
+        <rect x="0" y="10" width="160" height="50" rx="10" class="c"/><text x="80" y="40" text-anchor="middle" class="t">scans → audiveris</text>
+        <rect x="200" y="10" width="160" height="50" rx="10" class="c"/><text x="280" y="40" text-anchor="middle" class="t">counter (code)</text>
+        <rect x="400" y="2" width="160" height="66" rx="10" class="g"/><text x="414" y="28" class="w">1 review</text><text x="414" y="48" class="s">ask, don't guess</text>
         <path d="M160 35 H196" class="l"/><path d="M360 35 H396" class="l"/>
-        <rect x="0" y="110" width="160" height="50" rx="8" class="c"/><text x="80" y="140" text-anchor="middle" class="t">Compare parts</text>
-        <rect x="200" y="102" width="200" height="66" rx="8" class="g"/><text x="212" y="128" class="w">2 Set checker</text><text x="212" y="148" class="s">misprint or misread?</text>
+        <rect x="0" y="110" width="160" height="50" rx="10" class="c"/><text x="80" y="140" text-anchor="middle" class="t">compare parts</text>
+        <rect x="200" y="102" width="200" height="66" rx="10" class="g"/><text x="214" y="128" class="w">2 set checker</text><text x="214" y="148" class="s">misprint or misread?</text>
         <path d="M280 60 V85 H80 V106" class="l"/><path d="M160 135 H196" class="l"/>
-        <rect x="0" y="210" width="160" height="50" rx="8" class="c"/><text x="80" y="240" text-anchor="middle" class="t">Find entrances</text>
-        <rect x="200" y="202" width="200" height="66" rx="8" class="g"/><text x="212" y="228" class="w">3 Cue picker</text><text x="212" y="248" class="s">which line is audible?</text>
-        <rect x="440" y="210" width="120" height="50" rx="8" class="c"/><text x="500" y="240" text-anchor="middle" class="t">Print cues</text>
+        <rect x="0" y="210" width="160" height="50" rx="10" class="c"/><text x="80" y="240" text-anchor="middle" class="t">find entrances</text>
+        <rect x="200" y="202" width="200" height="66" rx="10" class="g"/><text x="214" y="228" class="w">3 cue picker</text><text x="214" y="248" class="s">which line is audible?</text>
+        <rect x="440" y="210" width="120" height="50" rx="10" class="c"/><text x="500" y="240" text-anchor="middle" class="t">print cues</text>
         <path d="M80 160 V206" class="l"/><path d="M160 235 H196" class="l"/><path d="M400 235 H436" class="l"/>
-        <rect x="0" y="300" width="160" height="50" rx="8" class="c"/><text x="80" y="330" text-anchor="middle" class="t">"the oboe solo"</text>
-        <rect x="200" y="292" width="200" height="66" rx="8" class="g"/><text x="212" y="318" class="w">4 Navigator</text><text x="212" y="338" class="s">→ movement, bar</text>
-        <path d="M160 325 H196" class="l"/>
+        <rect x="0" y="310" width="160" height="50" rx="10" class="c"/><text x="80" y="340" text-anchor="middle" class="t">"the oboe solo"</text>
+        <rect x="200" y="302" width="200" height="66" rx="10" class="g"/><text x="214" y="328" class="w">4 navigator</text><text x="214" y="348" class="s">→ movement, bar</text>
+        <path d="M160 335 H196" class="l"/>
       </svg>
     </div>
-    <div style="font-size:0.7em">
-      <p>Code does the counting; each agent makes <b>one decision</b> with a few tools.</p>
-      <p>Code checks every tool call: e.g. a count may change only to a value the scan shows.</p>
-      <p>All four: <b>gpt-6-luna</b>, low effort.</p>
+    <div style="font-size:.7em">
+      <p>code does the counting; each agent makes <b>one decision</b> with a few tools.</p>
+      <p>code checks every tool call: a count may change only to a value both readers saw.</p>
+      <p>all four: <b>gpt-6-luna</b>, low reasoning effort.</p>
     </div>
   </div>
 </section>
 
+<!-- 5 -->
 <section>
-  <h2>Demo: the whole <i>Karelia Suite</i> in 2.5 minutes</h2>
+  <h2>demo: measure numbers</h2>
   <div class="cols">
-    <div style="flex:1.25">
-      <img src="img/app_results_card.jpg" alt="" style="width:100%">
-      <img src="img/app_navigator_top.jpg" alt="" style="width:100%; max-height:250px; object-fit:cover; object-position:top; margin-top:8px">
+    <div style="flex:1.3">
+      <img class="shot" src="img/app_set_results.jpg" alt="" style="max-height:290px; width:100%; object-fit:cover; object-position:top">
+      <img class="shot" src="img/app_navigator.jpg" alt="" style="max-height:200px; width:100%; object-fit:cover; object-position:top; margin-top:10px">
     </div>
-    <div style="font-size:0.66em">
-      <p><span class="tag">29 parts</span><span class="tag">87 pages</span></p>
-      <p><b>Set checker</b>, 4 calls: Oboe I's Ballade is <b>misprinted</b> (23 bars of rest; the score has 13), not misread.</p>
-      <p><b>Navigator</b>: "the cor anglais solo" → <b>II, m.141</b>, highlighted in every part, even mid-rest.</p>
-      <p><b>60 cues</b> printed, 2&ndash;4 bars each.</p>
+    <div style="font-size:.66em">
+      <p><span class="pill">29 parts</span><span class="pill">87 pages</span><span class="pill">~30 s</span></p>
+      <p><b>set checker</b>: oboe i's ballade is 10 bars out; it points to the opening rest (page 1, staff 9), printed 23 where oboe ii has 13.</p>
+      <p><b>navigator</b>: "the cor anglais solo in the ballade" → <b>ii, m.141</b>, shown in every part, even mid-rest.</p>
     </div>
   </div>
 </section>
 
+<!-- 6 -->
 <section>
-  <h2>Cues, printed into the part <span style="font-size:0.6em; font-style:italic; font-weight:400">&mdash; rest easy, come in right</span></h2>
-  <div class="cols" style="gap:20px">
-    <div><img src="img/cue_vln2_clarinet.png" alt="" style="max-height:250px"><p class="small">Violin II: 4-bar Clarinet I cue under a 16-bar rest</p></div>
-    <div><img src="img/cue_trumpet_viola.png" alt="" style="max-height:250px"><p class="small">Trumpet I: 3-bar viola cue</p></div>
+  <h2>cues, printed into the part</h2>
+  <div class="cols" style="gap:24px">
+    <div>
+      <img class="page" src="img/cue_vln2_clarinet.png" alt="" style="max-height:200px">
+      <p class="small">violin ii: a 4-bar clarinet i cue under a 16-bar rest</p>
+      <img class="page" src="img/cue_trumpet_viola.png" alt="" style="max-height:200px; margin-top:8px">
+      <p class="small">trumpet i: a 3-bar viola cue</p>
+    </div>
+    <div style="flex:.9">
+      <img class="shot" src="img/app_cues.jpg" alt="" style="max-height:330px; width:100%; object-fit:cover; object-position:top">
+      <p class="small">60 of 60 entrances cued, in ~80 s. a violinist shaped the rules: melodic lines only, none after a fermata or g.p., right before the entrance.</p>
+    </div>
   </div>
-  <div style="margin-top:6px"><img src="img/cue_oboe_ballade.png" alt="" style="max-height:170px"><p class="small">Oboe I: Violin I cue over the rests before the entrance</p></div>
-  <p class="small">A violinist reviewed them: melodic lines only, none after fermatas, right before the entrance.</p>
 </section>
 
+<!-- 7 -->
 <section>
-  <h2>Cost to run</h2>
+  <h2>cost to run</h2>
   <div class="cols">
     <div>
-      <p class="big">$0.0038</p><p class="muted">whole 29-part set, measured<br>6 calls · 33,894 tokens · 6,205 cached</p>
-      <p class="big" style="font-size:1.5em">$0.0003</p><p class="muted">a navigator question; $0 if parsed in code</p>
+      <p class="big">$0.0005</p><p class="muted small" style="margin-top:0">numbering + checking all 29 parts (4 calls, 9,347 tokens, 6,083 cached)</p>
+      <p class="big" style="font-size:1.5em; margin-bottom:0">$0.0038</p><p class="muted small" style="margin-top:0">with cues for all 60 entrances</p>
+      <p class="big" style="font-size:1.5em; margin-bottom:0">$0.0002</p><p class="muted small" style="margin-top:0">a navigator question; $0 if parsed in code</p>
     </div>
-    <div style="font-size:0.7em">
+    <div style="font-size:.72em">
       <table>
-        <tr><th>Users</th><th>Model</th><th>Total / month*</th></tr>
+        <tr><th>users</th><th>model</th><th>total / month*</th></tr>
         <tr><td>1</td><td>$0.03</td><td>$0.12</td></tr>
         <tr><td>100</td><td>$3</td><td>~$42</td></tr>
         <tr><td>10,000</td><td>$300</td><td>~$1,700</td></tr>
       </table>
-      <p>Recognition compute costs more than the AI. Cuts: code first, agent only when needed; luna at low effort (medium: same answers, up to 1.9&times; cost); batching; prompt caching (68% cached in the set check); call caps.</p>
-      <p class="small">*Usage and hosting are estimates; token costs measured.</p>
+      <p style="font-size:.85em">recognition costs more than the agents. cuts: code first, agents only when needed; luna at low effort (medium gave the same answers at up to 1.9× the cost); batching; prompt caching; call caps.</p>
+      <p class="small">*usage and hosting are estimates; token costs are measured.</p>
     </div>
   </div>
 </section>
 
+<!-- 8 -->
 <section>
-  <h2>Safety: the agent can't make a confident wrong number</h2>
+  <h2>safety: no confident wrong numbers</h2>
   <div class="cols">
-    <div style="flex:1.2">
-<pre><code>PASS review: total-forcing change 14 -> 4
+    <div style="flex:1.25">
+<div class="tests"><span class="pass">pass</span> review: total-forcing change 14 → 4
      "4 is not supported by the evidence"
-PASS set check: reading_error without evidence
-PASS set check: staff that doesn't exist
-PASS navigator: go_to a bar that doesn't exist
-PASS navigator: injection in the request
-PASS navigator: injection printed in a PDF
-     still II m.141 (3 of 3 runs)</code></pre>
+<span class="pass">pass</span> review: count no reading supports
+<span class="pass">pass</span> set check: misread only one reader saw
+<span class="pass">pass</span> set check: staff that doesn't exist
+<span class="pass">pass</span> navigator: bar that doesn't exist
+<span class="pass">pass</span> navigator: injection in the request
+<span class="pass">pass</span> navigator: injection printed in a pdf
+     still ii m.141 (3 of 3 runs)</div>
     </div>
-    <div style="font-size:0.7em">
+    <div style="font-size:.66em">
       <ul>
-        <li>Fixes only where the scan supports them; otherwise <b>ask the player</b></li>
-        <li>Navigator outputs only a validated bar; its text is never shown</li>
-        <li>Key stays in <code>.env</code>; no tool can read it</li>
-        <li>Call caps, timeouts, upload limits</li>
+        <li>fixes only where the scan supports them; otherwise <b>ask the player</b></li>
+        <li>the navigator outputs only a checked bar; its text is never shown</li>
+        <li>the key stays in <code>.env</code>; no tool can read it</li>
+        <li>call caps, timeouts, upload limits</li>
       </ul>
+      <p class="note-box">caught in testing: the set checker once blamed a "4" that only one reader saw. now both must agree; 5 of 5 runs after the fix were right.</p>
     </div>
   </div>
 </section>
 
+<!-- 9 -->
 <section>
-  <h2>Impact</h2>
+  <h2>impact</h2>
   <div class="cols">
-    <div><p class="big">916 / 916</p><p class="muted">staves numbered exactly, all 29 parts<br>(player-checked keys)</p></div>
-    <div><p class="big">1</p><p class="muted">real publisher misprint found and confirmed</p></div>
-    <div><p class="big">60 / 60</p><p class="muted">cues printed</p></div>
+    <div><p class="big">916 / 916</p><p class="muted small">staves numbered exactly, all 29 parts (player-checked keys)</p></div>
+    <div><p class="big">1</p><p class="muted small">real publisher misprint found and confirmed</p></div>
+    <div><p class="big">60 / 60</p><p class="muted small">entrances cued</p></div>
   </div>
-  <p style="font-size:0.75em">Pilot timing, by hand vs. app: <span class="todo">[results from this weekend]</span></p>
-  <p class="small">First run on the 24 wind/brass/percussion parts: 9 of 52 movements exact; now all exact.</p>
+  <p style="font-size:.75em; margin-top:1em">pilot timing, by hand vs. <em>batutti</em>: <span class="todo">[results from this weekend]</span></p>
+  <p class="small">first run on the 24 wind, brass and percussion parts: 9 of 52 movements exact; now all exact.</p>
 </section>
 
+<!-- 10 -->
 <section>
-  <h2>What's next</h2>
+  <h2>what's next</h2>
   <ul>
-    <li>Test on more music: other editions, composers, scored without changing rules</li>
-    <li>Playback: hear a scanned part with other instruments on and off</li>
-    <li>A friendlier, more playful interface</li>
-    <li>Hosting with a queue for recognition and a per-user spending limit</li>
+    <li>test on more music: other editions and composers, scored before changing any rules</li>
+    <li>playback: hear a scanned part with the other instruments on and off</li>
+    <li>hosting, with a queue for recognition and a per-user spending limit</li>
   </ul>
-  <p style="margin-top:1.2em; font-size:1.3em; color:#1f4e79; font-weight:600">count less, play more</p>
-  <p class="muted">batutti &middot; Michelle Chen &middot; github.com/michelle-brooke-chen/batutti</p>
+  <p class="wordmark" style="margin-top:1.6em; font-size:1.3em; font-weight:800">batutti <img src="../assets/cat.svg" alt=""></p>
+  <p class="accent" style="font-weight:700; margin-top:0">count less, play more</p>
 </section>
 
 </div></div>

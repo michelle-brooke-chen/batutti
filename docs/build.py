@@ -9,7 +9,7 @@ import re
 from pathlib import Path
 
 DOCS = Path(__file__).resolve().parent
-TYPES = {".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg"}
+TYPES = {".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".svg": "image/svg+xml"}
 
 
 def embed(match):
@@ -20,6 +20,6 @@ def embed(match):
 
 for name in ("report", "slides"):
     html = (DOCS / f"{name}_src.html").read_text()
-    html = re.sub(r'src="(img/[^"]+)"', embed, html)
+    html = re.sub(r'src="((?:img|\.\./assets)/[^"]+)"', embed, html)
     (DOCS.parent / f"{name}.html").write_text(html)
     print(f"{name}.html: {len(html) // 1024} KB")
