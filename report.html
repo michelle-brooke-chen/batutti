@@ -11,13 +11,12 @@
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--ink);
          font: 16px/1.6 Nunito, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
-  main { max-width: 860px; margin: 0 auto; padding: 40px 48px 80px; background: var(--bg); }
+  main { margin: 0 auto; padding: 40px clamp(16px, 5vw, 72px) 80px; background: var(--bg); }
   h1 { font-size: 40px; line-height: 1.15; margin: 0 0 6px; color: var(--navy); font-weight: 800; }
   h1 .cat { height: 54px; vertical-align: -10px; margin-left: 4px; }
   h2 { font-size: 23px; color: var(--navy); margin: 44px 0 10px; padding-top: 14px;
        border-top: 1px solid var(--line); }
   h3 { font-size: 17px; margin: 26px 0 6px; }
-  p, li { max-width: 74ch; }
   .tagline { font-size: 20px; color: var(--navy); font-weight: 600; margin: 0 0 4px; }
   .lede { font-size: 18px; color: var(--muted); margin: 6px 0 18px; }
   .meta { font-size: 14px; color: var(--muted); }
@@ -28,6 +27,11 @@
   .row { display: flex; gap: 16px; align-items: flex-start; }
   .row figure { flex: 1; margin: 10px 0; }
   table { border-collapse: collapse; width: 100%; font-size: 14px; margin: 12px 0 18px; }
+  @media (max-width: 700px) {
+    h1 { font-size: 30px; }
+    .row { flex-direction: column; }
+    table { display: block; overflow-x: auto; }
+  }
   th, td { text-align: left; padding: 6px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
   th { background: transparent; color: var(--muted); font-weight: 700; border-bottom: 1px solid var(--navy); }
   td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
@@ -55,12 +59,14 @@
 <main>
 
 <h1 class="word">batutti <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjQwIDE4IDE4MCAxODAiPgogIDxzdHlsZT4KICAgIC8qIHRoZSBiYXRvbiBrZWVwcyB0aW1lOiBhIHNtYWxsIGRvd24tdXAgYmVhdCAqLwogICAgLmFybSB7IHRyYW5zZm9ybS1vcmlnaW46IDEzMnB4IDE0MnB4OyBhbmltYXRpb246IGJlYXQgMS4zcyBlYXNlLWluLW91dCBpbmZpbml0ZTsgfQogICAgQGtleWZyYW1lcyBiZWF0IHsKICAgICAgMCUsIDEwMCUgeyB0cmFuc2Zvcm06IHJvdGF0ZSgwZGVnKTsgfQogICAgICAzNSUgeyB0cmFuc2Zvcm06IHJvdGF0ZSgxNGRlZyk7IH0KICAgICAgNTUlIHsgdHJhbnNmb3JtOiByb3RhdGUoLTRkZWcpOyB9CiAgICB9CiAgICAudGFpbCB7IHRyYW5zZm9ybS1vcmlnaW46IDE2MnB4IDE4MnB4OyBhbmltYXRpb246IHN3aXNoIDIuNnMgZWFzZS1pbi1vdXQgaW5maW5pdGU7IH0KICAgIEBrZXlmcmFtZXMgc3dpc2ggeyAwJSwgMTAwJSB7IHRyYW5zZm9ybTogcm90YXRlKDBkZWcpOyB9IDUwJSB7IHRyYW5zZm9ybTogcm90YXRlKDVkZWcpOyB9IH0KICAgIEBtZWRpYSAocHJlZmVycy1yZWR1Y2VkLW1vdGlvbjogcmVkdWNlKSB7IC5hcm0sIC50YWlsIHsgYW5pbWF0aW9uOiBub25lOyB9IH0KICA8L3N0eWxlPgoKICA8IS0tIHRhaWwgY3VybGluZyB1cCBiZWhpbmQ6IGFuIG91dGxpbmUgc3Ryb2tlIHVuZGVyIGEgZmlsbCBzdHJva2UgLS0+CiAgPGcgY2xhc3M9InRhaWwiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCI+CiAgICA8cGF0aCBkPSJNMTU2IDE4NCBDMTgyIDE4NiAxOTQgMTY0IDE5MSAxMzYgQzE4OSAxMTggMTk0IDEwOCAyMDEgMTAzIiBzdHJva2U9IiMxZTFlMjQiIHN0cm9rZS13aWR0aD0iMTMiLz4KICAgIDxwYXRoIGQ9Ik0xNTYgMTg0IEMxODIgMTg2IDE5NCAxNjQgMTkxIDEzNiBDMTg5IDExOCAxOTQgMTA4IDIwMSAxMDMiIHN0cm9rZT0iIzQ3NDc0ZiIgc3Ryb2tlLXdpZHRoPSI3Ii8+CiAgPC9nPgoKICA8IS0tIG9uZSBjb25uZWN0ZWQgb3V0bGluZTogZWFycywgdGlsdGVkIGhlYWQgYW5kIHNpdHRpbmcgYm9keSAtLT4KICA8cGF0aCBmaWxsPSIjNDc0NzRmIiBzdHJva2U9IiMxZTFlMjQiIHN0cm9rZS13aWR0aD0iNC41IiBzdHJva2UtbGluZWpvaW49InJvdW5kIgogICAgICAgIGQ9Ik02MCA2OAogICAgICAgICAgIEM1OCA1NiA2MSA0NCA2NyAzMwogICAgICAgICAgIEM4MCAzNyA5MiA0MyAxMDEgNTAKICAgICAgICAgICBDMTEwIDQ0IDEyMSA0MiAxMzAgNDUKICAgICAgICAgICBDMTM4IDM4IDE0NiAzMiAxNTUgMjkKICAgICAgICAgICBDMTU5IDQzIDE2MSA1OCAxNTggNzMKICAgICAgICAgICBDMTY3IDg3IDE2NyAxMDggMTU0IDEyMgogICAgICAgICAgIEMxNjcgMTMzIDE3MyAxNTIgMTcxIDE2OAogICAgICAgICAgIEMxNjkgMTgyIDE2MSAxODkgMTQ4IDE4OQogICAgICAgICAgIEwxMDEgMTg5CiAgICAgICAgICAgQzkzIDE4OSA5MCAxODMgOTIgMTc2CiAgICAgICAgICAgQzkyIDE2MSA5MCAxNDggODYgMTM3CiAgICAgICAgICAgQzY2IDEzMyA1MSAxMTggNTIgOTkKICAgICAgICAgICBDNTIgODYgNTUgNzYgNjAgNjggWiIvPgoKICA8IS0tIGlubmVyIGxpbmVzOiBoYXVuY2ggYW5kIGZyb250IGxlZ3MgLS0+CiAgPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMWUxZTI0IiBzdHJva2Utd2lkdGg9IjMuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIj4KICAgIDxwYXRoIGQ9Ik0xMzcgMTQxIEMxNTIgMTUxIDE1NCAxNzEgMTQzIDE4OCIvPgogICAgPHBhdGggZD0iTTExOSAxNTggQzEyMSAxNzAgMTIxIDE4MCAxMTkgMTg4Ii8+CiAgICA8cGF0aCBkPSJNMTA2IDE2NiBDMTA3IDE3NCAxMDcgMTgxIDEwNSAxODgiLz4KICA8L2c+CgogIDwhLS0gZmFjZSwgdHVybmVkIHNsaWdodGx5IHdpdGggdGhlIGhlYWQgLS0+CiAgPGVsbGlwc2UgY3g9Ijc2IiBjeT0iOTciIHJ4PSI0LjYiIHJ5PSI1LjQiIGZpbGw9IiNmZmYiIHRyYW5zZm9ybT0icm90YXRlKC04IDc2IDk3KSIvPgogIDxlbGxpcHNlIGN4PSIxMjEiIGN5PSI5MiIgcng9IjQuNiIgcnk9IjUuNCIgZmlsbD0iI2ZmZiIgdHJhbnNmb3JtPSJyb3RhdGUoLTggMTIxIDkyKSIvPgogIDxwYXRoIGQ9Ik05MSAxMDMgUTk0IDEwNyA5NyAxMDIuNSBRMTAwIDEwNi41IDEwMyAxMDEuNSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZjJmMmYyIgogICAgICAgIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CgogIDwhLS0gcGF3IHdpdGggdGhlIGJhdG9uIC0tPgogIDxnIGNsYXNzPSJhcm0iPgogICAgPGxpbmUgeDE9IjEzNCIgeTE9IjEzOSIgeDI9IjE3OCIgeTI9Ijk4IiBzdHJva2U9IiMxZTFlMjQiIHN0cm9rZS13aWR0aD0iNiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgICA8bGluZSB4MT0iMTM0IiB5MT0iMTM5IiB4Mj0iMTc4IiB5Mj0iOTgiIHN0cm9rZT0iI2VmZTZkNCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICAgIDxlbGxpcHNlIGN4PSIxMzEiIGN5PSIxNDMiIHJ4PSI4IiByeT0iNyIgZmlsbD0iIzQ3NDc0ZiIgc3Ryb2tlPSIjMWUxZTI0IiBzdHJva2Utd2lkdGg9IjMuNSIvPgogIDwvZz4KPC9zdmc+Cg==" alt="" class="cat"></h1>
+<p class="small"><b>The name:</b> <em>battuta</em> (Italian for the beat, or bar) + <em>tutti</em> ("all": the whole orchestra playing together) = <em>batutti</em>, every player on the same bar.</p>
 <p class="lede">A rehearsal assistant for orchestras, built on agents: it stamps exact measure
 numbers onto scanned parts, checks every part of a piece against the others, prints cues before long
 rests, takes players straight to the bar the conductor names, and plays the parts back from the scans.</p>
 <p class="meta">Michelle Chen &middot; MGT 409 AI Foundations, Fall 2026 &middot;
 Repository: <a href="https://github.com/michelle-brooke-chen/batutti">github.com/michelle-brooke-chen/batutti</a> &middot;
-App: runs locally (<code>python app.py</code>, see README)</p>
+App: runs locally (<code>python app.py</code>, see README)<br>
+Clone: <code>git clone https://github.com/michelle-brooke-chen/batutti.git</code></p>
 
 <!-- ───────────────────────────── 1. Motivation ───────────────────────────── -->
 <h2>1. Motivation</h2>
@@ -92,8 +98,8 @@ Facts 2006&ndash;2014</i>), most of them community and youth groups without a fu
 whose rehearsal time is the scarcest resource. I play violin in orchestras and have numbered parts
 by hand myself.</p>
 
-<p><b>What it costs:</b> four musicians (a violinist, a percussionist, a clarinettist and an oboist who is also an orchestra librarian) numbering the 7-page Violin I part by hand took
-6 to 14&frac12; minutes each (median 10); a 29-part set is hours of that, plus the time lost in
+<p><b>What it costs:</b> five musicians (two violinists, a percussionist, a clarinettist and an oboist who is also an orchestra librarian) numbering the 7-page Violin I part by hand took
+5&frac34; to 14&frac12; minutes each (median 7); a 29-part set is hours of that, plus the time lost in
 rehearsal when numbers disagree. The stopwatch results are in section 6.</p>
 
 <!-- ───────────────────────────── 2. What is new ───────────────────────────── -->
@@ -511,7 +517,7 @@ none where the part already has one); the final versions were approved.</li>
 </ul>
 
 <h3>Time (pilot users)</h3>
-<p>Four musician friends numbered the Karelia string parts by hand on paper copies, timing
+<p>Five musician friends numbered the Karelia string parts by hand on paper copies, timing
 themselves with a stopwatch. Each part is 7 pages.</p>
 <table>
 <tr><th>Player</th><th>Part</th><th>Minutes by hand</th><th>Errors left</th></tr>
@@ -520,6 +526,8 @@ themselves with a stopwatch. Each part is 7 pages.</p>
 <tr><td>Julieanna, clarinet</td><td>Violin I</td><td>7:00</td><td>0</td></tr>
 <tr><td>Kai, oboe; orchestra librarian</td><td>Violin I</td><td>5:55</td><td>0</td></tr>
 <tr><td>Kai, oboe; orchestra librarian</td><td>Violin II</td><td>7:02</td><td>0 (one caught and fixed)</td></tr>
+<tr><td>Oliver, violin</td><td>Violin I</td><td>5:48</td><td>0</td></tr>
+<tr><td>Oliver, violin</td><td>Violin II</td><td>7:44</td><td>0</td></tr>
 <tr><td><b>batutti</b>, new part from the PDF</td><td>Violin I / Violin II</td><td>7:38 / 6:52, unattended; no questions asked</td><td>0</td></tr>
 </table>
 <p>Kai numbers parts for the University of California, Berkeley Symphony Orchestra, and called
@@ -527,7 +535,7 @@ this piece "on the faster side of pacing for me because there wasn't a ton of me
 involved". Even so, Kai made one mistake in Violin II and caught it: the first and second endings
 are printed in some parts and not in others, which Kai had not seen before. That is exactly the
 case batutti's set check exists for. Every line-start number in the marked copies was then checked
-against the correct numbering: one of the five parts still had an error, which would have put
+against the correct numbering: one of the seven parts still had an error, which would have put
 that player one bar off from around bar 60 to the end of the movement in rehearsal.</p>
 <p>App time, measured: in the first run of the 24 wind, brass and percussion parts, a new part
 took a median of 4.4 minutes (2 pages) on a laptop, nearly all of
@@ -535,7 +543,7 @@ it Audiveris recognition; the whole 29-part set with saved recognition takes abo
 the player spends time only on the questions the app asks. In the pilot table, each
 7-page violin part was timed from the PDF alone after a restart, with nothing else running,
 and Audiveris reading three page ranges side by side; the agent's review of the summary adds
-about 40 seconds. That is no faster than the quickest hand numbering (Kai's 5:55), but the
+about 40 seconds. That is no faster than the quickest hand numbering (Oliver's 5:48), but the
 player's own time is close to zero and both parts came out exact.</p>
 <p>Kai's view, as a librarian, is the honest test for the product: "If it's able to reliably
 number measures in old engravings like this then that's a cool idea," but "I'd be skeptical
