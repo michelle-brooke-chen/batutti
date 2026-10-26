@@ -16,10 +16,12 @@ CANDIDATES = [
     str(Path(__file__).resolve().parent.parent / "tools/Audiveris.app/Contents/MacOS/Audiveris"),
     "/Applications/Audiveris.app/Contents/MacOS/Audiveris",
     "/opt/audiveris/bin/Audiveris",
+    r"C:\Program Files\Audiveris\Audiveris.exe",
     "audiveris",
 ]
 # Audiveris reads pages one after another; this many copies read a part's
-# pages side by side (each copy is itself multi-threaded)
+# pages side by side, each taking the next page as soon as it is free
+# (each copy is itself multi-threaded)
 WORKERS = int(os.getenv("AUDIVERIS_WORKERS", "3"))
 
 
@@ -69,10 +71,11 @@ def _book_sheet(book, page):
 def run_audiveris(pdf_path, out_dir, workers=None):
     """Recognise every page; return the path of the .omr project Audiveris saves.
 
-    Takes about 25 seconds a page, so the pages are split among `workers`
-    copies of Audiveris running side by side and the results merged into one
-    project. A page that comes back without music is read again on its own,
-    so a busy machine can't silently drop a page. The project file holds
+    Takes about 25 seconds a page, so `workers` copies of Audiveris run side
+    by side, each taking the next page as soon as it is free (pages differ a
+    lot in how long they take, so fixed blocks of pages leave copies idle),
+    and the results are merged into one project. A page that comes back
+    without music is read again, so a busy machine can't silently drop a page. The project file holds
     staves, barlines and notes per page, which counting.py reads.
     """
     program = audiveris_path()
@@ -90,23 +93,15 @@ def run_audiveris(pdf_path, out_dir, workers=None):
             raise RuntimeError(f"Audiveris produced no result; see {out_dir / 'audiveris.log'}")
         return omr
 
-    # contiguous runs of pages, as even as possible
-    size, extra = divmod(count, workers)
-    chunks, start = [], 1
-    for k in range(workers):
-        end = start + size + (k < extra) - 1
-        chunks.append(list(range(start, end + 1)))
-        start = end + 1
     parts = out_dir / "pages"
     with ThreadPoolExecutor(workers) as pool:
-        omrs = list(pool.map(lambda k: _recognise(program, pdf, parts / str(k), chunks[k]),
-                             range(workers)))
+        omrs = list(pool.map(lambda page: _recognise(program, pdf, parts / str(page), [page]),
+                             range(1, count + 1)))
     pages, books = {}, {}
-    for chunk, path in zip(chunks, omrs):
+    for page, path in enumerate(omrs, 1):
         found, book = _read_pages(path)
-        for page in chunk:
-            if page in found:
-                pages[page], books[page] = found[page], book
+        if page in found:
+            pages[page], books[page] = found[page], book
     for page in range(1, count + 1):
         if page not in pages:  # read again alone
             found, book = _read_pages(_recognise(program, pdf, parts / f"again{page}", [page]))
@@ -127,8 +122,8 @@ def run_audiveris(pdf_path, out_dir, workers=None):
                 z.writestr(name, data)
         z.writestr("book.xml", book)
     with open(out_dir / "audiveris.log", "w") as log:
-        for k, chunk in enumerate(chunks):
-            log.write(f"pages {chunk[0]}-{chunk[-1]}: {parts / str(k) / 'audiveris.log'}\n")
+        for page in range(1, count + 1):
+            log.write(f"page {page}: {parts / str(page) / 'audiveris.log'}\n")
         missing = sorted(set(range(1, count + 1)) - set(pages))
         if missing:
             log.write(f"no music read on pages {missing}\n")

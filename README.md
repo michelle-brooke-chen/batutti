@@ -72,7 +72,9 @@ rule instead of the agent). It opens in dark mode; the ☾/☀ button switches t
 
 To number your own scans, install [Audiveris](https://github.com/Audiveris/audiveris/releases)
 (5.11; macOS, Windows and Linux installers include Java). The app finds it in
-the usual install location, or set `AUDIVERIS` in `.env` to its path.
+the default install location on each system (`/Applications` on macOS,
+`C:\Program Files\Audiveris` on Windows, `/opt/audiveris` on Linux); otherwise set
+`AUDIVERIS` in `.env` to the program's path.
 Recognition takes about 25 seconds a page.
 
 The app looks for `.env` in this folder first, then in the folder above.
