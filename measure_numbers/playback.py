@@ -266,17 +266,44 @@ def omr_keys(omr, pages):
     return out
 
 
-def system_keys(found, movements):
+def key_room(omr, staves):
+    """Per system, in reading order: the space (in staff spaces) between the
+    clef and the first note or barline, where a key signature goes; None if
+    no clef was read with confidence. About 1.5 with no key signature, 3 or
+    more with one."""
+    out = []
+    with zipfile.ZipFile(omr) as z:
+        sheets = {}
+        for s in staves:
+            if s["page"] not in sheets:
+                sheets[s["page"]] = z.read(f"sheet#{s['page']}/sheet#{s['page']}.xml").decode().split("<system ")
+            system = sheets[s["page"]][s["staff"]]
+            clef = re.search(r'<clef ([^>]*)>\s*<bounds x="([\d.]+)" y="[\d.]+" w="([\d.]+)"', system)
+            grade = re.search(r'ctx-grade="([\d.]+)"', clef.group(1)) if clef else None
+            if not grade or float(grade.group(1)) < 0.5:
+                out.append(None)
+                continue
+            start = float(clef.group(2)) + float(clef.group(3))
+            after = [float(x) for x in re.findall(r'<(?:head|barline) [^>]*>\s*<bounds x="([\d.]+)"', system)
+                     if float(x) > start + 0.2 * s["space"]]
+            out.append((min(after) - start) / s["space"] if after else None)
+    return out
+
+
+def system_keys(found, movements, room=None):
     """Each system's key signature, correcting Audiveris's misreadings: a
     system with no key read keeps the one before in the same movement (none
-    at the start of a movement); a key differing from the
+    at the start of a movement), unless there is no room for one between the
+    clef and the first note (`room`, from key_room): then it has none. A key
+    differing from the
     systems on both sides, which agree, is theirs; and a weakly read key one
     accidental short of or over the one before keeps the one before."""
     keys, grades = [], []
     for n, k in enumerate(found):
         if k is None:
             same = n and movements[n] == movements[n - 1]
-            keys.append(keys[-1] if same else 0)
+            bare = room is not None and room[n] is not None and room[n] < 2.5
+            keys.append(keys[-1] if same and not bare else 0)
             grades.append(0.0)
         else:
             keys.append(k[0])
@@ -328,9 +355,12 @@ def correct_clefs(measures, found):
     where it found none), though its MusicXML sometimes carries on the clef
     of the line before. A weakly read clef keeps the clef
     before (or, at the start, the part's usual clef); a clef change inside a
-    line counts only if read strongly; octave clefs are read as plain."""
+    line counts only if read strongly, to a clef that opens a line somewhere
+    in the part; octave clefs are read as plain."""
     strong = [CLEF_KINDS[k] for row in found for k, g, _ in row if g >= 0.5 and k in CLEF_KINDS]
     usual = Counter(strong).most_common(1)[0][0] if strong else ("G", 2)
+    # clefs that open a line somewhere: a part changes only among these
+    opening = {CLEF_KINDS[row[0][0]] for row in found if row and row[0][1] >= 0.5 and row[0][0] in CLEF_KINDS}
     current, line_of, read = None, None, None
     for measure in measures:
         row = found[measure["system"]]
@@ -344,7 +374,8 @@ def correct_clefs(measures, found):
                 current = usual
         elif measure["clef_here"]:
             read = None
-            later = [CLEF_KINDS[k] for k, g, _ in row[1:] if g >= 0.5 and k in CLEF_KINDS]
+            later = [CLEF_KINDS[k] for k, g, _ in row[1:]
+                     if g >= 0.6 and k in CLEF_KINDS and CLEF_KINDS[k] in opening]
             if later:
                 current = later[0]
         if read is not None:
@@ -694,14 +725,15 @@ class Part:
             marks = accidentals.find(omr, pdf, data["staves"])
             self._drop_read_accidentals(marks, measures, staves)
         movements = [s["movement"] for s in staves]
-        respell(measures, system_keys(omr_keys(omr, pages), movements), marks, staves, self.heads)
+        keys = system_keys(omr_keys(omr, pages), movements, key_room(omr, staves))
+        respell(measures, keys, marks, staves, self.heads)
         for bar in self.placed.values():
             bar["clef"], bar["fifths"] = bar["measure"]["clef"], bar["measure"]["fifths"]
         self.rests = omr_rests(omr, pages)
         self.space = {(s["page"], s["staff"]): s["space"] for s in data["staves"]}
         self._drop_weak_pitches()
         self.meter = self._meters()
-        self.cues = (self._cue_bars(pdf) | self._small_note_bars(omr, pdf)) if pdf else set()
+        self.cues = self._cue_notes(omr, pdf) if pdf else set()
         self.words = []
         if pdf:
             from .navigator import printed_words
@@ -709,6 +741,7 @@ class Part:
             self._tune_timpani()
         self.shifts = transpositions(name, self.words)
         self.bars = {}
+        self.tremolo_bars = set()  # held notes played as repeated 16ths
 
     def _drop_read_accidentals(self, marks, measures, staves):
         """Audiveris sometimes reads a sharp as a notehead: drop noteheads
@@ -779,28 +812,34 @@ class Part:
                                  else acc if acc is not None else position_alter(step, bar["fifths"]))
                                  for step, octave, acc in e["spelled"]]
 
-    def _small_note_bars(self, omr, pdf):
-        """Bars printed with small noteheads, as cue notes are: their median
-        notehead is under SMALL_HEAD of the part's usual one. Measured widths
-        are noisy, so only runs of such bars that start right after a rest
-        count, as cues do (they lead from a rest to the player's entrance)."""
+    def _cue_notes(self, omr, pdf):
+        """Bars printed as cue notes for another part (silent in playback).
+
+        Cue notes are small: a bar whose median notehead is under SMALL_HEAD
+        of the part's usual one is a cue, if the run of such bars starts
+        right after a rest (cues lead from a rest to the player's entrance;
+        measured widths are too noisy to trust alone). A bar under a running
+        count of the rest (_cue_bars) is a cue only if its noteheads are at
+        least somewhat small too: string parts number repeated tremolo bars
+        the same way."""
         widths = head_widths(omr, pdf, self.data["staves"])
         every = sorted(w for row in widths.values() for _, w in row)
         if not every:
             return set()
         usual = every[len(every) // 2]
         timeline = self.data["timeline"]
-        small = set()
+        size = {}
         for i, t in enumerate(timeline):
             here = sorted(w for x, w in widths.get((t["page"], t["staff"]), ()) if t["x0"] < x < t["x1"])
-            if here and here[len(here) // 2] < SMALL_HEAD * usual:
-                small.add(i)
+            if here:
+                size[i] = here[len(here) // 2] / usual
         cues = set()
-        for i in sorted(small):
+        for i in sorted(i for i, r in size.items() if r < SMALL_HEAD):
             if i - 1 in cues or (i and not timeline[i - 1]["plays"]
                                  and timeline[i - 1]["movement"] == timeline[i]["movement"]):
                 cues.add(i)
-        return cues
+        counted = {i for i in self._cue_bars(pdf) if size.get(i, 1) < 0.9}
+        return cues | counted
 
     def _cue_bars(self, pdf):
         """Bars printed with another part's notes as a cue (under a running
@@ -1020,14 +1059,19 @@ class Part:
         timeline = self.data["timeline"]
         for i, t in enumerate(timeline):
             symbol = any(t["x0"] < x < t["x1"] for x in self.rests.get((t["page"], t["staff"]), ()))
+            # nothing playable read: no notes, or only ones too long to fit the bar
+            playable = [e for evs in self.placed.get(i, {}).get("voices", {}).values()
+                        for e in evs if e["midi"] and e["dur"] <= self.length(i)]
             if (i and self.bars[i]["how"] == "rest" and t["rest"] <= 1 and not symbol and t["count"] == 1
-                    and i not in self.cues and not self.placed.get(i)
+                    and i not in self.cues and not playable
                     and timeline[i - 1]["movement"] == t["movement"]
                     and self.length(i - 1) == self.length(i)
                     and len(self.bars[i - 1]["voices"]) == 1
                     and len(self.bars[i - 1]["voices"][0]) == 1
                     and self.bars[i - 1]["voices"][0][0][1]):
                 self.bars[i] = {"voices": self.bars[i - 1]["voices"], "how": "repeated"}
+                # unread because of tremolo slashes: it and the note it repeats tremble
+                self.tremolo_bars.update({i, i - 1})
 
     def _tremolo(self, i, voices, length):
         """A fingered tremolo (two notes alternating, joined by slashes):
@@ -1241,6 +1285,11 @@ class Part:
                 for d, midi in v:
                     if midi:
                         sound = [m + self.shift(i) for m in midi]
+                        if i in self.tremolo_bars:
+                            out += [(s + j * Fraction(1, 4), Fraction(1, 4), sound) for j in range(int(d * 4))]
+                            k += 1
+                            s += d
+                            continue
                         held = (n == 0 and len(ties) == len(pitched) and ties[k])
                         before = next((j for j in range(len(out) - 1, -1, -1)
                                        if out[j][0] + out[j][1] == s and out[j][2] == sound), None)
