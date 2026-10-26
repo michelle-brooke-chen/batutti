@@ -98,8 +98,12 @@ def run_set_job(job_id, pdfs, totals, use_agent, add_cues, cue_cache):
         def progress(step, detail=""):
             set_status(job_id, step=step, detail=detail)
 
+        def ready(part, name, totals):
+            with jobs_lock:
+                jobs[job_id].setdefault("ready", []).append((part, name, totals))
+
         number_set(pdfs, work, score_totals=totals, progress=progress, cache_dir=CACHE,
-                   use_agent=use_agent, add_cues=add_cues, cue_cache=cue_cache)
+                   use_agent=use_agent, add_cues=add_cues, cue_cache=cue_cache, ready=ready)
         set_status(job_id, step="done", detail="")
     except Exception as exc:
         set_status(job_id, step="error", error=f"{type(exc).__name__}: {exc}")
@@ -157,6 +161,15 @@ def finding_image(job_id, name):
             r"(finding|nav)_[a-z0-9_]+\.png", name):
         abort(404)
     return send_from_directory(JOBS / job_id, name)
+
+
+@server.route("/jobs/<job_id>/parts/<part>/numbered.pdf")
+def part_pdf(job_id, part):
+    """One part of a set, numbered, as soon as it is ready."""
+    if not re.fullmatch(r"[0-9a-f]{12}", job_id) or not re.fullmatch(r"[a-z0-9_]+", part):
+        abort(404)
+    return send_from_directory(JOBS / job_id / "parts" / part, "numbered.pdf",
+                               as_attachment=True, download_name=f"{part}_numbered.pdf")
 
 
 @server.route("/jobs/<job_id>/pages/<name>")
@@ -462,6 +475,19 @@ def start(_start, _example, contents, filename, totals, use_agent):
     return start_job(pdf_bytes=pdf_bytes, totals_text=totals, use_agent=agent), False, ""
 
 
+def ready_list(job_id, ready):
+    """Parts already numbered while the rest of the set is still running."""
+    if not ready:
+        return None
+    return html.Div(className="ready-parts", children=[
+        html.P("Ready now (the set check and any cues are added when every part is done):",
+               className="small"),
+        html.Ul([html.Li([html.A(name, href=f"/jobs/{job_id}/parts/{part}/numbered.pdf"),
+                          html.Span(" · " + ", ".join(f"{mv}: {n} bars" for mv, n in totals.items()),
+                                    className="small")])
+                 for part, name, totals in sorted(ready, key=lambda r: r[1])])])
+
+
 def step_list(steps, step, detail, finished="All done!"):
     """The job's steps as rows: done ones ticked, the current one hopping."""
     names = [s for s, _ in steps]
@@ -715,7 +741,8 @@ def register_set_page(p):
                     SHOWN, HIDDEN, True, *waiting)
         rows = step_list(page["steps"], step, status.get("detail"), page["finished"])
         if step != "done":
-            return (rows, SHOWN, HIDDEN, False, *waiting)
+            return (html.Div([rows, ready_list(job_id, status.get("ready", []))]),
+                    SHOWN, HIDDEN, False, *waiting)
         result = json.loads((JOBS / job_id / "set_result.json").read_text())
         names = {q["id"]: q["name"] for q in result["parts"]}
         found = findings_view(job_id, result, names)

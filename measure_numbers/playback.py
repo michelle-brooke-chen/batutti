@@ -34,6 +34,8 @@ from collections import Counter
 from fractions import Fraction
 from pathlib import Path
 
+import numpy as np
+
 from .omr import audiveris_path
 
 STEPS = {"C": 0, "D": 2, "E": 4, "F": 5, "G": 7, "A": 9, "B": 11}
@@ -117,6 +119,13 @@ def read_part(part):
                         + int(float(pitch.findtext("alter") or 0))]
                 spelled = [(pitch.findtext("step"), int(pitch.findtext("octave")),
                             ACCIDENTALS.get(note.findtext("accidental")))]
+            elif note.find("unpitched") is not None:
+                # a clef misread as percussion: the notes keep their place on
+                # the staff, as if in treble clef, and are respelled later
+                u = note.find("unpitched")
+                step, octave = u.findtext("display-step"), int(u.findtext("display-octave"))
+                midi = [12 * (octave + 1) + STEPS[step]]
+                spelled = [(step, octave, ACCIDENTALS.get(note.findtext("accidental")))]
             tied = [any(t.get("type") == "stop" for t in note.findall("tie"))] if spelled else []
             if note.find("chord") is not None and events:
                 events[-1]["midi"] += midi
@@ -292,6 +301,14 @@ def key_room(omr, staves):
                     (re.search(r'\bgrade="([\d.]+)"', attrs) or [0, 1])[1]) >= 0.5)]
             out.append((min(after) - start) / s["space"] if after else None)
     return out
+
+
+def scan_sharps(keys, sharps):
+    """Each line's key with the sharps found on the scan (`sharps`, from
+    accidentals.key_sharps), each seen where it must be printed: a line read
+    with fewer sharps, or none, has at least as many. A line where the scan
+    finds fewer keeps its key."""
+    return [max(k, n) if n and k >= 0 else k for k, n in zip(keys, sharps)]
 
 
 def system_keys(found, movements, room=None):
@@ -601,14 +618,33 @@ def omr_stacks(omr, pages):
     return out
 
 
-def place_events(data, systems, stacks):
+def _settle(xs, heads, space):
+    """The shift that puts the most notes of a measure on noteheads
+    Audiveris read (a note's x is its head's left edge, about 0.6 spaces
+    left of the head's centre). The export's x positions sometimes drift a
+    space or two along a line, carrying notes into the wrong bar."""
+    if not xs or not heads:
+        return 0.0
+    hx = np.array(heads)
+    best = (0, 0.0)
+    for shift in np.arange(-3 * space, 3 * space + 1, 1.0):
+        hits = sum(np.min(np.abs(hx - x - 0.6 * space - shift)) < 0.3 * space for x in xs)
+        if hits > best[0] or (hits == best[0] and abs(shift) < abs(best[1])):
+            best = (hits, float(shift))
+    # only a clear improvement moves the notes
+    still = sum(np.min(np.abs(hx - x - 0.6 * space)) < 0.3 * space for x in xs)
+    return best[1] if best[0] > still + 1 else 0.0
+
+
+def place_events(data, systems, stacks, heads=None):
     """Put every event on its timeline piece. Returns {piece index: {"time",
     "clef", "fifths", "voices": {voice: [event]}}}, with each event's page x
     in pixels.
 
     The export's line breaks aren't reliable, so its measures are matched in
     order to Audiveris's bars by width (skipping a bar the export leaves
-    out), and notes are placed from the matched bar's left edge."""
+    out), and notes are placed from the matched bar's left edge, shifted
+    to sit on the noteheads Audiveris read (`heads`, from omr_heads)."""
     staves = sorted(data["staves"], key=lambda s: (s["page"], s["staff"]))
     if len(staves) != len(stacks):
         raise RuntimeError(f"{len(stacks)} systems recognised but {len(staves)} staves counted")
@@ -640,8 +676,11 @@ def place_events(data, systems, stacks):
         if not mine:
             continue
         scale = staff["space"] / 10
+        line_heads = [x for x, _, _ in (heads or {}).get((staff["page"], staff["staff"]), ())]
+        shift = _settle([left + e["x"] * scale for e in measure["events"] if e["x"] is not None and e["midi"]],
+                        line_heads, staff["space"])
         for e in measure["events"]:
-            x = left + (e["x"] if e["x"] is not None else 8) * scale
+            x = left + (e["x"] if e["x"] is not None else 8) * scale + shift
             e["px"] = x
             inside = [i for i in mine if data["timeline"][i]["x0"] <= x < data["timeline"][i]["x1"]]
             i = inside[0] if inside else min(mine, key=lambda i: abs(data["timeline"][i]["x0"] - x))
@@ -731,19 +770,32 @@ class Part:
         self.data = data
         pages = sorted({s["page"] for s in data["staves"]})
         self.systems = read_systems(mxls)
-        self.placed = place_events(data, self.systems, omr_stacks(omr, pages))
+        self.heads = omr_heads(omr, pages)
+        self.placed = place_events(data, self.systems, omr_stacks(omr, pages), self.heads)
         measures = [m for system in self.systems for m in system["measures"]]
         correct_clefs(measures, omr_clefs(omr, pages))
-        self.heads = omr_heads(omr, pages)
         staves = sorted(data["staves"], key=lambda s: (s["page"], s["staff"]))
         spelled_with(measures, self.heads, staves)
-        marks = {}
+        marks, sharps = {}, None
         if pdf:
             from . import accidentals
             marks = accidentals.find(omr, pdf, data["staves"])
             self._drop_read_accidentals(marks, measures, staves)
+            from . import noteheads
+            noteheads.apply(measures, staves, noteheads.reread(omr, pdf, staves))
+            noteheads.move(measures, staves, noteheads.reheight(omr, pdf, staves))
+            opening = {(s["page"], s["staff"]) for n, s in enumerate(staves)
+                       if n == 0 or s["movement"] != staves[n - 1]["movement"]}
+            self._drop_heads(noteheads.time_signature_heads(omr, staves, opening), staves)
+            first = {}
+            for m in measures:
+                first.setdefault(m["system"], m["true_clef"])
+            counted = accidentals.key_sharps(omr, pdf, staves, [first.get(n, ("G", 2)) for n in range(len(staves))])
+            sharps = [counted.get((s["page"], s["staff"])) for s in staves]
         movements = [s["movement"] for s in staves]
         keys = system_keys(omr_keys(omr, pages), movements, key_room(omr, staves))
+        if sharps:
+            keys = scan_sharps(keys, sharps)
         respell(measures, keys, marks, staves, self.heads)
         for bar in self.placed.values():
             bar["clef"], bar["fifths"] = bar["measure"]["clef"], bar["measure"]["fifths"]
@@ -875,6 +927,20 @@ class Part:
                     finder.is_cue("part", numbers[t["movement"]], t["measure"]):
                 cues.add(i)
         return cues
+
+    def _drop_heads(self, found, staves):
+        """Take out notes read from marks that aren't notes ({(page,
+        staff): [x centre]})."""
+        for i, bar in self.placed.items():
+            t = self.data["timeline"][i]
+            xs = found.get((t["page"], t["staff"]))
+            if not xs:
+                continue
+            space = staves[bar["measure"]["system"]]["space"]
+            for voice, evs in bar["voices"].items():
+                bar["voices"][voice] = [e for e in evs if not any(
+                    abs(x - e.get("px", -99) - 0.6 * space) < 1.2 * space for x in xs)]
+            bar["voices"] = {v: evs for v, evs in bar["voices"].items() if evs}
 
     def _drop_weak_pitches(self):
         """Take out chord notes that rest only on weak noteheads (a printed
@@ -1199,15 +1265,21 @@ class Part:
             for f in (2, Fraction(1, 2), Fraction(2, 3), Fraction(3, 2), Fraction(4, 3), Fraction(3, 4),
                       4, Fraction(1, 4)):
                 consider(notes(durs[:a] + [d * f for d in durs[a:b]] + durs[b:]), 1)
+        def changed(ds):
+            # a whole-bar rewrite costs as much as the notes it changes
+            return max(2, sum(a != b for a, b in zip(ds, durs)))
+
         # all notes even (a figure read with too few or too many beams)
         if len(durs) in (2, 3, 4, 6, 8, 12, 16):
-            consider(notes([length / len(durs)] * len(durs)), 2)
+            even = [length / len(durs)] * len(durs)
+            consider(notes(even), changed(even))
         # the bar's first beat read right, the rest repeating it
         t, k = Fraction(0), 0
         while k < len(durs) and t < beat:
             t, k = t + durs[k], k + 1
         if t == beat and 0 < k < len(durs) and len(durs) % k == 0 and len(durs) // k == length / beat:
-            consider(notes(durs[:k] * (len(durs) // k)), 2)
+            repeated = durs[:k] * (len(durs) // k)
+            consider(notes(repeated), changed(repeated))
         if len(durs) <= 16 and not any(o[0] is False and o[1] == 1 for o in options):
             for n, (k1, new1) in enumerate(singles):
                 for k2, new2 in singles[n + 1:]:

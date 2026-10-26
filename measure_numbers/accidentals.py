@@ -16,6 +16,7 @@ none wrong, 2 missed (both of which Audiveris found).
 import re
 import zipfile
 
+import cv2
 import numpy as np
 import pymupdf
 
@@ -97,3 +98,97 @@ def find(omr, pdf, staves):
                         out.setdefault((page, k), []).append(
                             (float(x) + float(w) / 2, int(float(a["pitch"])), found[0], found[1]))
     return out
+
+
+# where each sharp of a key signature sits, in order (F C G D A E B), in
+# staff steps above the middle line, per clef
+SHARP_STEPS = {("G", 2): (4, 1, 5, 2, -1, 3, 0), ("F", 4): (2, -1, 3, 0, -3, 1, -2),
+               ("C", 3): (3, 0, 4, 1, -2, 2, -1), ("C", 4): (-2, 2, -1, 3, 0, 4, 1)}
+
+
+def _lines_out(ink, s):
+    """Staff lines removed, gaps in a blotchy stroke closed."""
+    out = cv2.morphologyEx(ink, cv2.MORPH_OPEN, np.ones((max(3, int(0.5 * s)), 1), np.uint8))
+    return cv2.morphologyEx(out, cv2.MORPH_CLOSE, np.ones((max(3, int(0.4 * s)), 1), np.uint8))
+
+
+def _key_area(system, staff):
+    """(x where the key signature starts, y0, y1) for one line."""
+    s = staff["space"]
+    # a clef read with no confidence is often the key's sharps
+    clef = re.search(r'<clef [^>]*ctx-grade="([\d.]+)"[^>]*>\s*<bounds x="([\d.]+)" y="[\d.]+" w="([\d.]+)"', system)
+    start = (float(clef.group(2)) + float(clef.group(3)) if clef and float(clef.group(1)) >= 0.5
+             else staff["left"] + 2 * s)
+    return start, int(staff["top"] - 3 * s), int(staff["top"] + 7 * s)
+
+
+def key_sharps(omr, pdf, staves, clefs):
+    """{(page, staff): number of sharps} in each line's key signature, read on
+    the scan. `clefs` gives each staff's clef as printed, as (sign, line).
+
+    A key's sharps always come in the same order at the same heights: the
+    first is looked for at F's height just after the clef, each next one at
+    its own height a little to the right of the one before, stopping at the
+    first missing. A sharp is recognised by matching a sharp printed in the
+    same part (a lone blob about a space wide and two and a half tall, wide
+    at the top too, where a flat or natural is one thin stroke), so sharps
+    printed touching are still told apart. Audiveris sometimes misses a
+    sharp, or the whole key when it misreads the clef."""
+    doc, cache = pymupdf.open(pdf), {}
+    with zipfile.ZipFile(omr) as z:
+        sheets = {page: z.read(f"sheet#{page}/sheet#{page}.xml").decode().split("<system ")
+                  for page in sorted({s["page"] for s in staves})}
+    lines = []
+    for staff, clef in zip(staves, clefs):
+        if tuple(clef[:2]) in SHARP_STEPS:
+            start, y0, y1 = _key_area(sheets[staff["page"]][staff["staff"]], staff)
+            ink = (page_image(doc, staff["page"], cache) < 140).astype(np.uint8)
+            x0 = int(start - 0.3 * staff["space"])
+            crop = _lines_out(ink[y0:y1, x0:int(start + 9 * staff["space"])], staff["space"])
+            lines.append((staff, SHARP_STEPS[tuple(clef[:2])], x0, y0, crop))
+    # a template: a lone sharp where a key's first sharp goes, scaled to a
+    # 20-pixel space
+    template = None
+    for staff, steps, x0, y0, crop in lines:
+        s = staff["space"]
+        f_sharp = staff["top"] + 2 * s - steps[0] * s / 2 - y0
+        count, labels, stats, centres = cv2.connectedComponentsWithStats(crop, 8)
+        for k in range(1, count):
+            x, y, w, h = stats[k][:4]
+            if not (0.6 * s <= w <= 1.4 * s and 2 * s <= h <= 3.4 * s
+                    and abs(centres[k][1] - f_sharp) < 0.5 * s and x < 2.6 * s):
+                continue
+            upper = labels[y + int(0.1 * h):y + int(0.3 * h), x:x + w] == k
+            lower = labels[y + int(0.7 * h):y + int(0.9 * h), x:x + w] == k
+            if upper.any(axis=0).sum() >= 0.5 * s and lower.any(axis=0).sum() >= 0.5 * s:
+                patch = (labels[y:y + h, x:x + w] == k).astype(np.float32)
+                template = cv2.resize(patch, (round(w * 20 / s), round(h * 20 / s)))
+                break
+        if template is not None:
+            break
+    out = {}
+    if template is None:
+        return out
+    for staff, steps, x0, y0, crop in lines:
+        s = staff["space"]
+        t = cv2.resize(template, (max(3, round(template.shape[1] * s / 20)), max(3, round(template.shape[0] * s / 20))))
+        th, tw = t.shape
+        score = cv2.matchTemplate(crop.astype(np.float32), t, cv2.TM_CCOEFF_NORMED)
+        middle = staff["top"] + 2 * s - y0
+        n, last = 0, 0.0
+        for step in steps:
+            centre = middle - step * s / 2
+            r0, r1 = int(centre - th / 2 - 0.3 * s), int(centre - th / 2 + 0.3 * s) + 1
+            c0 = int(last + (0.5 * s if n else 0))
+            c1 = int(last + 2.2 * s) + 1
+            if r0 < 0 or r1 > score.shape[0] or c0 >= score.shape[1]:
+                break
+            window = score[r0:r1, c0:min(c1, score.shape[1])]
+            if window.size == 0 or window.max() < SHARP_MATCH:
+                break
+            n, last = n + 1, c0 + np.unravel_index(window.argmax(), window.shape)[1] + 0.0
+        out[(staff["page"], staff["staff"])] = n
+    return out
+
+
+SHARP_MATCH = 0.6

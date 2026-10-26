@@ -102,11 +102,13 @@ def add_set_cues(parts, names, work_dir, key, say, cue_cache=None, words=None):
 
 
 def number_set(pdfs, work_dir, score_totals=None, progress=None, cache_dir=None,
-               use_agent=True, add_cues=False, cue_cache=None):
+               use_agent=True, add_cues=False, cue_cache=None, ready=None):
     """Number every part in `pdfs` ({part name: pdf path}) and check the set.
 
     `score_totals` lists measures per movement from the score, if known;
-    otherwise the parts are compared with each other.
+    otherwise the parts are compared with each other. `ready(part id, name,
+    movement totals)` is called as each part's numbered PDF is written, so
+    it can be shown before the whole set is done.
     """
     say = progress or (lambda step, detail="": None)
     work_dir = Path(work_dir)
@@ -121,6 +123,9 @@ def number_set(pdfs, work_dir, score_totals=None, progress=None, cache_dir=None,
             s = futures[future]
             parts[s], found[s], words[s] = future.result()
             say("counting", f"{k} of {len(pdfs)} parts numbered ({names[s]})")
+            if ready:
+                ready(s, names[s], {setcheck.NUMERALS[mv]: n
+                                    for mv, n in setcheck.movement_totals(parts[s]).items()})
     totals_given = {i + 1: n for i, n in enumerate(score_totals or [])}
     findings, agreed, totals = setcheck.find_disagreements(parts, found, totals_given)
 
