@@ -1076,32 +1076,32 @@
    "before": {
     "bars": 491,
     "rhythm": 329,
-    "pitch": 361,
-    "right": 299,
+    "pitch": 379,
+    "right": 316,
     "playing": 400,
-    "playing right": 208
+    "playing right": 225
    },
    "after": {
     "bars": 491,
     "rhythm": 430,
-    "pitch": 409,
-    "right": 390,
+    "pitch": 429,
+    "right": 409,
     "playing": 400,
-    "playing right": 299
+    "playing right": 318
    }
   },
   "by_how": {
    "adds up": {
     "bars": 214,
-    "right": 188
+    "right": 201
    },
    "same as": {
     "bars": 62,
-    "right": 58
+    "right": 59
    },
    "same rhythm as": {
     "bars": 49,
-    "right": 34
+    "right": 35
    },
    "rest": {
     "bars": 95,
@@ -1113,11 +1113,11 @@
    },
    "unsure": {
     "bars": 9,
-    "right": 2
+    "right": 3
    },
    "fixed": {
     "bars": 57,
-    "right": 17
+    "right": 20
    },
    "spaced": {
     "bars": 4,

@@ -3,23 +3,25 @@
 <head>
 <meta charset="utf-8">
 <title>batutti: report</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-  :root { --navy: #1f4e79; --ink: #222; --muted: #555; --line: #e3e3e3; --bg: #f6f7f9;
-          --red: #b00020; --amber: #b26a00; --green: #1b6e3a; }
+  :root { --navy: #1b2b4b; --ink: #1b2b4b; --muted: #5d6779; --line: #e8e2d6; --bg: #fcfaf5;
+          --accent: #2f5fb3; --red: #b00020; --amber: #b26a00; --green: #1b6e3a; }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--ink);
-         font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
-  main { max-width: 860px; margin: 0 auto; padding: 40px 48px 80px; background: #fff; }
-  h1 { font-size: 34px; line-height: 1.15; margin: 0 0 6px; color: var(--navy); }
-  h2 { font-size: 23px; color: var(--navy); margin: 44px 0 10px; padding-top: 10px;
-       border-top: 2px solid var(--navy); }
+         font: 16px/1.6 Nunito, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+  main { max-width: 860px; margin: 0 auto; padding: 40px 48px 80px; background: var(--bg); }
+  h1 { font-size: 40px; line-height: 1.15; margin: 0 0 6px; color: var(--navy); font-weight: 800; }
+  h1 .cat { height: 54px; vertical-align: -10px; margin-left: 4px; }
+  h2 { font-size: 23px; color: var(--navy); margin: 44px 0 10px; padding-top: 14px;
+       border-top: 1px solid var(--line); }
   h3 { font-size: 17px; margin: 26px 0 6px; }
   p, li { max-width: 74ch; }
   .tagline { font-size: 20px; color: var(--navy); font-weight: 600; margin: 0 0 4px; }
   .lede { font-size: 18px; color: var(--muted); margin: 6px 0 18px; }
   .meta { font-size: 14px; color: var(--muted); }
-  .meta a { color: var(--navy); }
+  .meta a, a { color: var(--accent); }
   figure { margin: 18px 0 22px; }
   figure img { display: block; max-width: 100%; border: 1px solid var(--line); border-radius: 6px; }
   figcaption { font-size: 13.5px; color: var(--muted); margin-top: 6px; }
@@ -27,17 +29,16 @@
   .row figure { flex: 1; margin: 10px 0; }
   table { border-collapse: collapse; width: 100%; font-size: 14px; margin: 12px 0 18px; }
   th, td { text-align: left; padding: 6px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
-  th { background: #eef3f8; color: var(--navy); }
+  th { background: transparent; color: var(--muted); font-weight: 700; border-bottom: 1px solid var(--navy); }
   td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
-  .box { border: 1px solid var(--line); border-left: 5px solid var(--navy); border-radius: 6px;
-         padding: 10px 16px; margin: 14px 0; background: #fbfcfd; }
+  .box { border-left: 3px solid var(--accent); padding: 6px 16px; margin: 14px 0; }
   .box.red { border-left-color: var(--red); }
   .box.green { border-left-color: var(--green); }
   .step { display: grid; grid-template-columns: 34px 1fr; gap: 10px; margin: 12px 0; }
-  .step b.k { display: inline-flex; width: 28px; height: 28px; border-radius: 50%; background: var(--navy);
+  .step b.k { display: inline-flex; width: 28px; height: 28px; border-radius: 50%; background: var(--accent);
               color: #fff; align-items: center; justify-content: center; font-size: 14px; }
   code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; }
-  pre { background: #f3f5f8; border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px;
+  pre { background: #f4efe4; border: 0; border-radius: 8px; padding: 10px 12px;
         white-space: pre-wrap; margin: 8px 0 14px; }
   .todo { background: #fff3b0; padding: 0 3px; border-radius: 3px; }
   .pass { color: var(--green); font-weight: 700; }
@@ -53,11 +54,10 @@
 <body>
 <main>
 
-<h1>batutti</h1>
-<p class="tagline">every bar, for everyone</p>
-<p class="lede">An AI rehearsal assistant for orchestras: it stamps exact measure numbers onto
-scanned parts, checks every part of a piece against the others, prints cues before long rests,
-and takes players straight to the bar the conductor names.</p>
+<h1 class="word">batutti <img src="../assets/cat.svg" alt="" class="cat"></h1>
+<p class="lede">A rehearsal assistant for orchestras, built on agents: it stamps exact measure
+numbers onto scanned parts, checks every part of a piece against the others, prints cues before long
+rests, takes players straight to the bar the conductor names, and plays the parts back from the scans.</p>
 <p class="meta">Michelle Chen &middot; MGT 409 AI Foundations, Fall 2026 &middot;
 Repository: <a href="https://github.com/michelle-brooke-chen/batutti">github.com/michelle-brooke-chen/batutti</a> &middot;
 App: runs locally (<code>python app.py</code>, see README)</p>
@@ -94,7 +94,7 @@ by hand myself.</p>
 
 <p><b>What it costs:</b> numbering one part by hand takes <span class="todo">[minutes, from the
 timing test this weekend]</span>; a 29-part set is 29 times that, plus the time lost in rehearsal
-when numbers disagree. Time from players measured with a stopwatch is reported in section 7.</p>
+when numbers disagree. Time from players measured with a stopwatch is reported in section 6.</p>
 
 <!-- ───────────────────────────── 2. What is new ───────────────────────────── -->
 <h2>2. What is new</h2>
@@ -121,7 +121,7 @@ long running count over hundreds of lines has no way to check itself.</td></tr>
 <ul>
 <li><b>It writes on the player's own pages.</b> Numbers are stamped in clear space at the start of
 each line of the original scan; nothing is re-engraved.</li>
-<li><b>It treats exactness as the product.</b> Plain code does the counting; the AI is allowed to
+<li><b>It treats exactness as the product.</b> Plain code does the counting; an agent is allowed to
 change a count only when the scan itself supports the new value, and otherwise asks the player a
 specific question ("page 1, staff 10, 7th bar: does the number read 4 or 14?").</li>
 <li><b>It checks a whole set of parts against each other.</b> Rehearsal letters and movement
@@ -130,6 +130,9 @@ app misread the scan or the publisher misprinted the part, and says where.</li>
 <li><b>It adds rehearsal help that needs the whole set:</b> cues chosen from the other parts and
 printed into the part before entrances after long rests, and a navigator that turns "the cor
 anglais solo" or "three before C" into a highlighted bar in every part.</li>
+<li><b>It plays the parts back from the scans,</b> every instrument at concert pitch and on the same
+bar clock, so a player can hear a passage, solo a part or practise with the rest of the orchestra
+(section 7).</li>
 </ul>
 
 <p><b>Why the difference matters:</b> the alternatives either need hours of re-entry or give an
@@ -274,10 +277,12 @@ the review agent), and makes each agent's mistakes catchable by a rule written f
 87 pages) in the app on 24 October 2026, with no score totals given. Token counts are from the API's
 <code>usage</code> fields, logged in <code>set_result.json</code>.</p>
 
-<div class="step"><b class="k">1</b><div><b>Upload and start.</b> The librarian drops in all the
-parts (or clicks the example) and leaves both AI boxes ticked.
-<figure><img src="img/app_start.jpg" alt="App start screen"><figcaption>Figure 2. Start screen,
-"Whole set of parts" tab.</figcaption></figure></div></div>
+<div class="step"><b class="k">1</b><div><b>Upload and start.</b> The librarian opens the cues page,
+drops in all the parts (or clicks the example) and leaves the agent box ticked. The measure numbers
+page runs the same steps without cues.
+<figure><img src="img/app_home.jpg" alt="batutti's measure numbers page"><figcaption>Figure 2. The
+measure numbers page (dark mode, the default). "one part" numbers a single part; "whole set of
+parts" checks a set against itself.</figcaption></figure></div></div>
 
 <div class="step"><b class="k">2</b><div><b>Each part is numbered by code</b> (4 at a time):
 Audiveris finds staves and barlines (its saved output is reused for the example), the counter reads
@@ -308,10 +313,11 @@ to 6 candidate instruments for each. The cue-picker agent chooses in 2 calls (40
 part, shrinks them, and prints them in clear space just before the entrance.</div></div>
 
 <div class="step"><b class="k">6</b><div><b>Results.</b> The page reports movement lengths, the
-letters found, the AI use for the run, and the finding with a picture of the staff:
-<figure><img src="img/app_results.jpg" alt="Results with the Oboe I misprint card"><figcaption>
-Figure 3. Results for the run. "AI use this run: 6 model calls, 33,894 tokens (6,205 cached), about
-$0.0038."</figcaption></figure></div></div>
+letters found, the agent use for the run, and the finding with a picture of the staff:
+<figure><img src="img/app_set_results.jpg" alt="Results with the Oboe I misprint card"><figcaption>
+Figure 3. Results: movement lengths, rehearsal letters, agent use and the Oboe I finding with its
+staff. This run is from the measure numbers page (4 model calls, 9,347 tokens, about $0.0005); the
+traced run above, with cues, used 6 calls, 33,894 tokens, about $0.0038.</figcaption></figure></div></div>
 
 <div class="step"><b class="k">7</b><div><b>The navigator.</b> A player types "the cor anglais solo
 in the Ballade". Code can't parse it, so the navigator agent calls <code>landmarks</code>,
@@ -395,7 +401,7 @@ figures above; compute uses an assumed cloud price.</p>
 <tr><td>10,000 users</td><td class="n">$300</td><td class="n">$900</td><td>autoscaled workers + storage, ~$500</td><td class="n">~$1,700 (≈$0.17/user)</td></tr>
 </table>
 <p>An orchestra that shares one prepared set among all its players (one librarian account) pays for
-the set once: about a cent of AI per program.</p>
+the set once: about a cent of agent use per program.</p>
 
 <h3>Steps taken to cut cost</h3>
 <ol>
@@ -426,7 +432,7 @@ effort, twice each (<code>evaluation/results/effort_compare.json</code>):</p>
 </table>
 <p>Same answers, 1.1&ndash;1.9&times; the cost, so low effort stays.</p>
 <p><b>Skipping the review agent</b> when totals match did not cost accuracy: the counter alone gets
-every staff right on all 29 parts (section 7). <b>One cut that did hurt, and was reversed:</b> code checks
+every staff right on all 29 parts (section 6). <b>One cut that did hurt, and was reversed:</b> code checks
 that a cue's bars are the instrument's own music, not a cue printed in its part. Checking every
 candidate with the full number reader took about 29 minutes per set, so I tried a faster reading of
 a strip above the staff; it found none of the printed cues. The app now runs the full check, but only
@@ -491,7 +497,7 @@ every movement total. <b>The app numbers all 916 staves exactly</b>
 after the strings were working and were run once before any change: only 9 of 52 movements were
 exact (<code>evaluation/heldout_first_run.json</code>). Fixing what they exposed (tacet movements,
 misread rest numbers, cue bars counted as rests) brought them to exact, so they are now development
-data too. A test on a different piece is the next step (section 7).</p>
+data too. A test on a different piece is the next step (section 8).</p>
 
 <h3>Quality nobody had before</h3>
 <ul>
@@ -514,8 +520,82 @@ it Audiveris recognition; the whole 29-part set with saved recognition takes abo
 the player spends time only on the questions the app asks.</p>
 <p class="small">Quote from a pilot user: <span class="todo">[to add]</span></p>
 
-<!-- ───────────────────────────── 7. Limits ───────────────────────────── -->
-<h2>7. Limits and next steps</h2>
+<!-- ───────────────────────────── 7. Playback ───────────────────────────── -->
+<h2>7. Playback: hearing the parts</h2>
+
+<p>The professor suggested going one step further: let a player <i>hear</i> the music from the same
+scanned parts, alone or with the rest of the orchestra, with instruments turned on and off. batutti
+now plays any movement and bar range from the scans, every part at concert pitch, and a listening
+page lets the player solo a part, mute sections, or practise with "orchestra minus you".</p>
+
+<p><b>Why it is hard.</b> Audiveris reads pitches fairly well but rhythm badly: on Violin I its
+MusicXML had the right rhythm in only 32% of bars, and across the set it misreads clefs and key
+signatures, misses accidentals and drops whole notes. A wrong note in playback is worse than none,
+so the same principle as numbering applies: code repairs what the page itself supports, and every
+repair is measured.</p>
+
+<h3>How a bar is rebuilt</h3>
+<ol>
+<li><b>Bars from batutti, notes from Audiveris.</b> Each note is placed on batutti's exact bar
+timeline, so long rests last their real length and no bars are lost.</li>
+<li><b>Clefs, keys and transposition checked against the page.</b> A clef or key Audiveris read
+with low confidence keeps the one before; a line with no key read keeps the previous key only if
+there is room for one between the clef and the first note; the clef Audiveris actually spelled a
+line with is inferred from where its noteheads sit. Transposing instruments are read from the part
+itself ("in Bb", "in A.", "muta in E."), and timpani from the tuning printed above the staff
+("in Eb. Bb.").</li>
+<li><b>Marks that are not notes removed, accidentals added.</b> Printed numbers and stray marks read
+as noteheads are dropped by Audiveris's own confidence; a detector finds sharps and naturals in
+front of notes from the shape of their two vertical strokes (and removes the "notes" Audiveris made
+out of sharps); ties carry an accidental over the barline and are held, not struck again.</li>
+<li><b>Rhythm repaired, in order of trust:</b> the bar as read if it fills its time signature with a
+normally written rhythm; else a clean bar elsewhere with the same noteheads, or spaced the same way;
+else the smallest change that gives a normal rhythm (a missed beam, dot or triplet mark, or a missed
+rest); else evenly spaced running notes.</li>
+<li><b>What should be silent stays silent.</b> Printed cue notes (small noteheads after a rest) are
+not played; unread tremolo bars repeat the held note and sound as repeated 16ths.</li>
+</ol>
+
+<h3>Evaluation</h3>
+<p>Scored against a MusicXML transcription of the full score (a third-party file, kept out of the
+public repository): a bar counts as right only if every note starts at the right time, lasts the
+right length and has the right pitch (<code>evaluation/playback_check.py</code>).</p>
+<table>
+<tr><th>26 pitched parts, 5,697 bars where the music plays</th><th class="n">bars fully right</th></tr>
+<tr><td>Audiveris's notes and rhythm, with batutti's bars, clefs and keys</td><td class="n">66%</td></tr>
+<tr><td>batutti playback</td><td class="n"><b>80%</b></td></tr>
+<tr><td>&nbsp;&nbsp;brass (11 parts)</td><td class="n">77&ndash;98%</td></tr>
+<tr><td>&nbsp;&nbsp;woodwinds (9 parts)</td><td class="n">59&ndash;87%</td></tr>
+<tr><td>&nbsp;&nbsp;strings (5 parts)</td><td class="n">64&ndash;80%</td></tr>
+<tr><td>&nbsp;&nbsp;timpani</td><td class="n">93% (22% before reading its tuning)</td></tr>
+</table>
+
+<p><b>A player checked the checker.</b> Three rounds of review on pages built for the purpose:</p>
+<ul>
+<li><b>Disputed bars (49 bars, two rounds):</b> bars where batutti and the reference disagree,
+shown against the scan. In 39 the reference was right, in 4 batutti was (the reference transcription
+has errors, so true accuracy is slightly higher than measured), and 6 were tremolos written in a
+shorthand neither handled. The answers led to the tremolo and key-signature fixes.</li>
+<li><b>60 labelled accidentals:</b> the first detector's flats were all false (stems and note tails),
+so flats were dropped; the revised detector found 8 of the player's sharps and naturals with none
+wrong, and together with Audiveris catches 10 of 11.</li>
+<li><b>Listening:</b> the listening page plays batutti's reading or the reference for any part,
+which is how the player found Violin II playing F natural where the key has F&#9839;.</li>
+</ul>
+
+<h3>An agent that did not earn its place</h3>
+<p>The natural "agent" design was to let the model repair rhythms. I tested two versions against the
+reference. Given a crop of the bar, gpt-6-luna declined to read the rhythm ("too blurred"). Given
+the bar as text (each note's written value, beaming and spacing, plus the clean bars around it), it
+was asked about the 58 Violin I bars code could not repair confidently. At low effort it changed 17
+bars: one became right and none became wrong, at $0.003. At medium effort it changed 54: two became
+right and two became wrong, at 2.5 times the cost. Most of those bars are missing notes Audiveris
+never saw, so no rhythm for the notes that remain is right. Rhythm repair therefore stays in code,
+and the agents stay where judgment is needed in words: reviewing counts, explaining set
+disagreements, choosing cues and finding places.</p>
+
+<!-- ───────────────────────────── 8. Limits ───────────────────────────── -->
+<h2>8. Limits and next steps</h2>
 <ul>
 <li><b>Tested on one piece.</b> All 29 parts are exact, but every rule was developed on them. Next:
 other editions and composers, scored the same way, without changing rules first.</li>
@@ -525,10 +605,13 @@ machines and a queue.</li>
 cues sit below the staff rather than right beside the rest number.</li>
 <li><b>Not hosted yet.</b> It runs locally from the README; the example works without
 Audiveris.</li>
-<li><b>Next:</b> playback of a scanned part with other instruments toggled on and off (a suggestion
-from the professor; Audiveris's rhythm is too unreliable for this today, so it needs repair from the
-other parts or the score); a friendlier, more playful interface; a per-user spending limit before
-hosting publicly.</li>
+<li><b>Playback misses what Audiveris never sees.</b> The largest remaining errors are notes it did
+not recognise at all (fast string passages, divisi) and flats, which the detector does not attempt.
+Playback is evaluated on one piece and one reference transcription; the listening page is a
+separate page, not yet part of the app.</li>
+<li><b>Next:</b> a "play from here" button and the listening page inside the app, finding the
+noteheads Audiveris misses, a second piece to test every rule on, and a per-user spending limit
+before hosting publicly.</li>
 </ul>
 
 </main>

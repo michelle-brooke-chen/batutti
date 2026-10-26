@@ -262,7 +262,8 @@ def omr_keys(omr, pages):
             xml = z.read(f"sheet#{page}/sheet#{page}.xml").decode()
             for system in xml.split("<system ")[1:]:
                 m = re.search(r'<key fifths="(-?\d+)" grade="([\d.]+)"', system)
-                out.append((int(m.group(1)), float(m.group(2))) if m else None)
+                # a key read with almost no confidence is no reading
+                out.append((int(m.group(1)), float(m.group(2))) if m and float(m.group(2)) >= 0.2 else None)
     return out
 
 
@@ -284,26 +285,43 @@ def key_room(omr, staves):
                 out.append(None)
                 continue
             start = float(clef.group(2)) + float(clef.group(3))
-            after = [float(x) for x in re.findall(r'<(?:head|barline) [^>]*>\s*<bounds x="([\d.]+)"', system)
-                     if float(x) > start + 0.2 * s["space"]]
+            # confident noteheads only: time-signature digits often read as faint ones
+            after = [float(x) for kind, attrs, x in re.findall(
+                r'<(head|barline) ([^>]*)>\s*<bounds x="([\d.]+)"', system)
+                if float(x) > start + 0.2 * s["space"] and (kind == "barline" or float(
+                    (re.search(r'\bgrade="([\d.]+)"', attrs) or [0, 1])[1]) >= 0.5)]
             out.append((min(after) - start) / s["space"] if after else None)
     return out
 
 
 def system_keys(found, movements, room=None):
-    """Each system's key signature, correcting Audiveris's misreadings: a
-    system with no key read keeps the one before in the same movement (none
-    at the start of a movement), unless there is no room for one between the
-    clef and the first note (`room`, from key_room): then it has none. A key
-    differing from the
-    systems on both sides, which agree, is theirs; and a weakly read key one
-    accidental short of or over the one before keeps the one before."""
+    """Each system's key signature, correcting Audiveris's misreadings.
+
+    A system with no key read keeps the one before in the same movement,
+    unless there is no room for one between the clef and the first note
+    (`room`, from key_room): then it has none. At the start of a movement it
+    takes the first key read later in the movement, if there is room for one
+    and no line on the way shows none; else none. A key differing from the systems on both sides, which agree,
+    is theirs; and a weakly read key one accidental short of or over the one
+    before keeps the one before."""
+    def bare(n):
+        return room is not None and room[n] is not None and room[n] < 2.5
+
     keys, grades = [], []
     for n, k in enumerate(found):
         if k is None:
-            same = n and movements[n] == movements[n - 1]
-            bare = room is not None and room[n] is not None and room[n] < 2.5
-            keys.append(keys[-1] if same and not bare else 0)
+            if n and movements[n] == movements[n - 1]:
+                keys.append(0 if bare(n) else keys[-1])
+            else:  # the movement's first line: look ahead to the first key read,
+                # unless a line on the way shows no key signature
+                later = 0
+                for j in range(n, len(found)):
+                    if movements[j] != movements[n] or (j > n and found[j] is None and bare(j)):
+                        break
+                    if found[j] is not None:
+                        later = found[j][0]
+                        break
+                keys.append(0 if bare(n) else later)
             grades.append(0.0)
         else:
             keys.append(k[0])
