@@ -22,7 +22,7 @@ CANDIDATES = [
 # Audiveris reads pages one after another; this many copies read a part's
 # pages side by side, each taking the next page as soon as it is free
 # (each copy is itself multi-threaded)
-WORKERS = int(os.getenv("AUDIVERIS_WORKERS", "3"))
+WORKERS = 3  # AUDIVERIS_WORKERS (env or .env) overrides
 
 
 def audiveris_path():
@@ -86,7 +86,7 @@ def run_audiveris(pdf_path, out_dir, workers=None):
     out_dir.mkdir(parents=True, exist_ok=True)
     omr = out_dir / f"{pdf.stem}.omr"
     count = pymupdf.open(pdf).page_count
-    workers = min(workers or WORKERS, count)
+    workers = min(workers or int(os.getenv("AUDIVERIS_WORKERS", WORKERS)), count)
     if workers <= 1:
         _recognise(program, pdf, out_dir)
         if not omr.exists():

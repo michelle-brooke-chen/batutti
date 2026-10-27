@@ -75,7 +75,8 @@ To number your own scans, install [Audiveris](https://github.com/Audiveris/audiv
 the default install location on each system (`/Applications` on macOS,
 `C:\Program Files\Audiveris` on Windows, `/opt/audiveris` on Linux); otherwise set
 `AUDIVERIS` in `.env` to the program's path.
-Recognition takes about 25 seconds a page.
+Recognition takes about 25 seconds a page; three copies of Audiveris share a part's pages
+(`AUDIVERIS_WORKERS` in `.env` changes how many), so a 7-page part is numbered in about 3 minutes.
 
 The app looks for `.env` in this folder first, then in the folder above.
 
