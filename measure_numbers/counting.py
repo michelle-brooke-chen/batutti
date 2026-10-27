@@ -358,7 +358,7 @@ def classify_rest(bare, staff, x0, x1, masks, preamble=(), ink=None):
     return found
 
 
-def read_number(gray, staff, x0, x1, multi=False, spans=(), below=False):
+def read_number(gray, staff, x0, x1, multi=False, spans=(), below=False, deep=False):
     """Digits printed above a bar, read from several preparations of the crop.
 
     Old engravings make 3 and 8 look alike, so each preparation is read and
@@ -366,11 +366,16 @@ def read_number(gray, staff, x0, x1, multi=False, spans=(), below=False):
     `spans` are narrower x ranges to read as well, such as just above a rest
     symbol, clear of rehearsal letters. Over a multi-bar rest (`multi`), 1 is
     never the count, so it is dropped. With `below`, digits under the staff are
-    read instead (running counts under cue bars). Returns the reading, its
-    confidence, and every distinct reading.
+    read instead (running counts under cue bars); `deep` reaches lower, for a
+    rest's count printed under the staff because a rehearsal number took its
+    place above.
+    Returns the reading, its confidence, and every distinct reading.
     """
     top, s = staff["top"], staff["space"]
-    rows = (int(top + 4.3 * s), int(top + 7.5 * s)) if below else (int(top - 3.5 * s), int(top - 0.2 * s))
+    if below:
+        rows = (int(top + 4.3 * s), int(top + (8.2 if deep else 7.5) * s))
+    else:
+        rows = (int(top - 3.5 * s), int(top - 0.2 * s))
     variants = []
     for a, b in [(x0, x1), *spans]:
         crop = gray[rows[0]:rows[1], int(a):int(b)]
@@ -413,8 +418,9 @@ def digits_in(images, multi=False):
     return readings
 
 
-def movement_titles(gray, staves):
-    """Text lines between staves that look like movement titles: {staff: (number, text)}.
+def staff_text(gray, staves):
+    """Read the text between staves once: movement titles {staff: (number, text)}
+    and the numbers just over each staff [(staff, x centre, number)].
 
     A title is a Roman numeral and a full stop followed by a capitalised word
     ("II. Ballade"); a row of bowing marks can read as "V.vO", so the word matters.
@@ -422,26 +428,38 @@ def movement_titles(gray, staves):
     often at the foot of a page; it starts no staff, so it is skipped.
     A larger work's halves are headed by a part word ("SECONDE PARTIE"); the
     ordinal may be read as its own line, and an unread one is left as None
-    (the next movement).
+    (the next movement). The numbers within 4.5 spaces over a staff include
+    its rehearsal numbers and rest counts.
     """
-    titles = {}
+    titles, marks = {}, []
     edges = [0] + [int(st["bottom"] + 2 * st["space"]) for st in staves]
     for i, st in enumerate(staves):
-        y0, y1 = edges[i], int(st["top"] - 1.5 * st["space"])
-        if y1 - y0 < 3 * st["space"]:
+        s = st["space"]
+        y0, y1 = min(edges[i], int(st["top"] - 4.5 * s)), int(st["top"] - 0.2 * s)
+        if y1 - y0 < s:
             continue
-        texts = [t.strip() for t in ocr(gray[y0:y1]).txts or ()]
-        for k, text in enumerate(texts):
+        result = ocr(gray[max(0, y0):y1])
+        lines = []
+        for text, box in zip(result.txts or (), result.boxes or ()):
+            ys = [max(0, y0) + p[1] for p in box]
+            if min(ys) < st["top"] - 1.5 * s:  # titles sit clear of the staff
+                lines.append(text.strip())
+            if max(ys) > st["top"] - 4.5 * s and (
+                    match := re.fullmatch(r"\W*(\d{1,3})\W*", text)):
+                marks.append((i, sum(p[0] for p in box) / len(box), int(match.group(1))))
+        if int(st["top"] - 1.5 * s) - edges[i] < 3 * s:
+            continue  # no room for a title
+        for k, text in enumerate(lines):
             if (match := MOVEMENT_TITLE.match(text)) and "tacet" not in text.lower():
                 titles[i] = (ROMAN[match.group(1)], text)
             elif (match := PART_TITLE.match(text)) and match.group(2)[0].isupper():
                 words = [w for w in match.group(1, 3) if w]
-                if not words and k and ordinal(texts[k - 1]):
-                    words, text = [texts[k - 1]], f"{texts[k - 1]} {text}"
+                if not words and k and ordinal(lines[k - 1]):
+                    words, text = [lines[k - 1]], f"{lines[k - 1]} {text}"
                 numbers = [ordinal(w) for w in words]
                 if None not in numbers:  # any other word must be an ordinal
                     titles[i] = (numbers[0] if numbers else None, text)
-    return titles
+    return titles, marks
 
 
 def ordinal(word):
@@ -578,6 +596,89 @@ def decide(kinds, number, score, readings):
     return count, flags
 
 
+def rising_chain(marks):
+    """The longest run of marks whose numbers rise in reading order."""
+    best = [[m] for m in marks]
+    for i, m in enumerate(marks):
+        for j in range(i):
+            if marks[j][-1] < m[-1] and len(best[j]) + 1 > len(best[i]):
+                best[i] = best[j] + [m]
+    return max(best, key=len) if best else []
+
+
+def rehearsal_over_rests(rest_numbers, marks, movements, staves, timeline, doc):
+    """Multi-bar rests whose "count" is the rehearsal number printed over the
+    start of the bar. Rehearsal numbers rise through a movement (60, 61, 62),
+    so a number is taken as one when it is in that rising chain (mostly steps
+    of one, at most two a staff on average, unlike rest counts and running bar
+    counts), next to its neighbours, and sits at the bar's start rather than
+    over the rest. The count is then the one other number over the bar, or the
+    one under the staff, where such editions print it. If there is none, the
+    rest is probably as long as the mark's number, so it is kept and the player
+    asked. Returns the rests changed."""
+    geometry = {(st["page"], st["staff"]): st for st in staves}
+    chain = {}
+    for movement in {m[0] for m in marks}:
+        found = sorted((m for m in marks if m[0] == movement), key=lambda m: m[1:4])
+        run = rising_chain(found)
+        steps = sum(b[-1] - a[-1] == 1 for a, b in zip(run, run[1:]))
+        if steps < max(5, len(run) / 2) or len(run) > 2 * len({m[1:3] for m in run}):
+            # rest counts rising by chance, or running bar counts (several a
+            # staff), not rehearsal numbers
+            continue
+        for k, m in enumerate(run):
+            near = [o[-1] for o in run[max(0, k - 1):k + 2] if o is not m]
+            if near and all(abs(n - m[-1]) <= 3 for n in near):
+                chain[m[1:3] + (m[-1],)] = m[3]  # (page, staff, number) -> x
+        # a misread mark can take its neighbour's number (95 read as 96), so the
+        # chain keeps one of the two; the other is a mark too
+        for m in found:
+            k = sum(o[1:4] <= m[1:4] for o in run)  # marks of the run up to m
+            if any(o[-1] == m[-1] and o[1:3] + (o[-1],) in chain
+                   for o in run[max(0, k - 1):k + 1]):
+                chain.setdefault(m[1:3] + (m[-1],), m[3])
+    pages, changed = {}, []
+    for rest, bar, place, _ in rest_numbers:
+        number = rest.get("number")
+        x = chain.get((place["page"], place["staff"], number))
+        if rest is not bar or rest["symbols"] != ["multi"] or x is None:
+            continue
+        st = geometry[(place["page"], place["staff"])]
+        # a staff's first bar starts after the clef, under a mark printed over it
+        start = st["left"] if place["bar"] == 1 else place["x0"] - 2 * st["space"]
+        if not start <= x <= (place["x0"] + place["x1"]) / 2:
+            continue  # centred over the rest: a count
+        here = [m for m in marks if m[1:3] == (place["page"], place["staff"])
+                and start <= m[3] <= place["x1"]]
+        same = [m[3] for m in here if m[-1] == number]
+        if max(same) - min(same) > 1.5 * st["space"]:
+            continue  # printed twice: the mark, and the same count over the rest
+        beside = {m[-1] for m in here if m[-1] not in (number, 1)
+                  and place["x0"] <= m[3] <= place["x1"]
+                  and m[1:3] + (m[-1],) not in chain}  # the next bar's mark isn't a count
+        count = beside.pop() if len(beside) == 1 else None
+        where = "beside it"
+        if count is None:
+            if place["page"] not in pages:
+                pix = doc[place["page"] - 1].get_pixmap(dpi=DPI, colorspace=pymupdf.csGRAY)
+                pages[place["page"]] = np.frombuffer(pix.samples, np.uint8).reshape(
+                    pix.height, pix.width)
+            count = read_number(pages[place["page"]], st, place["x0"], place["x1"],
+                                multi=True, below=True, deep=True)[0]
+            where = "printed under the staff"
+        if count is None or count == number:
+            # no other count printed: the rest is likely as long as the mark's number
+            bar["flags"].append(f"{number} over this rest is also rehearsal number {number}"
+                                f" - please confirm the rest is {number} bars")
+            continue
+        bar["flags"].append(f"{number} over this rest is rehearsal number {number};"
+                            f" counted the {count} {where} - please confirm")
+        rest["number"] = count
+        shift(bar, place, count - bar["count"], movements, staves, timeline)
+        changed.append(rest)
+    return changed
+
+
 def reread_by_shape(rest_numbers, movements, staves, timeline):
     """Correct multi-bar rest counts the part's own digit shapes read differently."""
     pairs = [(rest, shapes) for rest, _, _, shapes in rest_numbers]
@@ -609,27 +710,31 @@ def reread_by_shape(rest_numbers, movements, staves, timeline):
             rest["number"] = seen
         else:
             continue
-        bar["count"] += delta
-        place["count"] += delta
-        if not place["plays"] and place["rest"]:
-            place["rest"] = place["count"]
-        # everything after this bar in the movement moves by delta
-        after = False
-        for t in timeline:
-            if t is place:
-                after = True
-            elif after and t["movement"] == place["movement"]:
-                t["measure"] += delta
-        for st in staves:
-            if st["movement"] != place["movement"]:
-                continue
-            if (st["page"], st["staff"]) == (place["page"], place["staff"]):
-                st["measures"] += delta
-                st["last_measure"] += delta
-            elif (st["page"], st["staff"]) > (place["page"], place["staff"]):
-                st["first_measure"] += delta
-                st["last_measure"] += delta
-        next(m for m in movements if m["title"] == place["movement"])["measures"] += delta
+        shift(bar, place, delta, movements, staves, timeline)
+
+
+def shift(bar, place, delta, movements, staves, timeline):
+    """Change a bar's count by delta; everything after it in the movement moves."""
+    bar["count"] += delta
+    place["count"] += delta
+    if not place["plays"] and place["rest"]:
+        place["rest"] = place["count"]
+    after = False
+    for t in timeline:
+        if t is place:
+            after = True
+        elif after and t["movement"] == place["movement"]:
+            t["measure"] += delta
+    for st in staves:
+        if st["movement"] != place["movement"]:
+            continue
+        if (st["page"], st["staff"]) == (place["page"], place["staff"]):
+            st["measures"] += delta
+            st["last_measure"] += delta
+        elif (st["page"], st["staff"]) > (place["page"], place["staff"]):
+            st["first_measure"] += delta
+            st["last_measure"] += delta
+    next(m for m in movements if m["title"] == place["movement"])["measures"] += delta
 
 
 def count_part(omr_path, pdf_path, out_dir, progress=None):
@@ -648,6 +753,7 @@ def count_part(omr_path, pdf_path, out_dir, progress=None):
     # numbered rests for the digit-shape pass: (the rest's reading, its report
     # entry, its timeline entry, digit shapes); a bar holding two rests has two
     rest_numbers = []
+    marks = []  # numbers over each staff, for finding rehearsal numbers
     unread_pages = []  # pages Audiveris couldn't read; their bars aren't counted
     with zipfile.ZipFile(omr_path) as z:
         read = set(z.namelist())
@@ -661,7 +767,7 @@ def count_part(omr_path, pdf_path, out_dir, progress=None):
             _, lines = detect_barlines.find_staves(ink)
             bare = cv2.subtract(ink, cv2.dilate(lines, np.ones((3, 1), np.uint8)))
             systems = read_systems(z.read(f"sheet#{page}/sheet#{page}.xml").decode())
-            titles = movement_titles(gray, [sy["staff"] for sy in systems])
+            titles, page_marks = staff_text(gray, [sy["staff"] for sy in systems])
             # typical bar width on the page (first bars hold the clef, so skip them);
             # a staff's own median fails when half its bars are merged
             page_typical = median(
@@ -685,6 +791,8 @@ def count_part(omr_path, pdf_path, out_dir, progress=None):
                 if not movements or (number or 0) > movements[-1]["number"]:
                     movements.append({"title": title or "(start)", "number": number or 1,
                                       "measures": 0, "start": f"p{page} staff {i + 1}"})
+                marks += [(movements[-1]["title"], page, i + 1, x, n)
+                          for k, x, n in page_marks if k == i]
                 segments = merge_split_bars(bar_segments(sysm), sysm, gray, bare, ink)
                 typical = page_typical or (segments[-1][1] - segments[0][0])
                 staff_typical = median(x1 - x0 for x0, x1 in segments[1:]) or typical
@@ -1105,7 +1213,9 @@ def count_part(omr_path, pdf_path, out_dir, progress=None):
             if progress:
                 progress(page, doc.page_count)
 
-    reread_by_shape(rest_numbers, movements, staves, timeline)
+    changed = rehearsal_over_rests(rest_numbers, marks, movements, staves, timeline, doc)
+    reread_by_shape([r for r in rest_numbers if not any(r[0] is c for c in changed)],
+                    movements, staves, timeline)
     cache_path.write_text(json.dumps(_ocr_cache))
     data = {"movements": movements, "staves": staves, "bars": report, "notes": notes,
             "timeline": timeline, "unread_pages": unread_pages}
