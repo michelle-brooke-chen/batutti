@@ -33,12 +33,19 @@ def audiveris_path():
     return None
 
 
-def _recognise(program, pdf, out_dir, sheets=None):
-    """One Audiveris run over the given pages (all if None); its .omr path."""
+def _recognise(program, pdf, out_dir, sheets=None, interline=None):
+    """One Audiveris run over the given pages (all if None); its .omr path.
+
+    `interline` (staff-line spacing in pixels) skips Audiveris's own estimate,
+    which can fail on a page crowded with beams and ledger lines.
+    """
     out_dir.mkdir(parents=True, exist_ok=True)
     command = [program, "-batch", "-transcribe", "-save", "-output", str(out_dir)]
     if sheets:
         command += ["-sheets", f"{sheets[0]}-{sheets[-1]}"]
+    if interline:
+        command += ["-constant",
+                    f"org.audiveris.omr.sheet.Scale.defaultInterlineSpecification={interline}"]
     with open(out_dir / "audiveris.log", "w") as log:
         subprocess.run(command + ["--", str(pdf)], stdout=log, stderr=log)
     return out_dir / f"{pdf.stem}.omr"
@@ -63,6 +70,13 @@ def _read_pages(omr):
     return pages, book
 
 
+def _interline(pages):
+    """The staff-line spacing Audiveris measured on most of the pages it read."""
+    found = [int(m.group(1)) for entries in pages.values() for data in entries.values()
+             if (m := re.search(rb'<interline [^>]*main="(\d+)"', data))]
+    return sorted(found)[len(found) // 2] if found else None
+
+
 def _book_sheet(book, page):
     match = re.search(rf'<sheet number="{page}"[\s>].*?</sheet>', book, re.S)
     return match.group(0) if match else None
@@ -75,8 +89,11 @@ def run_audiveris(pdf_path, out_dir, workers=None):
     by side, each taking the next page as soon as it is free (pages differ a
     lot in how long they take, so fixed blocks of pages leave copies idle),
     and the results are merged into one project. A page that comes back
-    without music is read again, so a busy machine can't silently drop a page. The project file holds
-    staves, barlines and notes per page, which counting.py reads.
+    without music is read again, so a busy machine can't silently drop a page;
+    if it still fails, it is read once more with the staff-line spacing of the
+    part's other pages. A page that can't be read at all is left out (counting
+    asks the player about it). The project file holds staves, barlines and
+    notes per page, which counting.py reads.
     """
     program = audiveris_path()
     if program is None:
@@ -105,6 +122,13 @@ def run_audiveris(pdf_path, out_dir, workers=None):
     for page in range(1, count + 1):
         if page not in pages:  # read again alone
             found, book = _read_pages(_recognise(program, pdf, parts / f"again{page}", [page]))
+            if page in found:
+                pages[page], books[page] = found[page], book
+    interline = _interline(pages)
+    for page in range(1, count + 1):
+        if page not in pages and interline:  # read with the part's line spacing
+            found, book = _read_pages(_recognise(
+                program, pdf, parts / f"spaced{page}", [page], interline))
             if page in found:
                 pages[page], books[page] = found[page], book
     if not pages:

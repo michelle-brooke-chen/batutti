@@ -23,6 +23,13 @@ from . import digits
 
 DPI = 300  # Audiveris sheet coordinates are at 300 dpi for these scans
 MOVEMENT_TITLE = re.compile(r"^\s*(I{1,3}|IV|VI{0,3}|IX|X)\s*[.,]\s*[A-Z][A-Za-z]{2,}")
+# a heading that is only a part word and an ordinal ("SECONDE PARTIE", "Part Two")
+PART_TITLE = re.compile(r"^\s*(?:([\w.]+)\s+)?(PARTIE|PART|TEIL)(?:\s+([\w.]+))?\s*\.?\s*$", re.I)
+ORDINALS = [  # OCR can drop an accent or a letter ("PREMÈRE")
+    (1, r"prem\w*re|first|one|erster?|i|1"),
+    (2, r"seconde?|deuxi\w*me|two|zweiter?|ii|2"),
+    (3, r"troisi\w*me|third|three|dritter?|iii|3"),
+]
 ROMAN = {"I": 1, "II": 2, "III": 3, "IV": 4, "V": 5, "VI": 6, "VII": 7, "VIII": 8, "IX": 9, "X": 10}
 OCR_TRUST = 0.9  # below this, a rest count is flagged for the player to confirm
 SURE_NUMBER = 0.9  # an unambiguous number this confident outranks unclear rest shapes
@@ -413,6 +420,9 @@ def movement_titles(gray, staves):
     ("II. Ballade"); a row of bowing marks can read as "V.vO", so the word matters.
     A movement the part doesn't play is marked "tacet" ("II. Ballade tacet."),
     often at the foot of a page; it starts no staff, so it is skipped.
+    A larger work's halves are headed by a part word ("SECONDE PARTIE"); the
+    ordinal may be read as its own line, and an unread one is left as None
+    (the next movement).
     """
     titles = {}
     edges = [0] + [int(st["bottom"] + 2 * st["space"]) for st in staves]
@@ -420,11 +430,24 @@ def movement_titles(gray, staves):
         y0, y1 = edges[i], int(st["top"] - 1.5 * st["space"])
         if y1 - y0 < 3 * st["space"]:
             continue
-        result = ocr(gray[y0:y1])
-        for text in result.txts or ():
+        texts = [t.strip() for t in ocr(gray[y0:y1]).txts or ()]
+        for k, text in enumerate(texts):
             if (match := MOVEMENT_TITLE.match(text)) and "tacet" not in text.lower():
-                titles[i] = (ROMAN[match.group(1)], text.strip())
+                titles[i] = (ROMAN[match.group(1)], text)
+            elif (match := PART_TITLE.match(text)) and match.group(2)[0].isupper():
+                words = [w for w in match.group(1, 3) if w]
+                if not words and k and ordinal(texts[k - 1]):
+                    words, text = [texts[k - 1]], f"{texts[k - 1]} {text}"
+                numbers = [ordinal(w) for w in words]
+                if None not in numbers:  # any other word must be an ordinal
+                    titles[i] = (numbers[0] if numbers else None, text)
     return titles
+
+
+def ordinal(word):
+    """The number an ordinal word stands for ("Seconde" -> 2), or None."""
+    word = word.strip(" .").lower()
+    return next((n for n, pattern in ORDINALS if re.fullmatch(pattern, word)), None)
 
 
 def title_word(title):
@@ -625,8 +648,13 @@ def count_part(omr_path, pdf_path, out_dir, progress=None):
     # numbered rests for the digit-shape pass: (the rest's reading, its report
     # entry, its timeline entry, digit shapes); a bar holding two rests has two
     rest_numbers = []
+    unread_pages = []  # pages Audiveris couldn't read; their bars aren't counted
     with zipfile.ZipFile(omr_path) as z:
+        read = set(z.namelist())
         for page in range(1, doc.page_count + 1):
+            if f"sheet#{page}/sheet#{page}.xml" not in read:
+                unread_pages.append(page)
+                continue
             pix = doc[page - 1].get_pixmap(dpi=DPI, colorspace=pymupdf.csGRAY)
             gray = np.frombuffer(pix.samples, np.uint8).reshape(pix.height, pix.width)
             ink = detect_barlines.binarize(gray)
@@ -644,6 +672,8 @@ def count_part(omr_path, pdf_path, out_dir, progress=None):
                 # a new movement needs a later numeral (after II, III or IV, since
                 # parts skip the movements they don't play)
                 number, title = titles.get(i, (None, None))
+                if title and number is None:  # a part heading with an unread ordinal
+                    number = movements[-1]["number"] + 1 if movements else 1
                 current = title_word(movements[-1]["title"]) if movements else ""
                 if number and current and number <= movements[-1]["number"] and (
                         title_word(title) != current):
@@ -1078,6 +1108,6 @@ def count_part(omr_path, pdf_path, out_dir, progress=None):
     reread_by_shape(rest_numbers, movements, staves, timeline)
     cache_path.write_text(json.dumps(_ocr_cache))
     data = {"movements": movements, "staves": staves, "bars": report, "notes": notes,
-            "timeline": timeline}
+            "timeline": timeline, "unread_pages": unread_pages}
     (out_dir / "measure_count.json").write_text(json.dumps(data, indent=1))
     return data

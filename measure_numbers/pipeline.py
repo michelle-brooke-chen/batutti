@@ -68,6 +68,11 @@ def number_part(pdf_path, work_dir, reference_totals=None, use_agent=True, progr
             questions = [{"staves": [], "question": "The AI review could not run"
                           f" ({type(exc).__name__}); please check the orange staves yourself."}]
 
+    for page in data.get("unread_pages", []):  # ask rather than guess its bars
+        questions.append({"staves": [], "question": (
+            f"Page {page} couldn't be read, so its bars aren't counted and every number"
+            " after it is short by that many. How many bars are on page"
+            f" {page}? Please add them to the later numbers, or check them by hand.")})
     (work_dir / "result.json").write_text(json.dumps(data, indent=1))
     (work_dir / "questions.json").write_text(json.dumps(questions, indent=1))
     say("stamping", "Writing the numbered PDF")
